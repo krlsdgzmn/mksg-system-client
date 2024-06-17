@@ -1,22 +1,42 @@
-export default function OrderStatusPage() {
+import OrderStatusKPIs from "@/components/order-status-kpis";
+import PageHeader from "@/components/page-header";
+import { ORDER_STATUS_API } from "@/constants";
+import { OrderStatusType } from "@/types";
+import axios, { AxiosResponse } from "axios";
+
+const getData = async (): Promise<OrderStatusType[]> => {
+  try {
+    const response: AxiosResponse<OrderStatusType[]> =
+      await axios.get(ORDER_STATUS_API);
+    return response.data;
+  } catch (error) {
+    console.error(`Error fetching data: ${error}`);
+    return [];
+  }
+};
+
+export default async function OrderStatusPage() {
+  const data: OrderStatusType[] = await getData();
+  const totalOrders: number = data.length;
+  const completedOrders: number = data.filter(
+    (order) => order.order_status === "Completed",
+  ).length;
+  const cancelledOrders: number = data.filter(
+    (order) => order.order_status === "Cancelled",
+  ).length;
+
   return (
     <main className="container min-h-screen w-full">
-      {/* title header */}
-      <header className="pb-4">
-        <h1 className="pt-4 text-lg font-bold md:text-xl">
-          Order Status Dashboard
-        </h1>
+      <PageHeader
+        title="Order Status"
+        description="Dashboard page for order status prediction"
+      />
 
-        <p className="text-sm text-foreground/50 md:text-base">
-          Dashboard section for order status prediction
-        </p>
-      </header>
-
-      {/* kpi section */}
-      <section className="grid grid-cols-2 gap-2 lg:grid-cols-3"></section>
-
-      {/* visualization section */}
-      <section></section>
+      <OrderStatusKPIs
+        totalOrders={totalOrders}
+        completedOrders={completedOrders}
+        cancelledOrders={cancelledOrders}
+      />
     </main>
   );
 }
