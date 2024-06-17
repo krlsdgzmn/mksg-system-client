@@ -11,15 +11,15 @@ export default function KPICard({
   return (
     <div
       className={cn(
-        "overflow-hidden bg-card rounded border pb-2 md:col-span-1 shadow",
+        "overflow-hidden rounded border bg-card pb-2 shadow md:col-span-1",
         span,
       )}
     >
       <div className={cn("py-0.5 md:py-[0.185rem]", color)} />
-      <h1 className="px-4 pt-2 font-semibold text-xs md:text-[0.9rem] text-foreground/80">
+      <h1 className="px-4 pt-2 text-xs font-semibold text-foreground/80 md:text-[0.9rem]">
         {title}
       </h1>
-      <h2 className="px-4 text-xl font-bold pb-1 md:text-2xl">{value}</h2>
+      <h2 className="px-4 pb-1 text-xl font-bold md:text-2xl">{value}</h2>
       <p className="px-4 text-xs text-foreground/50 md:text-[0.85rem]">
         {description}
       </p>
