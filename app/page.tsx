@@ -1,13 +1,13 @@
 import OrderStatusKPIs from "@/components/order-status-kpis";
 import PageHeader from "@/components/page-header";
-import { ORDER_STATUS_API } from "@/constants";
+import { DEV_ORDER_STATUS_API } from "@/constants";
 import { OrderStatusType } from "@/types";
 import axios, { AxiosResponse } from "axios";
 
 const getData = async (): Promise<OrderStatusType[]> => {
   try {
     const response: AxiosResponse<OrderStatusType[]> =
-      await axios.get(ORDER_STATUS_API);
+      await axios.get(DEV_ORDER_STATUS_API);
     return response.data;
   } catch (error) {
     console.error(`Error fetching data: ${error}`);
