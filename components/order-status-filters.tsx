@@ -12,20 +12,7 @@ import FilterOption from "./filter-option";
 import { DEV_ORDER_STATUS_API, MONTH, ORDER_STATUS, WEEK } from "@/constants";
 import { useState, useEffect } from "react";
 import axios from "axios";
-
-// Helper function to build query string
-const buildQuery = (
-  month: string[],
-  week: string[],
-  order_status: string[],
-): string => {
-  const params = new URLSearchParams();
-
-  month.forEach((m) => params.append("month", m));
-  week.forEach((w) => params.append("week", w.toString()));
-  order_status.forEach((os) => params.append("order_status", os));
-  return params.toString();
-};
+import { buildQuery } from "@/lib/services/order-status-service";
 
 const OrderStatusFilters: React.FC<OrderStatusFiltersProps> = ({
   setOrderStatusData,
