@@ -2,12 +2,19 @@ import { OrderStatusKPIsProps } from "@/types";
 import KPICard from "./kpi-card";
 
 export default function OrderStatusKPIs({
-  totalOrders,
-  completedOrders,
-  cancelledOrders,
+  orderStatusData,
 }: OrderStatusKPIsProps) {
+  const totalOrders: number = orderStatusData.length;
+  const completedOrders: number = orderStatusData.filter(
+    (order) => order.order_status === "Completed",
+  ).length;
+
+  const cancelledOrders: number = orderStatusData.filter(
+    (order) => order.order_status === "Cancelled",
+  ).length;
+
   return (
-    <section className="grid grid-cols-2 gap-2.5 md:grid-cols-3">
+    <section className="grid grid-cols-2 gap-2.5 pb-4 sm:grid-cols-3 md:gap-4">
       <KPICard
         title="Total Orders"
         value={totalOrders}

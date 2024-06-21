@@ -13,10 +13,29 @@ export type PageHeaderProps = {
   description: string;
 };
 
+export type OrderStatusDashboardProps = {
+  data: OrderStatusType[];
+};
+
+export type OrderStatusFiltersProps = {
+  setOrderStatusData: (orderStatusData: OrderStatusType[]) => void;
+};
+
+export type FiltersType = {
+  month: string[];
+  week: string[];
+  order_status: string[];
+};
+
+export type FilterOptionProps = {
+  title: string;
+  filters: FiltersType;
+  options: string[];
+  setFilters: React.Dispatch<React.SetStateAction<FiltersType>>;
+};
+
 export type OrderStatusKPIsProps = {
-  totalOrders: number;
-  completedOrders: number;
-  cancelledOrders: number;
+  orderStatusData: OrderStatusType[];
 };
 
 export type KPICardProps = {
