@@ -66,7 +66,7 @@ const OrderStatusFilters: React.FC<OrderStatusFiltersProps> = ({
         <DropdownMenuTrigger asChild>
           <Button variant="outline">Filters</Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="ml-8 w-64 sm:mr-8 2xl:mr-10">
+        <DropdownMenuContent className="ml-8 w-64" align="end">
           <DropdownMenuLabel className="flex items-center justify-between">
             Data Filters
             <Button variant="link" className="p-0" onClick={handleClearFilters}>
