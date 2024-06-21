@@ -9,10 +9,9 @@ import {
 import { Button } from "./ui/button";
 import { Accordion } from "./ui/accordion";
 import FilterOption from "./filter-option";
-import { DEV_ORDER_STATUS_API, MONTH, ORDER_STATUS, WEEK } from "@/constants";
+import { MONTH, ORDER_STATUS, WEEK } from "@/constants";
 import { useState, useEffect } from "react";
-import axios from "axios";
-import { buildOrderStatusQuery } from "@/lib/services/order-status-service";
+import { fetchFilteredOrderStatus } from "@/lib/services/order-status-service";
 
 const OrderStatusFilters: React.FC<OrderStatusFiltersProps> = ({
   setOrderStatusData,
@@ -23,24 +22,9 @@ const OrderStatusFilters: React.FC<OrderStatusFiltersProps> = ({
     order_status: [],
   });
 
-  // Fetch data based on current filters
-  const fetchFilteredData = async () => {
-    try {
-      const query = buildOrderStatusQuery(
-        filters.month,
-        filters.week,
-        filters.order_status,
-      );
-      const response = await axios.get(`${DEV_ORDER_STATUS_API}?${query}`);
-      setOrderStatusData(response.data);
-    } catch (error) {
-      console.error(`Error fetching data: ${error}`);
-    }
-  };
-
   // Fetch data initially and whenever filters change
   useEffect(() => {
-    fetchFilteredData();
+    fetchFilteredOrderStatus(filters, setOrderStatusData);
   });
 
   const handleClearFilters = () => {
