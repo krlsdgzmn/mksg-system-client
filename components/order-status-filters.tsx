@@ -12,7 +12,7 @@ import FilterOption from "./filter-option";
 import { DEV_ORDER_STATUS_API, MONTH, ORDER_STATUS, WEEK } from "@/constants";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { buildQuery } from "@/lib/services/order-status-service";
+import { buildOrderStatusQuery } from "@/lib/services/order-status-service";
 
 const OrderStatusFilters: React.FC<OrderStatusFiltersProps> = ({
   setOrderStatusData,
@@ -26,7 +26,7 @@ const OrderStatusFilters: React.FC<OrderStatusFiltersProps> = ({
   // Fetch data based on current filters
   const fetchFilteredData = async () => {
     try {
-      const query = buildQuery(
+      const query = buildOrderStatusQuery(
         filters.month,
         filters.week,
         filters.order_status,

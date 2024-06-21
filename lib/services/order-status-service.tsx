@@ -3,7 +3,7 @@ import { OrderStatusType } from "@/types";
 import axios, { AxiosResponse } from "axios";
 
 // Helper function to fetch the order status data
-export const getOrderStatus = async (): Promise<OrderStatusType[]> => {
+export const fetchOrderStatus = async (): Promise<OrderStatusType[]> => {
   try {
     const response: AxiosResponse<OrderStatusType[]> =
       await axios.get(DEV_ORDER_STATUS_API);
@@ -15,7 +15,7 @@ export const getOrderStatus = async (): Promise<OrderStatusType[]> => {
 };
 
 // Helper function to build query string
-export const buildQuery = (
+export const buildOrderStatusQuery = (
   month: string[],
   week: string[],
   order_status: string[],
