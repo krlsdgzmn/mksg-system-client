@@ -1,4 +1,4 @@
-import { OrderStatusKPIsProps } from "@/types";
+import { OrderStatusKPIsProps, OrderStatusType } from "@/types";
 import KPICard from "./kpi-card";
 
 export default function OrderStatusKPIs({
@@ -6,11 +6,11 @@ export default function OrderStatusKPIs({
 }: OrderStatusKPIsProps) {
   const totalOrders: number = orderStatusData.length;
   const completedOrders: number = orderStatusData.filter(
-    (order) => order.order_status === "Completed",
+    (order: OrderStatusType) => order.order_status === "Completed",
   ).length;
 
   const cancelledOrders: number = orderStatusData.filter(
-    (order) => order.order_status === "Cancelled",
+    (order: OrderStatusType) => order.order_status === "Cancelled",
   ).length;
 
   return (
