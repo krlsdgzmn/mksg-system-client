@@ -11,7 +11,7 @@ export default function KPICard({
   return (
     <div
       className={cn(
-        "overflow-hidden rounded border bg-card pb-2 shadow md:col-span-1",
+        "overflow-hidden rounded border bg-card pb-2 shadow sm:col-span-1",
         span,
       )}
     >
