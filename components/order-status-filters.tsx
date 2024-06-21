@@ -25,7 +25,7 @@ const OrderStatusFilters: React.FC<OrderStatusFiltersProps> = ({
   // Fetch data initially and whenever filters change
   useEffect(() => {
     fetchFilteredOrderStatus(filters, setOrderStatusData);
-  });
+  }, [filters, setOrderStatusData]);
 
   const handleClearFilters = () => {
     setFilters({ month: [], week: [], order_status: [] });

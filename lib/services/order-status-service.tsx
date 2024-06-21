@@ -1,7 +1,6 @@
 import { DEV_ORDER_STATUS_API } from "@/constants";
 import { FiltersType, OrderStatusType } from "@/types";
 import axios, { AxiosResponse } from "axios";
-import { Dispatch, SetStateAction } from "react";
 
 // Helper function to fetch the order status data
 export const fetchOrderStatus = async (): Promise<OrderStatusType[]> => {
@@ -32,7 +31,7 @@ export const buildOrderStatusQuery = (
 // Helper function to fetch the filtered order status
 export const fetchFilteredOrderStatus = async (
   filters: FiltersType,
-  setOrderStatusData: Dispatch<SetStateAction<OrderStatusType[]>>,
+  setOrderStatusData: any,
 ) => {
   try {
     const query = buildOrderStatusQuery(
