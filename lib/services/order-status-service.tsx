@@ -18,7 +18,7 @@ export const fetchOrderStatus = async (
 };
 
 // Helper function to build query string
-export const buildOrderStatusQuery = (
+const buildOrderStatusQuery = (
   month: string[],
   week: string[],
   order_status: string[],
