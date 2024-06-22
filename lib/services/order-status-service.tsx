@@ -3,10 +3,13 @@ import { FiltersType, OrderStatusType } from "@/types";
 import axios, { AxiosResponse } from "axios";
 
 // Helper function to fetch the order status data
-export const fetchOrderStatus = async (): Promise<OrderStatusType[]> => {
+export const fetchOrderStatus = async (
+  query?: string,
+): Promise<OrderStatusType[]> => {
   try {
-    const response: AxiosResponse<OrderStatusType[]> =
-      await axios.get(DEV_ORDER_STATUS_API);
+    const response: AxiosResponse<OrderStatusType[]> = await axios.get(
+      `${DEV_ORDER_STATUS_API}?${query}`,
+    );
     return response.data;
   } catch (error) {
     console.error(`Error fetching data: ${error}`);
@@ -39,8 +42,8 @@ export const fetchFilteredOrderStatus = async (
       filters.week,
       filters.order_status,
     );
-    const response = await axios.get(`${DEV_ORDER_STATUS_API}?${query}`);
-    setOrderStatusData(response.data);
+    const data = await fetchOrderStatus(query);
+    setOrderStatusData(data);
   } catch (error) {
     console.error(`Error fetching data: ${error}`);
   }
