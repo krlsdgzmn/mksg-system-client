@@ -13,9 +13,9 @@ import { MONTH, ORDER_STATUS, WEEK } from "@/constants";
 import { useState, useEffect } from "react";
 import { fetchFilteredOrderStatus } from "@/lib/services/order-status-service";
 
-const OrderStatusFilters: React.FC<OrderStatusFiltersProps> = ({
+export default function OrderStatusFilters({
   setOrderStatusData,
-}: OrderStatusFiltersProps) => {
+}: OrderStatusFiltersProps) {
   const [filters, setFilters] = useState<FiltersType>({
     month: [],
     week: [],
@@ -69,6 +69,4 @@ const OrderStatusFilters: React.FC<OrderStatusFiltersProps> = ({
       </DropdownMenu>
     </section>
   );
-};
-
-export default OrderStatusFilters;
+}
