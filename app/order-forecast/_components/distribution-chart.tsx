@@ -45,7 +45,7 @@ export default function DistributionChart() {
   ];
 
   return (
-    <div className="grid min-h-[315px] grid-cols-6 rounded-md border border-border px-4 py-8 pr-0">
+    <div className="grid min-h-[315px] grid-cols-6 rounded-md border border-border bg-card px-4 py-8 pr-0">
       {/* Left side */}
       <div className="col-span-2 border-r border-border">
         <h1 className="text-xs text-muted-foreground sm:text-sm">
