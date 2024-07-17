@@ -24,7 +24,7 @@ export default function FilterCategory({
     newFilters: FilterCategories,
     option: string,
     isChecked: boolean,
-    key: FilterCategories,
+    key: keyof FilterCategories,
   ) => {
     newFilters[key] = isChecked
       ? [...newFilters[key], option]
