@@ -1,41 +1,38 @@
 "use client";
 
-import { cn } from "@/lib/utils";
-import { LoaderCircle } from "lucide-react";
+import Image from "next/image";
 
 export default function KPICard({
   title,
   value,
   description,
-  span,
-  color,
-  isLoading,
+  icon,
 }: {
   title: string;
   value: number;
   description: string;
-  span?: string;
-  color: string;
-  isLoading: boolean;
+  icon: string;
 }) {
   return (
-    <div
-      className={cn(
-        "overflow-hidden rounded-md border bg-card pb-2 shadow transition-all duration-500 ease-in-out sm:col-span-1",
-        span,
-      )}
-    >
-      <div className={cn("py-0.5 md:py-[0.185rem]", color)} />
-      <h1 className="px-4 pt-2 text-xs font-semibold text-foreground/80 md:text-[0.9rem]">
-        {title}
-      </h1>
-      <h2 className="flex min-h-8 items-center px-4 pb-1 text-xl font-bold md:min-h-9 md:text-2xl">
-        {!isLoading && value}
-        {isLoading && <LoaderCircle size={20} className="animate-spin" />}
-      </h2>
-      <p className="px-4 text-xs text-foreground/50 md:text-[0.85rem]">
-        {description}
-      </p>
+    <div className="col-span-3 grid grid-cols-6 rounded-md border border-border p-4 pr-0 md:col-span-1">
+      <div className="col-span-4 border-r border-border pr-1.5">
+        <h1 className="text-xl font-bold sm:text-2xl">{value}</h1>
+        <h2 className="text-xs font-semibold sm:text-sm 2xl:text-base">
+          {title}
+        </h2>
+        <p className="text-[10.5px] text-muted-foreground 2xl:text-xs">
+          {description}
+        </p>
+      </div>
+      <div className="col-span-2 flex w-full items-center justify-center">
+        <Image
+          src={icon}
+          alt={title}
+          className="dark:brightness-130"
+          width={50}
+          height={50}
+        />
+      </div>
     </div>
   );
 }

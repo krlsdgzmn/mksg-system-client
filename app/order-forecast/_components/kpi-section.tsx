@@ -4,7 +4,7 @@ import KPICard from "@/components/kpi-card";
 import { useGetOrderForecast } from "../hooks";
 
 export default function KPISection() {
-  const { data, isLoading } = useGetOrderForecast();
+  const { data } = useGetOrderForecast();
 
   const totalOrders = data ? data.length : 0;
   const completedOrders = data
@@ -15,30 +15,26 @@ export default function KPISection() {
     : 0;
 
   return (
-    <section className="grid grid-cols-2 gap-2 pt-2 sm:grid-cols-3 md:gap-4 md:pt-4">
+    <section className="grid grid-cols-2 gap-2 md:grid-cols-3 xl:gap-4">
       <KPICard
         title="Total Orders"
         value={totalOrders}
-        description="Total orders placed"
-        span="col-span-2"
-        color="bg-foreground"
-        isLoading={isLoading}
+        description="Total number of classified orders"
+        icon="/total.svg"
       />
 
       <KPICard
         title="Completed Orders"
         value={completedOrders}
         description="Orders classified as completed"
-        color="bg-green-500"
-        isLoading={isLoading}
+        icon="/completed.svg"
       />
 
       <KPICard
         title="Cancelled Orders"
         value={cancelledOrders}
         description="Orders classified as cancelled"
-        color="bg-red-500"
-        isLoading={isLoading}
+        icon="/cancelled.svg"
       />
     </section>
   );
