@@ -21,6 +21,8 @@ const config = {
     extend: {
       fontFamily: { sans: ["General Sans", ...fontFamily.sans] },
       colors: {
+        completed: "hsl(var(--completed))",
+        cancelled: "hsl(var(--cancelled))",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
