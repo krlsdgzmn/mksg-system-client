@@ -30,25 +30,33 @@ export default function DistributionChart() {
   const cancelledCount = data
     ? data.filter((item) => item.order_status === "Cancelled").length
     : 0;
+  const completedPercent = totalOrders
+    ? (completedCount / totalOrders) * 100
+    : 0;
+  const cancelledPercent = totalOrders
+    ? (cancelledCount / totalOrders) * 100
+    : 0;
 
   const distribution_data = [
     {
       order_status: "Completed",
       count: completedCount,
+      percent: parseFloat(completedPercent.toFixed(2)),
       fill: "hsl(var(--completed))",
     },
     {
       order_status: "Cancelled",
       count: cancelledCount,
+      percent: parseFloat(cancelledPercent.toFixed(2)),
       fill: "hsl(var(--cancelled))",
     },
   ];
 
   return (
-    <div className="grid min-h-[315px] grid-cols-6 rounded-md border border-border bg-card px-4 py-8 pr-0">
+    <div className="grid min-h-[315px] grid-cols-6 items-center rounded-md border border-border bg-card px-4 py-6 pr-0">
       {/* Left side */}
-      <div className="col-span-2 border-r border-border">
-        <h1 className="text-xs text-muted-foreground sm:text-sm">
+      <div className="col-span-2 h-full border-r border-border">
+        <h1 className="pt-3 text-xs text-muted-foreground sm:text-sm">
           Order Status
         </h1>
 
@@ -76,7 +84,7 @@ export default function DistributionChart() {
         {data && (
           <ChartContainer
             config={chartConfig}
-            className="col-span-4 mx-auto aspect-square max-h-[250px]"
+            className="col-span-4 mx-auto aspect-square max-h-[250px] sm:min-w-[300px]"
           >
             <PieChart>
               <ChartTooltip content={<ChartTooltipContent />} />
@@ -86,10 +94,24 @@ export default function DistributionChart() {
                 nameKey="order_status"
                 innerRadius={60}
                 strokeWidth={5}
-                label
+                label={({ payload, ...props }) => {
+                  return (
+                    <text
+                      cx={props.cx}
+                      cy={props.cy}
+                      x={props.x}
+                      y={props.y}
+                      textAnchor={props.textAnchor}
+                      fontWeight={600}
+                      fontSize={11}
+                      fill={payload.fill}
+                      className="hidden sm:block"
+                    >
+                      {`${payload.percent}%`}
+                    </text>
+                  );
+                }}
                 labelLine={false}
-                fontWeight={600}
-                fontSize={14}
               >
                 <Label
                   content={({ viewBox }) => {
