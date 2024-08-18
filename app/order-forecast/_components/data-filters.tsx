@@ -56,7 +56,10 @@ export default function DataFilters() {
           </Button>
         </DropdownMenuTrigger>
 
-        <DropdownMenuContent className="ml-8 w-64" align="end">
+        <DropdownMenuContent
+          className="ml-8 w-64 bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-background/90"
+          align="end"
+        >
           <DropdownMenuLabel className="flex items-center justify-between py-0">
             <span>Filters</span>
 

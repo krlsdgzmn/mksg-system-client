@@ -14,7 +14,7 @@ export default function KPICard({
   icon: string;
 }) {
   return (
-    <div className="col-span-3 grid grid-cols-6 rounded-md border border-border bg-card p-4 pr-0 md:col-span-1">
+    <div className="col-span-3 grid grid-cols-6 rounded-md border border-border bg-card p-4 pr-0 dark:bg-muted-foreground/10 md:col-span-1">
       <div className="col-span-4 border-r border-border pr-1.5">
         <h1 className="text-xl font-bold sm:text-2xl">{value}</h1>
         <h2 className="text-xs font-semibold sm:text-sm 2xl:text-base">
