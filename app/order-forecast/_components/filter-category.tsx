@@ -10,14 +10,14 @@ type FilterCategoryProps = {
   title: string;
   filters: FilterCategories;
   category: string[];
-  setFilters: (newFilters: FilterCategories) => Promise<void>;
+  handleFiltersChange: (newFilters: FilterCategories) => Promise<void>;
 };
 
 export default function FilterCategory({
   title,
   category,
   filters,
-  setFilters,
+  handleFiltersChange,
 }: FilterCategoryProps) {
   // Update filters based on the selected category
   const updateFilters = (
@@ -49,7 +49,7 @@ export default function FilterCategory({
         break;
     }
 
-    await setFilters(newFilters);
+    await handleFiltersChange(newFilters);
   };
 
   return (
