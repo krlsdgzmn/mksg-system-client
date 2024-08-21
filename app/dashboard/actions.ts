@@ -26,7 +26,7 @@ export const getFilteredOrderForecast = async (
   filters: FilterCategories,
 ): Promise<OrderForecast[]> => {
   const query = buildQuery(filters);
-  const response = await fetch(`${ORDER_FORECAST_API}/?${query}`);
+  const response = await fetch(`${ORDER_FORECAST_API}?${query}`);
   const data = await response.json();
   return data;
 };
