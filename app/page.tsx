@@ -79,7 +79,7 @@ export default function SignInPage() {
             MKSG Clothing
           </h1>
           <p className="text-base text-muted-foreground">
-            Please login to continue
+            Please sign in to continue
           </p>
         </header>
 
