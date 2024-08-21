@@ -1,21 +1,20 @@
 "use client";
 
-import { User2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import AnimatedBackground from "./core/animated-background";
 import { ToggleTheme } from "./toggle-theme";
-import { Button } from "./ui/button";
+import UserButton from "./user-button";
 
 const links = [
   {
-    name: "Overview",
-    path: "/overview",
+    name: "Dashboard",
+    path: "/dashboard",
   },
   {
-    name: "Order Forecasting",
-    path: "/order-forecast",
+    name: "User Management",
+    path: "/user-management",
   },
 ];
 
@@ -34,10 +33,11 @@ export default function Header() {
             width={32}
             height={32}
             priority
+            quality={100}
           />
 
           {/* navigation links */}
-          <ul className="flex gap-2 text-sm font-medium text-muted-foreground/95">
+          <ul className="hidden gap-2 text-sm font-medium text-muted-foreground/95 sm:flex">
             <AnimatedBackground
               defaultValue={currentPath}
               className="rounded-md bg-muted-foreground/10 dark:bg-muted-foreground/20"
@@ -63,14 +63,7 @@ export default function Header() {
 
         <div className="flex items-center gap-2">
           <ToggleTheme />
-
-          <Button
-            variant="outline"
-            size="icon"
-            className="rounded-full text-xs"
-          >
-            <User2 size={18} />
-          </Button>
+          <UserButton />
         </div>
       </div>
     </header>

@@ -9,7 +9,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useState } from "react";
+import { useToast } from "@/components/ui/use-toast";
+import { SlidersHorizontal } from "lucide-react";
+import { useEffect, useState } from "react";
 import {
   MONTH,
   ORDER_FORECAST_FILTERS_INIT,
@@ -27,11 +29,11 @@ const filterCategories = [
 ];
 
 export default function DataFilters() {
+  const { mutateAsync, isError } = useFilteredOrderForecast();
+  const { toast } = useToast();
   const [filters, setFilters] = useState<FilterCategories>(
     ORDER_FORECAST_FILTERS_INIT,
   );
-
-  const { mutateAsync } = useFilteredOrderForecast();
 
   // Handle filter changes
   const handleFiltersChange = async (
@@ -47,12 +49,26 @@ export default function DataFilters() {
     await mutateAsync(ORDER_FORECAST_FILTERS_INIT);
   };
 
+  useEffect(() => {
+    if (isError) {
+      toast({
+        title: "Failed to filter data",
+        description: "Please reload the page",
+        variant: "destructive",
+      });
+    }
+  }, [isError, toast]);
+
   return (
     <div className="pt-2">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button size="sm" variant="outline">
-            Filters
+          <Button
+            size="sm"
+            variant="outline"
+            className="flex items-center gap-2"
+          >
+            <SlidersHorizontal size={14} /> Filters
           </Button>
         </DropdownMenuTrigger>
 
@@ -77,7 +93,7 @@ export default function DataFilters() {
                 title={item.title}
                 category={item.category}
                 filters={filters}
-                setFilters={handleFiltersChange}
+                handleFiltersChange={handleFiltersChange}
               />
             ))}
           </Accordion>

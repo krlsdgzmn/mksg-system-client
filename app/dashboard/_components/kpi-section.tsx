@@ -1,11 +1,11 @@
-"use client";
-
 import KPICard from "@/components/kpi-card";
-import { useGetOrderForecast } from "../hooks";
+import { OrderForecast } from "../types";
 
-export default function KPISection() {
-  const { data } = useGetOrderForecast();
-
+export default function KPISection({
+  data,
+}: {
+  data: OrderForecast[] | undefined;
+}) {
   const totalOrders = data ? data.length : 0;
   const completedOrders = data
     ? data.filter((item) => item.order_status === "Completed").length

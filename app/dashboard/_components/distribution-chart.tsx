@@ -1,5 +1,3 @@
-"use client";
-
 import {
   ChartContainer,
   ChartTooltip,
@@ -7,7 +5,7 @@ import {
   type ChartConfig,
 } from "@/components/ui/chart";
 import { Label, Pie, PieChart } from "recharts";
-import { useGetOrderForecast } from "../hooks";
+import { OrderForecast } from "../types";
 
 const chartConfig = {
   completed: {
@@ -20,9 +18,13 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export default function DistributionChart() {
-  const { data, isLoading } = useGetOrderForecast();
-
+export default function DistributionChart({
+  data,
+  isLoading,
+}: {
+  data: OrderForecast[] | undefined;
+  isLoading: boolean;
+}) {
   const totalOrders = data ? data.length : 0;
   const completedCount = data
     ? data.filter((item) => item.order_status === "Completed").length
@@ -78,13 +80,13 @@ export default function DistributionChart() {
       {/* Right side */}
       <div className="col-span-4">
         {isLoading && (
-          <div className="mx-auto h-full max-w-[80%] animate-pulse rounded-md bg-gradient-to-br from-white/30 to-muted-foreground/30" />
+          <div className="mx-auto aspect-square max-w-[80%] animate-pulse rounded-md bg-gradient-to-br from-white/30 to-muted-foreground/30" />
         )}
 
         {data && (
           <ChartContainer
             config={chartConfig}
-            className="col-span-4 mx-auto aspect-square max-h-[250px] sm:min-w-[300px]"
+            className="mx-auto h-[250px] w-[90%] sm:w-[290px]"
           >
             <PieChart>
               <ChartTooltip content={<ChartTooltipContent />} />
