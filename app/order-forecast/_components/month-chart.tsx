@@ -130,7 +130,7 @@ export default function MonthChart({
             <Area
               dataKey="cancelled"
               fill="url(#fillCancelled)"
-              fillOpacity={0.4}
+              fillOpacity={0.6}
               stroke="var(--color-cancelled)"
               stackId="a"
               type="monotone"
@@ -138,7 +138,7 @@ export default function MonthChart({
             <Area
               dataKey="completed"
               fill="url(#fillCompleted)"
-              fillOpacity={0.4}
+              fillOpacity={0.6}
               stroke="var(--color-completed)"
               stackId="a"
               type="monotone"
