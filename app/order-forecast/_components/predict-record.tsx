@@ -209,6 +209,7 @@ export default function PredictRecord() {
             onClick={handleSubmit}
             type="submit"
             className="font-medium dark:text-black"
+            disabled={isLoading}
           >
             {isLoading ? "Predicting..." : "Predict Record"}
           </Button>
