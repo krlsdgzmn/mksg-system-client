@@ -1,19 +1,14 @@
 import KPICard from "@/components/kpi-card";
-import { OrderForecast } from "../types";
 
 export default function KPISection({
-  data,
+  totalOrders,
+  completedOrders,
+  cancelledOrders,
 }: {
-  data: OrderForecast[] | undefined;
+  totalOrders: number;
+  completedOrders: number;
+  cancelledOrders: number;
 }) {
-  const totalOrders = data ? data.length : 0;
-  const completedOrders = data
-    ? data.filter((item) => item.order_status === "Completed").length
-    : 0;
-  const cancelledOrders = data
-    ? data.filter((item) => item.order_status === "Cancelled").length
-    : 0;
-
   return (
     <section className="grid grid-cols-2 gap-2 md:grid-cols-3 xl:gap-4">
       <KPICard

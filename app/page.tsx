@@ -61,7 +61,7 @@ export default function SignInPage() {
         description: "You are signed in to MKSG Clothing system",
       });
 
-      router.push("/dashboard");
+      router.push("/order-forecast");
     }
   };
 

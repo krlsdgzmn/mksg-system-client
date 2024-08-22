@@ -34,7 +34,7 @@ export default function UserButton() {
         </Button>
 
         <Button
-          onClick={() => handleSignOut()}
+          onClick={handleSignOut}
           variant="ghost"
           className="flex w-full items-center gap-2 text-sm"
         >

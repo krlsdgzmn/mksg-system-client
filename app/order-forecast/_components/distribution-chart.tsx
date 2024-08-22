@@ -5,7 +5,6 @@ import {
   type ChartConfig,
 } from "@/components/ui/chart";
 import { Label, Pie, PieChart } from "recharts";
-import { OrderForecast } from "../types";
 
 const chartConfig = {
   completed: {
@@ -19,43 +18,40 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export default function DistributionChart({
-  data,
   isLoading,
+  totalOrders,
+  completedOrders,
+  cancelledOrders,
 }: {
-  data: OrderForecast[] | undefined;
   isLoading: boolean;
+  totalOrders: number;
+  completedOrders: number;
+  cancelledOrders: number;
 }) {
-  const totalOrders = data ? data.length : 0;
-  const completedCount = data
-    ? data.filter((item) => item.order_status === "Completed").length
-    : 0;
-  const cancelledCount = data
-    ? data.filter((item) => item.order_status === "Cancelled").length
-    : 0;
   const completedPercent = totalOrders
-    ? (completedCount / totalOrders) * 100
+    ? (completedOrders / totalOrders) * 100
     : 0;
   const cancelledPercent = totalOrders
-    ? (cancelledCount / totalOrders) * 100
+    ? (cancelledOrders / totalOrders) * 100
     : 0;
 
   const distribution_data = [
     {
       order_status: "Completed",
-      count: completedCount,
+      count: completedOrders,
       percent: parseFloat(completedPercent.toFixed(2)),
       fill: "hsl(var(--completed))",
     },
     {
       order_status: "Cancelled",
-      count: cancelledCount,
+      count: cancelledOrders,
       percent: parseFloat(cancelledPercent.toFixed(2)),
       fill: "hsl(var(--cancelled))",
     },
   ];
 
   return (
-    <div className="grid min-h-[315px] grid-cols-6 items-center rounded-md border border-border bg-card px-4 py-6 pr-0 dark:bg-muted-foreground/10">
+    <div className="grid h-[300px] max-h-[300px] grid-cols-6 items-center overflow-hidden rounded-md border border-border bg-card px-4 py-6 pr-0 shadow dark:bg-muted-foreground/10">
       {/* Left side */}
       <div className="col-span-2 h-full border-r border-border">
         <h1 className="pt-3 text-xs text-muted-foreground sm:text-sm">
@@ -83,7 +79,7 @@ export default function DistributionChart({
           <div className="mx-auto aspect-square max-w-[80%] animate-pulse rounded-md bg-gradient-to-br from-white/30 to-muted-foreground/30" />
         )}
 
-        {data && (
+        {totalOrders !== 0 && (
           <ChartContainer
             config={chartConfig}
             className="mx-auto h-[250px] w-[90%] sm:w-[290px]"
@@ -147,6 +143,12 @@ export default function DistributionChart({
               </Pie>
             </PieChart>
           </ChartContainer>
+        )}
+
+        {!totalOrders && !isLoading && (
+          <p className="text-center text-sm font-medium text-muted-foreground">
+            No data found
+          </p>
         )}
       </div>
     </div>

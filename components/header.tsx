@@ -9,8 +9,12 @@ import UserButton from "./user-button";
 
 const links = [
   {
-    name: "Dashboard",
-    path: "/dashboard",
+    name: "Order Forecast",
+    path: "/order-forecast",
+  },
+  {
+    name: "Visitor Forecast",
+    path: "/visitor-forecast",
   },
   {
     name: "User Management",
