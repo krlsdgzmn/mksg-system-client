@@ -54,6 +54,7 @@ export default function DeleteForecast({ id }: { id: number }) {
           variant="ghost"
           className="w-full rounded-full px-0 text-xs hover:text-red-500"
           size="sm"
+          disabled={isLoading}
         >
           {isLoading ? "Deleting..." : "Delete"}
         </Button>
