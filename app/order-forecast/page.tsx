@@ -52,12 +52,7 @@ export default function OrderForecastingDashboard() {
               cancelledOrders={cancelledOrders}
             />
             <MonthChart data={data} isLoading={isLoading} />
-            <OrderStatusTable
-              totalOrders={totalOrders}
-              completedOrders={completedOrders}
-              cancelledOrders={cancelledOrders}
-              isLoading={isLoading}
-            />
+            <OrderStatusTable data={data} isLoading={isLoading} />
           </section>
 
           {/* Right side */}
