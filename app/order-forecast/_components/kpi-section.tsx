@@ -14,7 +14,7 @@ export default function KPISection({
       <KPICard
         title="Total Orders"
         value={totalOrders}
-        description="Total number of classified orders"
+        description="Total number of orders"
         icon="/total.svg"
       />
 

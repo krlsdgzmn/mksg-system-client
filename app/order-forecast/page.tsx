@@ -37,7 +37,7 @@ export default function OrderForecastingDashboard() {
 
   return (
     <Container className="flex min-h-[85vh] flex-col items-center justify-center">
-      <main>
+      <main className="w-full">
         <PageHeader
           header="Order Forecasting Dashboard"
           subheader="Forecasts for Order Management and Fulfillment"
