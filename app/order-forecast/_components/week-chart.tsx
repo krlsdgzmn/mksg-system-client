@@ -5,21 +5,19 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import { Area, AreaChart, CartesianGrid, LabelList, XAxis } from "recharts";
+import { WEEK } from "../constants";
 import { OrderForecast } from "../types";
-
-// Week labels
-const weekLabels = [1, 2, 3, 4];
 
 // Transform the data
 const transformData = (data: OrderForecast[]) => {
-  const transformed = weekLabels.map((label) => ({
+  const transformed = WEEK.map((label) => ({
     week: label,
     completed: 0,
     cancelled: 0,
   }));
 
   data.forEach((order) => {
-    const weekIndex = weekLabels.indexOf(order.week);
+    const weekIndex = WEEK.indexOf(order.week.toString());
 
     if (weekIndex !== -1) {
       if (order.order_status === "Completed") {
@@ -101,32 +99,34 @@ export default function WeekChart({
               tickFormatter={(tick) => `Week ${tick}`}
             />
             <ChartTooltip content={<ChartTooltipContent hideLabel />} />
+
             <defs>
               <linearGradient id="fillCompleted" x1="0" y1="0" x2="0" y2="1">
                 <stop
-                  offset="10%"
+                  offset="5%"
                   stopColor="var(--color-completed)"
                   stopOpacity={0.8}
                 />
                 <stop
                   offset="95%"
                   stopColor="var(--color-completed)"
-                  stopOpacity={0.3}
+                  stopOpacity={0.2}
                 />
               </linearGradient>
               <linearGradient id="fillCancelled" x1="0" y1="0" x2="0" y2="1">
                 <stop
-                  offset="10%"
+                  offset="5%"
                   stopColor="var(--color-cancelled)"
                   stopOpacity={0.8}
                 />
                 <stop
                   offset="95%"
                   stopColor="var(--color-cancelled)"
-                  stopOpacity={0.3}
+                  stopOpacity={0.2}
                 />
               </linearGradient>
             </defs>
+
             <Area
               dataKey="cancelled"
               fill="url(#fillCancelled)"
