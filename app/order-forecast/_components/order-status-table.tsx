@@ -35,22 +35,22 @@ export default function OrderStatusTable({
       </header>
 
       <section>
-        {data !== undefined && (
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>ID</TableHead>
-                <TableHead>Price Range</TableHead>
-                <TableHead>Discount Range</TableHead>
-                <TableHead>Month</TableHead>
-                <TableHead>Week</TableHead>
-                <TableHead>Distance Range</TableHead>
-                <TableHead>Cancel Rate</TableHead>
-                <TableHead>Order Status</TableHead>
-                <TableHead></TableHead>
-              </TableRow>
-            </TableHeader>
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>ID</TableHead>
+              <TableHead>Price Range</TableHead>
+              <TableHead>Discount Range</TableHead>
+              <TableHead>Month</TableHead>
+              <TableHead>Week</TableHead>
+              <TableHead>Distance Range</TableHead>
+              <TableHead>Cancel Rate</TableHead>
+              <TableHead>Order Status</TableHead>
+              <TableHead></TableHead>
+            </TableRow>
+          </TableHeader>
 
+          {data !== undefined && (
             <TableBody>
               {data.toReversed().map((item) => (
                 <TableRow key={item.id}>
@@ -82,7 +82,21 @@ export default function OrderStatusTable({
                 </TableRow>
               ))}
             </TableBody>
-          </Table>
+          )}
+        </Table>
+
+        {isLoading &&
+          Array.from({ length: 5 }).map((_, index) => (
+            <div
+              key={index}
+              className="mt-2 h-[73px] w-full animate-pulse rounded-md bg-gradient-to-br from-white/30 to-muted-foreground/30"
+            />
+          ))}
+
+        {!data && !isLoading && (
+          <p className="flex h-[400px] items-center justify-center text-sm font-medium text-muted-foreground">
+            No data found
+          </p>
         )}
       </section>
     </div>
