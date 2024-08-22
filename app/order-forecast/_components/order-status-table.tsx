@@ -61,7 +61,7 @@ export default function OrderStatusTable({
                   <TableCell>{item.month}</TableCell>
                   <TableCell>{item.week}</TableCell>
                   <TableCell>{item.distance_bin}</TableCell>
-                  <TableCell>{item.cancel_rate}</TableCell>
+                  <TableCell>{item.cancel_rate}%</TableCell>
                   <TableCell>
                     <div
                       className={`${item.order_status === "Completed" ? "bg-completed" : "bg-cancelled"} rounded-2xl px-1.5 py-0.5 text-center text-xs font-semibold text-white`}
