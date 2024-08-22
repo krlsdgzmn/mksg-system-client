@@ -12,7 +12,7 @@ export default function OrderStatusTable({
   cancelledOrders: number;
 }) {
   return (
-    <div className="h-[498px] overflow-auto rounded-md border border-border bg-card px-4 py-4 shadow dark:bg-muted-foreground/10">
+    <div className="h-[498px] overflow-auto rounded-md border border-border bg-card px-4 py-4 dark:bg-muted-foreground/10">
       <header className="flex items-end justify-between border-b pb-2">
         <div>
           <h1 className="pt-3 text-xs text-muted-foreground sm:text-sm">

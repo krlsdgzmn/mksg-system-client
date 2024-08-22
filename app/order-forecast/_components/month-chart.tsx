@@ -10,7 +10,7 @@ export default function MonthChart({
   cancelledOrders: number;
 }) {
   return (
-    <div className="h-[350px] max-h-[350px] rounded-md border border-border bg-card px-4 py-4 shadow dark:bg-muted-foreground/10 md:h-[400px] md:max-h-[400px]">
+    <div className="h-[350px] max-h-[350px] rounded-md border border-border bg-card px-4 py-4 dark:bg-muted-foreground/10 md:h-[400px] md:max-h-[400px]">
       <header className="flex items-end justify-between border-b pb-1">
         <div>
           <h1 className="pt-3 text-xs text-muted-foreground sm:text-sm">
