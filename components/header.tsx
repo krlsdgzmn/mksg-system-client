@@ -31,9 +31,9 @@ export default function Header() {
         <div className="flex items-center justify-center gap-3">
           {/* logo */}
           <Image
-            src="logo.svg"
+            src="/logo.png"
             alt="Logo"
-            className="h-32 w-32 dark:invert"
+            className="h-8 w-8 dark:invert"
             width={32}
             height={32}
             priority
