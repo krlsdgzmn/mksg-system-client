@@ -7,8 +7,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Trash } from "lucide-react";
 import { OrderForecast } from "../types";
+import DeleteForecast from "./delete-forecast";
+import PredictRecord from "./predict-record";
 
 export default function OrderStatusTable({
   isLoading,
@@ -29,9 +30,7 @@ export default function OrderStatusTable({
           </h2>
         </div>
 
-        <Button variant="outline" size="sm">
-          Predict Record
-        </Button>
+        <PredictRecord />
       </header>
 
       <section>
@@ -71,13 +70,7 @@ export default function OrderStatusTable({
                     </div>
                   </TableCell>
                   <TableCell>
-                    <Button
-                      size="icon"
-                      variant="outline"
-                      className="rounded-full"
-                    >
-                      <Trash size={15} className="text-red-500" />
-                    </Button>
+                    <DeleteForecast id={item.id} />
                   </TableCell>
                 </TableRow>
               ))}

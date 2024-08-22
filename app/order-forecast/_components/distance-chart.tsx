@@ -4,29 +4,20 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import { OrderForecast } from "../types";
 import { Bar, BarChart, CartesianGrid, LabelList, XAxis } from "recharts";
-
-// Distance bin labels
-const distanceBinLabels = [
-  "0-199",
-  "200-399",
-  "400-599",
-  "600-799",
-  "800-999",
-  ">1000",
-];
+import { DISTANCE_BIN } from "../constants";
+import { OrderForecast } from "../types";
 
 // Transform the data
 const transformData = (data: OrderForecast[]) => {
-  const transformed = distanceBinLabels.map((label) => ({
+  const transformed = DISTANCE_BIN.map((label) => ({
     distance: label,
     completed: 0,
     cancelled: 0,
   }));
 
   data.forEach((order) => {
-    const binIndex = distanceBinLabels.indexOf(order.distance_bin);
+    const binIndex = DISTANCE_BIN.indexOf(order.distance_bin);
 
     if (binIndex !== -1) {
       if (order.order_status === "Completed") {
