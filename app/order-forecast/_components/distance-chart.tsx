@@ -106,15 +106,15 @@ export default function DistanceChart({
             />
             <ChartTooltip content={<ChartTooltipContent hideLabel />} />
             <Bar
-              dataKey="completed"
-              stackId="a"
-              fill="var(--color-completed)"
-              radius={[0, 0, 4, 4]}
-            />
-            <Bar
               dataKey="cancelled"
               stackId="a"
               fill="var(--color-cancelled)"
+              radius={[0, 0, 4, 4]}
+            />
+            <Bar
+              dataKey="completed"
+              stackId="a"
+              fill="var(--color-completed)"
               radius={[4, 4, 0, 0]}
             >
               <LabelList
