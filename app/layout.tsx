@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   title: "MKSG Clothing System",
   description:
     "A system to forecast the order status and project the number of visitors hourly for MKSG Clothing's Shopee Store.",
+  icons: "/logo.png",
 };
 
 export default function RootLayout({

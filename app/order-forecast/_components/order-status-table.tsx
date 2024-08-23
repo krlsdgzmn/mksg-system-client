@@ -89,6 +89,12 @@ export default function OrderStatusTable({
           No data found
         </p>
       )}
+
+      {data && data.length === 0 && (
+        <p className="flex h-[400px] items-center justify-center text-sm font-medium text-muted-foreground">
+          You have not predicted a record yet
+        </p>
+      )}
     </div>
   );
 }
