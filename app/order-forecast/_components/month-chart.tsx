@@ -52,7 +52,7 @@ export default function MonthChart({
   const transformedData = data ? transformData(data) : [];
 
   return (
-    <div className="h-[350px] overflow-hidden rounded-md border border-border bg-card p-4 dark:bg-muted-foreground/10">
+    <div className="h-[350px] overflow-hidden rounded-md border border-border bg-card p-4 shadow dark:bg-muted-foreground/10">
       <header className="flex items-end justify-between border-b pb-1">
         <div>
           <h1 className="pt-3 text-xs text-muted-foreground sm:text-sm">
