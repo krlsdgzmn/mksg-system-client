@@ -58,7 +58,9 @@ export default function DistributionChart({
           Order Status
         </h1>
 
-        <h2 className="text-base font-semibold sm:text-xl">Distribution</h2>
+        <h2 className="pb-1 text-base font-semibold sm:text-xl">
+          Distribution
+        </h2>
 
         <hr className="pb-4" />
 
@@ -76,13 +78,13 @@ export default function DistributionChart({
       {/* Right side */}
       <div className="col-span-4">
         {isLoading && (
-          <div className="mx-auto aspect-square max-w-[80%] animate-pulse rounded-md bg-gradient-to-br from-white/30 to-muted-foreground/30" />
+          <div className="mx-auto aspect-auto h-[250px] w-[90%] animate-pulse rounded-md bg-gradient-to-br from-white/30 to-muted-foreground/30" />
         )}
 
         {totalOrders !== 0 && (
           <ChartContainer
             config={chartConfig}
-            className="mx-auto h-[250px] w-[90%] sm:w-[290px]"
+            className="mx-auto h-[250px] w-[90%] sm:w-[305px]"
           >
             <PieChart>
               <ChartTooltip content={<ChartTooltipContent />} />
