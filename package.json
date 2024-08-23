@@ -19,6 +19,7 @@
     "@radix-ui/react-toast": "^1.2.1",
     "@tanstack/react-query": "^5.52.0",
     "@tanstack/react-query-devtools": "^5.52.0",
+    "@vercel/speed-insights": "^1.0.12",
     "axios": "^1.7.4",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",

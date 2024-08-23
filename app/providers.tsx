@@ -3,6 +3,7 @@
 import { Toaster } from "@/components/ui/toaster";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { type ThemeProviderProps } from "next-themes/dist/types";
 
@@ -23,6 +24,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
       >
         {children}
         <Toaster />
+        <SpeedInsights />
         <ReactQueryDevtools initialIsOpen={false} />
       </ThemeProvider>
     </QueryClientProvider>
