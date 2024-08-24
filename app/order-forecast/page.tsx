@@ -36,16 +36,16 @@ export default function OrderForecastingDashboard() {
   }, [isError, toast]);
 
   return (
-    <Container className="flex min-h-[85vh] flex-col items-center overflow-auto">
+    <Container className="flex min-h-[86vh] flex-col items-center overflow-auto">
       <main className="w-full">
         <PageHeader
           header="Order Forecasting Dashboard"
           subheader="Forecasts for Order Management and Fulfillment"
           filters={<DataFilters />}
         />
-        <div className="grid w-full gap-2 py-2 xl:grid-cols-8 xl:gap-4 xl:py-4">
+        <div className="grid w-full gap-1 py-2 xl:grid-cols-8 xl:gap-4 xl:py-4">
           {/* Left side */}
-          <section className="space-y-2 xl:col-span-5 xl:space-y-4">
+          <section className="space-y-1 xl:col-span-5 xl:space-y-4">
             <KPISection
               totalOrders={totalOrders}
               completedOrders={completedOrders}
@@ -56,7 +56,7 @@ export default function OrderForecastingDashboard() {
           </section>
 
           {/* Right side */}
-          <section className="space-y-2 xl:col-span-3 xl:space-y-4">
+          <section className="space-y-1 xl:col-span-3 xl:space-y-4">
             <DistributionChart
               totalOrders={totalOrders}
               completedOrders={completedOrders}
