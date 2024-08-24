@@ -94,6 +94,8 @@ export default function DistanceChart({
               tickLine={false}
               tickMargin={10}
               axisLine={false}
+              tickFormatter={(tick) => `${tick} km`}
+              fontSize={11}
             />
             <ChartTooltip content={<ChartTooltipContent hideLabel />} />
             <Bar
