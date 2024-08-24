@@ -13,6 +13,32 @@ const PASSWORD = "admin";
 const MIN_LENGTH = 5;
 const MAX_LENGTH = 32;
 
+const validateSignIn = (
+  username: string,
+  password: string,
+  minLength: number,
+  maxLength: number,
+): { valid: boolean; error?: string } => {
+  if (!username || !password) {
+    return { valid: false, error: "Incomplete fields" };
+  }
+
+  if (
+    username.length < minLength ||
+    password.length < minLength ||
+    username.length > maxLength ||
+    password.length > maxLength
+  ) {
+    return { valid: false, error: "Input length error" };
+  }
+
+  if (username !== USERNAME || password !== PASSWORD) {
+    return { valid: false, error: "Invalid credentials" };
+  }
+
+  return { valid: true };
+};
+
 export default function SignInPage() {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -20,49 +46,28 @@ export default function SignInPage() {
   const router = useRouter();
 
   const handleSignIn = () => {
-    if (!username || !password) {
+    const { valid, error } = validateSignIn(
+      username,
+      password,
+      MIN_LENGTH,
+      MAX_LENGTH,
+    );
+
+    if (!valid) {
       toast({
-        title: "Incomplete fields",
-        description: "Please fill all the required fields",
+        title: "Error",
+        description: error,
         variant: "destructive",
       });
-
       return;
     }
 
-    if (
-      username.length < MIN_LENGTH ||
-      password.length < MIN_LENGTH ||
-      username.length > MAX_LENGTH ||
-      password.length > MAX_LENGTH
-    ) {
-      toast({
-        title: "Input length error",
-        description: "Please enter between 5 and 32 characters",
-        variant: "destructive",
-      });
+    toast({
+      title: "Success",
+      description: "You are signed in to MKSG Clothing system",
+    });
 
-      return;
-    }
-
-    if (username !== USERNAME || password !== PASSWORD) {
-      toast({
-        title: "Invalid credentials",
-        description: "Please try again",
-        variant: "destructive",
-      });
-
-      return;
-    }
-
-    if (username === USERNAME && password === PASSWORD) {
-      toast({
-        title: "Success",
-        description: "You are signed in to MKSG Clothing system",
-      });
-
-      router.push("/order-forecast");
-    }
+    router.push("/order-forecast");
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
