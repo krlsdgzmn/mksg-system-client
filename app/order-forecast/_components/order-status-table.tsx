@@ -37,7 +37,7 @@ export default function OrderStatusTable({
           <TableHeader>
             <TableRow>
               <TableHead>ID</TableHead>
-              <TableHead>Price Range</TableHead>
+              <TableHead className="min-w-[100px]">Price Range</TableHead>
               <TableHead>Discount Range</TableHead>
               <TableHead>Month</TableHead>
               <TableHead>Week</TableHead>
