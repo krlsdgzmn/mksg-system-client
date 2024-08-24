@@ -121,7 +121,7 @@ export default function PredictRecord() {
               <SelectContent>
                 {PRICE_BIN.map((item) => (
                   <SelectItem key={item} value={item}>
-                    {item}
+                    ₱{item}
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -141,7 +141,7 @@ export default function PredictRecord() {
               <SelectContent>
                 {DISCOUNT_BIN.map((item) => (
                   <SelectItem key={item} value={item}>
-                    {item}
+                    ₱{item}
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -177,7 +177,7 @@ export default function PredictRecord() {
               <SelectContent>
                 {WEEK.map((item) => (
                   <SelectItem key={item} value={item}>
-                    {item}
+                    Week {item}
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -197,7 +197,7 @@ export default function PredictRecord() {
               <SelectContent>
                 {DISTANCE_BIN.map((item) => (
                   <SelectItem key={item} value={item}>
-                    {item}
+                    {item} km
                   </SelectItem>
                 ))}
               </SelectContent>
