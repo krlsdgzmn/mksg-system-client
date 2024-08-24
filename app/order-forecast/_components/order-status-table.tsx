@@ -18,7 +18,7 @@ export default function OrderStatusTable({
   data: OrderForecast[] | undefined;
 }) {
   return (
-    <div className="remove-scrollbar hidden h-[548px] w-full overflow-auto rounded-md border border-border bg-card px-4 py-4 shadow dark:bg-muted-foreground/10 md:block">
+    <div className="h-[548px] w-full overflow-hidden rounded-md border border-border bg-card px-4 py-4 dark:bg-muted-foreground/10 md:block">
       <header className="flex items-end justify-between border-b pb-2">
         <div>
           <h1 className="pt-3 text-xs text-muted-foreground sm:text-sm">
@@ -32,69 +32,68 @@ export default function OrderStatusTable({
         <PredictRecord />
       </header>
 
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>ID</TableHead>
-            <TableHead>Price Range</TableHead>
-            <TableHead>Discount Range</TableHead>
-            <TableHead>Month</TableHead>
-            <TableHead>Week</TableHead>
-            <TableHead>Distance Range</TableHead>
-            <TableHead>Cancel Rate</TableHead>
-            <TableHead>Order Status</TableHead>
-            <TableHead></TableHead>
-          </TableRow>
-        </TableHeader>
+      <section className="remove-scrollbar h-[87%] overflow-auto">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>ID</TableHead>
+              <TableHead>Price Range</TableHead>
+              <TableHead>Discount Range</TableHead>
+              <TableHead>Month</TableHead>
+              <TableHead>Week</TableHead>
+              <TableHead>Distance Range</TableHead>
+              <TableHead>Cancel Rate</TableHead>
+              <TableHead>Order Status</TableHead>
+              <TableHead></TableHead>
+            </TableRow>
+          </TableHeader>
 
-        {data !== undefined && (
-          <TableBody>
-            {data.toReversed().map((item) => (
-              <TableRow key={item.id}>
-                <TableCell className="font-semibold text-muted-foreground">
-                  {item.id}
-                </TableCell>
-                <TableCell>{item.price_bin}</TableCell>
-                <TableCell>{item.discount_bin}</TableCell>
-                <TableCell>{item.month}</TableCell>
-                <TableCell>{item.week}</TableCell>
-                <TableCell>{item.distance_bin}</TableCell>
-                <TableCell>{item.cancel_rate}%</TableCell>
-                <TableCell>
-                  <div
-                    className={`${item.order_status === "Completed" ? "bg-completed" : "bg-cancelled"} rounded-2xl px-1.5 py-0.5 text-center text-xs font-semibold text-white`}
-                  >
-                    {item.order_status}
-                  </div>
-                </TableCell>
-                <TableCell>
-                  <DeleteForecast id={item.id} />
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
+          {data !== undefined && (
+            <TableBody>
+              {data.toReversed().map((item) => (
+                <TableRow key={item.id}>
+                  <TableCell className="font-semibold text-muted-foreground">
+                    {item.id}
+                  </TableCell>
+                  <TableCell>{item.price_bin}</TableCell>
+                  <TableCell>{item.discount_bin}</TableCell>
+                  <TableCell>{item.month}</TableCell>
+                  <TableCell>{item.week}</TableCell>
+                  <TableCell>{item.distance_bin}</TableCell>
+                  <TableCell>{item.cancel_rate}%</TableCell>
+                  <TableCell>
+                    <div
+                      className={`${item.order_status === "Completed" ? "bg-completed" : "bg-cancelled"} rounded-2xl px-1.5 py-0.5 text-center text-xs font-semibold text-white`}
+                    >
+                      {item.order_status}
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    <DeleteForecast id={item.id} />
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          )}
+        </Table>
+        {isLoading &&
+          Array.from({ length: 5 }).map((_, index) => (
+            <div
+              key={index}
+              className="mt-2 h-[73px] w-full animate-pulse rounded-md bg-gradient-to-br from-white/30 to-muted-foreground/30"
+            />
+          ))}
+        {!data && !isLoading && (
+          <p className="flex h-[400px] items-center justify-center text-sm font-medium text-muted-foreground">
+            No data found
+          </p>
         )}
-      </Table>
-
-      {isLoading &&
-        Array.from({ length: 5 }).map((_, index) => (
-          <div
-            key={index}
-            className="mt-2 h-[73px] w-full animate-pulse rounded-md bg-gradient-to-br from-white/30 to-muted-foreground/30"
-          />
-        ))}
-
-      {!data && !isLoading && (
-        <p className="flex h-[400px] items-center justify-center text-sm font-medium text-muted-foreground">
-          No data found
-        </p>
-      )}
-
-      {data && data.length === 0 && (
-        <p className="flex h-[400px] items-center justify-center text-sm font-medium text-muted-foreground">
-          You have not predicted a record yet
-        </p>
-      )}
+        {data && data.length === 0 && (
+          <p className="flex h-[400px] items-center justify-center text-sm font-medium text-muted-foreground">
+            You have not predicted a record yet
+          </p>
+        )}
+      </section>
     </div>
   );
 }
