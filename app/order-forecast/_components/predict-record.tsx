@@ -31,6 +31,7 @@ import {
 } from "../constants";
 import { useGetOrderForecast } from "../hooks";
 import { OrderForecast } from "../types";
+import { Loader } from "lucide-react";
 
 const initialFormData = {
   price_bin: "",
@@ -181,9 +182,10 @@ export default function PredictRecord() {
           <Button
             onClick={handleSubmit}
             type="submit"
-            className="font-medium dark:text-black"
+            className="align-middle font-medium dark:text-black"
             disabled={isLoading}
           >
+            {isLoading && <Loader className="mr-2 h-4 w-4 animate-spin" />}
             {isLoading ? "Predicting..." : "Predict Record"}
           </Button>
         </DialogFooter>
