@@ -20,7 +20,10 @@ const validateSignIn = (
   maxLength: number,
 ): { valid: boolean; error?: string } => {
   if (!username || !password) {
-    return { valid: false, error: "Incomplete fields" };
+    return {
+      valid: false,
+      error: "Incomplete fields. Please fill all the required input.",
+    };
   }
 
   if (
@@ -29,11 +32,14 @@ const validateSignIn = (
     username.length > maxLength ||
     password.length > maxLength
   ) {
-    return { valid: false, error: "Input length error" };
+    return {
+      valid: false,
+      error: "Input length error. Please enter between 5 and 32 characters.",
+    };
   }
 
   if (username !== USERNAME || password !== PASSWORD) {
-    return { valid: false, error: "Invalid credentials" };
+    return { valid: false, error: "Invalid credentials. Please try again." };
   }
 
   return { valid: true };
