@@ -40,6 +40,49 @@ const initialFormData = {
   distance_bin: "",
 };
 
+const inputs = [
+  {
+    id: "price_bin",
+    name: "Price",
+    placeholder: "Select Price",
+    constant: PRICE_BIN,
+    unit: "₱",
+    isPrefix: true,
+  },
+  {
+    id: "discount_bin",
+    name: "Discount",
+    placeholder: "Select Discount",
+    constant: DISCOUNT_BIN,
+    unit: "₱",
+    isPrefix: true,
+  },
+  {
+    id: "month",
+    name: "Month",
+    placeholder: "Select Month",
+    constant: MONTH,
+    unit: "",
+    isPrefix: true,
+  },
+  {
+    id: "week",
+    name: "Week",
+    placeholder: "Select Week",
+    constant: WEEK,
+    unit: "Week ",
+    isPrefix: true,
+  },
+  {
+    id: "distance_bin",
+    name: "Distance",
+    placeholder: "Select Distance",
+    constant: DISTANCE_BIN,
+    unit: "km",
+    isPrefix: false,
+  },
+];
+
 export default function PredictRecord() {
   const [formData, setFormData] = useState(initialFormData);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -110,99 +153,29 @@ export default function PredictRecord() {
         </DialogHeader>
 
         <DialogDescription className="space-y-3">
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="price_bin">Price</Label>
-            <Select
-              onValueChange={(value) => handleSelectChange(value, "price_bin")}
-            >
-              <SelectTrigger className="col-span-3">
-                <SelectValue placeholder="Select Price" id="price_bin" />
-              </SelectTrigger>
-              <SelectContent>
-                {PRICE_BIN.map((item) => (
-                  <SelectItem key={item} value={item}>
-                    ₱{item}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="discount_bin">Discount</Label>
-            <Select
-              onValueChange={(value) =>
-                handleSelectChange(value, "discount_bin")
-              }
-            >
-              <SelectTrigger className="col-span-3">
-                <SelectValue placeholder="Select Discount" id="discount_bin" />
-              </SelectTrigger>
-              <SelectContent>
-                {DISCOUNT_BIN.map((item) => (
-                  <SelectItem key={item} value={item}>
-                    ₱{item}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="month">Month</Label>
-            <Select
-              onValueChange={(value) => handleSelectChange(value, "month")}
-            >
-              <SelectTrigger className="col-span-3">
-                <SelectValue placeholder="Select Month" id="month" />
-              </SelectTrigger>
-              <SelectContent>
-                {MONTH.map((item) => (
-                  <SelectItem key={item} value={item}>
-                    {item}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="week">Week</Label>
-            <Select
-              onValueChange={(value) => handleSelectChange(value, "week")}
-            >
-              <SelectTrigger className="col-span-3">
-                <SelectValue placeholder="Select Week" id="week" />
-              </SelectTrigger>
-              <SelectContent>
-                {WEEK.map((item) => (
-                  <SelectItem key={item} value={item}>
-                    Week {item}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="distance_bin">Distance</Label>
-            <Select
-              onValueChange={(value) =>
-                handleSelectChange(value, "distance_bin")
-              }
-            >
-              <SelectTrigger className="col-span-3">
-                <SelectValue placeholder="Select Distance" id="distance_bin" />
-              </SelectTrigger>
-              <SelectContent>
-                {DISTANCE_BIN.map((item) => (
-                  <SelectItem key={item} value={item}>
-                    {item} km
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
+          {inputs.map((item) => (
+            <div key={item.id} className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="price_bin">{item.name}</Label>
+              <Select
+                onValueChange={(value) =>
+                  handleSelectChange(value, item.id as keyof OrderForecast)
+                }
+              >
+                <SelectTrigger className="col-span-3">
+                  <SelectValue placeholder={item.placeholder} id={item.id} />
+                </SelectTrigger>
+                <SelectContent>
+                  {item.constant.map((constant) => (
+                    <SelectItem key={constant} value={constant}>
+                      {item.isPrefix
+                        ? `${item.unit}${constant}`
+                        : `${constant} ${item.unit}`}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          ))}
         </DialogDescription>
         <DialogFooter>
           <Button
