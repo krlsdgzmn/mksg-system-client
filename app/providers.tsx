@@ -1,7 +1,6 @@
 "use client";
 
 import Container from "@/components/container";
-import { Toaster } from "@/components/ui/toaster";
 import {
   QueryClient,
   QueryClientProvider,

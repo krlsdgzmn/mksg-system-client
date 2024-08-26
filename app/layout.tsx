@@ -1,9 +1,9 @@
 import Footer from "@/components/footer";
 import Header from "@/components/header";
+import { Toaster } from "@/components/ui/toaster";
 import type { Metadata } from "next";
 import "./globals.css";
 import Providers from "./providers";
-import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
   title: "MKSG Clothing System",

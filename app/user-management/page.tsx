@@ -2,6 +2,7 @@
 
 import Container from "@/components/container";
 import PageHeader from "@/components/page-header";
+import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -10,10 +11,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useGetUsers } from "./hooks";
-import AddUserButton from "./_components/add-user-button";
-import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
+import AddUserButton from "./_components/add-user-button";
+import { useGetUsers } from "./hooks";
 
 export default function RolesPage() {
   const { data, refetch, isLoading } = useGetUsers();

@@ -9,13 +9,7 @@ import {
 } from "./ui/dropdown-menu";
 import { useToast } from "./ui/use-toast";
 
-export default function UserButton({
-  signOut,
-  user,
-}: {
-  signOut: () => void;
-  user: User;
-}) {
+export default function UserButton({ signOut }: { signOut: () => void }) {
   const router = useRouter();
   const { toast } = useToast();
 

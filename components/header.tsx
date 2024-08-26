@@ -20,12 +20,18 @@ const links = [
   {
     name: "User Management",
     path: "/user-management",
+    requiresAdmin: true, // Indicate that this link requires admin access
   },
 ];
 
 export default function Header() {
   const currentPath = usePathname();
   const { data: user, signOut } = useAuth();
+
+  // Filter the links based on the user's role
+  const filteredLinks = links.filter(
+    (item) => !item.requiresAdmin || user?.role === "Admin",
+  );
 
   return (
     <header className="top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 md:sticky">
@@ -53,7 +59,7 @@ export default function Header() {
                   duration: 0.3,
                 }}
               >
-                {links.map((item) => (
+                {filteredLinks.map((item) => (
                   <Link
                     key={item.name}
                     data-id={item.path}
@@ -70,7 +76,7 @@ export default function Header() {
 
         <div className="flex items-center gap-2">
           <ToggleTheme />
-          {user && <UserButton signOut={signOut} user={user} />}
+          {user && <UserButton signOut={signOut} />}
         </div>
       </div>
     </header>

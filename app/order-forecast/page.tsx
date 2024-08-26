@@ -4,6 +4,7 @@ import Container from "@/components/container";
 import PageHeader from "@/components/page-header";
 import { useToast } from "@/components/ui/use-toast";
 import { useEffect } from "react";
+import { useAuth } from "../providers";
 import DataFilters from "./_components/data-filters";
 import DistanceChart from "./_components/distance-chart";
 import DistributionChart from "./_components/distribution-chart";
@@ -12,7 +13,6 @@ import MonthChart from "./_components/month-chart";
 import OrderStatusTable from "./_components/order-status-table";
 import WeekChart from "./_components/week-chart";
 import { useGetOrderForecast } from "./hooks";
-import { useAuth } from "../providers";
 
 export default function OrderForecastingDashboard() {
   const { data, isLoading, isError } = useGetOrderForecast();
