@@ -141,11 +141,11 @@ export default function AddUserButton({ refetch }: { refetch: () => void }) {
     } finally {
       setIsLoading(false);
       form.reset({
-        first_name: "",
-        last_name: "",
-        username: "",
-        password: "",
-        role: "",
+        first_name: undefined,
+        last_name: undefined,
+        username: undefined,
+        password: undefined,
+        role: undefined,
       });
       setOpen(false);
     }

@@ -20,14 +20,14 @@ export default function RolesPage() {
 
   return (
     <Container className="flex min-h-[86vh] flex-col items-center overflow-auto">
-      <main className="w-full">
+      <main className="w-full overflow-hidden">
         <PageHeader
           header="User Management"
           subheader="Administer and Control User Roles and Permissions"
           button={<AddUserButton refetch={refetch} />}
         />
 
-        <section className="my-2 rounded-lg border bg-card/30 shadow dark:bg-muted-foreground/10 md:my-4">
+        <section className="remove-scrollbar my-2 max-h-[610px] overflow-auto rounded-lg border bg-card/30 shadow dark:bg-muted-foreground/10 md:my-4">
           <Table>
             <TableHeader>
               <TableRow>
