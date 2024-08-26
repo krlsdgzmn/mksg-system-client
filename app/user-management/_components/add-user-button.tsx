@@ -69,11 +69,7 @@ const AddUserFormSchema = z.object({
       message: "Password must not exceed 32 characters.",
     })
     .trim(),
-  role: z
-    .string({
-      required_error: "Please select a role to display.",
-    })
-    .trim(),
+  role: z.string().trim(),
 });
 
 const inputs = [
