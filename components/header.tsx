@@ -49,27 +49,16 @@ export default function Header() {
                   duration: 0.3,
                 }}
               >
-                {user.role === "Admin" ? (
+                {links.map((item) => (
                   <Link
-                    key="User Management"
-                    data-id="/user-management"
-                    href="/user-management"
+                    key={item.name}
+                    data-id={item.path}
+                    href={item.path}
                     className="duration:100 items-center justify-center p-1 px-2.5 text-foreground/50 transition-colors focus-visible:outline-2 data-[checked=true]:text-foreground/90"
                   >
-                    Admin Panel
+                    {item.name}
                   </Link>
-                ) : (
-                  links.map((item) => (
-                    <Link
-                      key={item.name}
-                      data-id={item.path}
-                      href={item.path}
-                      className="duration:100 items-center justify-center p-1 px-2.5 text-foreground/50 transition-colors focus-visible:outline-2 data-[checked=true]:text-foreground/90"
-                    >
-                      {item.name}
-                    </Link>
-                  ))
-                )}
+                ))}
               </AnimatedBackground>
             </ul>
           )}
