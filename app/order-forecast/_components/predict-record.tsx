@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/select";
 import { useToast } from "@/components/ui/use-toast";
 import axios from "axios";
-import { Loader2 } from "lucide-react";
+import { Glasses, Loader2 } from "lucide-react";
 import { useState } from "react";
 import {
   DISCOUNT_BIN,
@@ -140,20 +140,24 @@ export default function PredictRecord() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" size="sm">
-          Predict Record
+        <Button className="flex items-center gap-2" variant="outline" size="sm">
+          <Glasses size={14} />
+          Predict
         </Button>
       </DialogTrigger>
 
       <DialogContent className="rounded-lg sm:max-w-[450px]">
         <DialogHeader className="py-4 text-left">
-          <DialogTitle>Predict Record</DialogTitle>
+          <DialogTitle className="flex items-end gap-2 leading-4">
+            <Glasses size={18} />
+            Predict Record
+          </DialogTitle>
           <DialogDescription>
             Fill out the form below to predict a record
           </DialogDescription>
         </DialogHeader>
 
-        <DialogDescription className="space-y-3">
+        <div className="space-y-3">
           {inputs.map((item) => (
             <div key={item.id} className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="price_bin">{item.name}</Label>
@@ -177,7 +181,7 @@ export default function PredictRecord() {
               </Select>
             </div>
           ))}
-        </DialogDescription>
+        </div>
         <DialogFooter>
           <Button
             onClick={handleSubmit}

@@ -1,11 +1,11 @@
 export default function PageHeader({
   header,
   subheader,
-  filters,
+  button,
 }: {
   header: string;
   subheader: string;
-  filters?: React.ReactNode;
+  button?: React.ReactNode;
 }) {
   return (
     <section className="md: flex flex-col justify-between pt-4 md:flex-row md:items-end">
@@ -17,7 +17,7 @@ export default function PageHeader({
           {subheader}
         </h2>
       </div>
-      {filters}
+      {button}
     </section>
   );
 }

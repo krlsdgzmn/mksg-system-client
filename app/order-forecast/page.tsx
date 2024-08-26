@@ -44,7 +44,7 @@ export default function OrderForecastingDashboard() {
           <PageHeader
             header="Order Forecasting Dashboard"
             subheader="Forecasts for Order Management and Fulfillment"
-            filters={<DataFilters />}
+            button={<DataFilters />}
           />
           <div className="grid w-full gap-2 py-2 xl:grid-cols-8 xl:gap-4 xl:py-4">
             {/* Left side */}

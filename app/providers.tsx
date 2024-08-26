@@ -19,8 +19,8 @@ import { createContext, useContext, useEffect, useState } from "react";
 export type User = {
   id: number;
   username: string;
-  firstName: string;
-  lastName: string;
+  first_name: string;
+  last_name: string;
   role: string;
 };
 
@@ -49,7 +49,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
       try {
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_AUTH_API}api/auth/verify-token/${token}`,
+          `${process.env.NEXT_PUBLIC_AUTH_API}verify-token/${token}`,
         );
 
         if (response.ok) {
@@ -90,7 +90,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       formData.append("username", username);
       formData.append("password", password);
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_AUTH_API}api/auth/token`,
+        `${process.env.NEXT_PUBLIC_AUTH_API}token`,
         formData,
         {
           headers: { "Content-Type": "application/x-www-form-urlencoded" },

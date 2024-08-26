@@ -26,7 +26,7 @@ const SignInFormSchema = z.object({
       message: "Username must be at least 5 characters.",
     })
     .max(32, {
-      message: "Password must not exceed 32 characters.",
+      message: "Username must not exceed 32 characters.",
     })
     .trim(),
   password: z

@@ -17,6 +17,10 @@ const links = [
     name: "Visitor Forecast",
     path: "/visitor-forecast",
   },
+  {
+    name: "User Management",
+    path: "/user-management",
+  },
 ];
 
 export default function Header() {
