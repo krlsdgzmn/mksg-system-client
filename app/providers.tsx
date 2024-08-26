@@ -47,7 +47,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
       try {
         const response = await fetch(
-          `http://localhost:8000/api/auth/verify-token/${token}`,
+          `${process.env.NEXT_PUBLIC_AUTH_API}api/auth/verify-token/${token}`,
         );
 
         if (response.ok) {
@@ -88,7 +88,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       formData.append("username", username);
       formData.append("password", password);
       const response = await axios.post(
-        "http://localhost:8000/api/auth/token",
+        `${process.env.NEXT_PUBLIC_AUTH_API}api/auth/token`,
         formData,
         {
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
