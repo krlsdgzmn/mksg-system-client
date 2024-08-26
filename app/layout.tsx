@@ -3,6 +3,7 @@ import Header from "@/components/header";
 import type { Metadata } from "next";
 import "./globals.css";
 import Providers from "./providers";
+import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
   title: "MKSG Clothing System",
@@ -24,6 +25,8 @@ export default function RootLayout({
           {children}
           <Footer />
         </Providers>
+
+        <Toaster />
       </body>
     </html>
   );

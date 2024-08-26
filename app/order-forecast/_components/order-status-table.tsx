@@ -18,7 +18,7 @@ export default function OrderStatusTable({
   data: OrderForecast[] | undefined;
 }) {
   return (
-    <div className="h-[548px] w-full overflow-hidden rounded-md border border-border bg-card px-4 py-4 dark:bg-muted-foreground/10 md:block">
+    <div className="hidden h-[548px] w-full overflow-hidden rounded-md border border-border bg-card px-4 py-4 dark:bg-muted-foreground/10 md:block">
       <header className="flex items-end justify-between border-b pb-2">
         <div>
           <h1 className="pt-3 text-xs text-muted-foreground sm:text-sm">

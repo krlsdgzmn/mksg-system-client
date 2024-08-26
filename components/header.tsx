@@ -1,12 +1,12 @@
 "use client";
 
+import { useAuth } from "@/app/providers";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import AnimatedBackground from "./core/animated-background";
 import { ToggleTheme } from "./toggle-theme";
 import UserButton from "./user-button";
-import { useAuth } from "@/app/providers";
 
 const links = [
   {

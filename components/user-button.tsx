@@ -7,6 +7,7 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import { useToast } from "./ui/use-toast";
 
 export default function UserButton({
   signOut,
@@ -16,9 +17,14 @@ export default function UserButton({
   user: User;
 }) {
   const router = useRouter();
+  const { toast } = useToast();
 
   const handleSignOut = () => {
     signOut();
+    toast({
+      title: "Success",
+      description: "You have successfully signed out.",
+    });
     router.push("/");
   };
 

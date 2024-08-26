@@ -19,6 +19,8 @@ import { createContext, useContext, useEffect, useState } from "react";
 export type User = {
   id: number;
   username: string;
+  firstName: string;
+  lastName: string;
   role: string;
 };
 
@@ -153,7 +155,6 @@ export default function Providers({ children }: { children: React.ReactNode }) {
           disableTransitionOnChange
         >
           {children}
-          <Toaster />
           <SpeedInsights />
           <ReactQueryDevtools initialIsOpen={false} />
         </ThemeProvider>
