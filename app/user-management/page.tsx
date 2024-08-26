@@ -76,7 +76,7 @@ export default function RolesPage() {
             Array.from({ length: 7 }).map((_, index) => (
               <div
                 key={index}
-                className="mt-2 h-[73px] w-full animate-pulse rounded-md bg-gradient-to-br from-white/30 to-muted-foreground/30"
+                className="mx-2 mt-2 h-[73px] w-full animate-pulse rounded-md bg-gradient-to-br from-white/30 to-muted-foreground/30"
               />
             ))}
 
