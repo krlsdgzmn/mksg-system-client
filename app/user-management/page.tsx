@@ -16,7 +16,7 @@ import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
 
 export default function RolesPage() {
-  const { data, refetch } = useGetUsers();
+  const { data, refetch, isLoading } = useGetUsers();
 
   return (
     <Container className="flex min-h-[86vh] flex-col items-center overflow-auto">
@@ -71,6 +71,20 @@ export default function RolesPage() {
               </TableBody>
             )}
           </Table>
+
+          {isLoading &&
+            Array.from({ length: 7 }).map((_, index) => (
+              <div
+                key={index}
+                className="mt-2 h-[73px] w-full animate-pulse rounded-md bg-gradient-to-br from-white/30 to-muted-foreground/30"
+              />
+            ))}
+
+          {!data && !isLoading && (
+            <p className="flex h-[400px] items-center justify-center text-sm font-medium text-muted-foreground">
+              No data found
+            </p>
+          )}
         </section>
       </main>
     </Container>
