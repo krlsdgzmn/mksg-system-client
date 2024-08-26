@@ -26,7 +26,7 @@ import {
 } from "@/components/ui/select";
 import { useToast } from "@/components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { Loader2, User2 } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -131,13 +131,34 @@ export default function AddUserButton({ refetch }: { refetch: () => void }) {
         description: "You have successfully added a user.",
       });
     } catch (error) {
-      toast({
-        title: "Failed",
-        description: "Please try again.",
-        variant: "destructive",
-      });
-      console.error("Failed add a user:", error);
-      throw error;
+      if (axios.isAxiosError(error) && error.response) {
+        // Check if the error is due to the user already existing
+        if (
+          error.response.status === 400 &&
+          error.response.data.detail === "User already exists."
+        ) {
+          toast({
+            title: "Failed",
+            description:
+              "User already exists. Please try a different username.",
+            variant: "destructive",
+          });
+        } else {
+          // Handle other types of errors
+          toast({
+            title: "Failed",
+            description: `Please try again. ${error.response.data.detail}`,
+            variant: "destructive",
+          });
+        }
+      } else {
+        // Handle non-Axios errors
+        toast({
+          title: "Failed",
+          description: "An unexpected error occurred. Please try again.",
+          variant: "destructive",
+        });
+      }
     } finally {
       setIsLoading(false);
       form.reset({
