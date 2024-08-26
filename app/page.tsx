@@ -2,83 +2,83 @@
 
 import Container from "@/components/container";
 import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { LogIn } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { useAuth } from "./providers";
 
-const USERNAME = "admin";
-const PASSWORD = "admin";
-const MIN_LENGTH = 5;
-const MAX_LENGTH = 32;
+const SignInFormSchema = z.object({
+  username: z
+    .string()
+    .min(5, {
+      message: "Username must be at least 5 characters.",
+    })
+    .max(32, {
+      message: "Password must not exceed 32 characters.",
+    })
+    .trim(),
+  password: z
+    .string()
+    .min(8, {
+      message: "Password must be at least 8 characters.",
+    })
+    .max(32, {
+      message: "Password must not exceed 32 characters.",
+    })
+    .trim(),
+});
 
-const validateSignIn = (
-  username: string,
-  password: string,
-  minLength: number,
-  maxLength: number,
-): { valid: boolean; error?: string } => {
-  if (!username || !password) {
-    return {
-      valid: false,
-      error: "Incomplete fields. Please fill all the required input.",
-    };
-  }
-
-  if (
-    username.length < minLength ||
-    password.length < minLength ||
-    username.length > maxLength ||
-    password.length > maxLength
-  ) {
-    return {
-      valid: false,
-      error: "Input length error. Please enter between 5 and 32 characters.",
-    };
-  }
-
-  if (username !== USERNAME || password !== PASSWORD) {
-    return { valid: false, error: "Invalid credentials. Please try again." };
-  }
-
-  return { valid: true };
-};
+const inputs = [
+  {
+    name: "Username",
+    type: "text",
+  },
+  {
+    name: "Password",
+    type: "password",
+  },
+];
 
 export default function SignInPage() {
-  const [username, setUsername] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
   const { toast } = useToast();
   const router = useRouter();
+  const { signIn } = useAuth();
 
-  const handleSignIn = () => {
-    const { valid, error } = validateSignIn(
-      username,
-      password,
-      MIN_LENGTH,
-      MAX_LENGTH,
-    );
+  const form = useForm<z.infer<typeof SignInFormSchema>>({
+    resolver: zodResolver(SignInFormSchema),
+    defaultValues: {
+      username: "",
+      password: "",
+    },
+  });
 
-    if (!valid) {
+  const onSubmit = async (values: z.infer<typeof SignInFormSchema>) => {
+    try {
+      await signIn(values.username, values.password);
       toast({
-        title: "Error",
-        description: error,
+        title: "Success",
+        description: "You are signed in to MKSG Clothing system",
+      });
+
+      router.push("/order-forecast");
+    } catch (error) {
+      console.error(error);
+      toast({
+        title: "Invalid credentials",
+        description: "Please try again.",
         variant: "destructive",
       });
-      return;
-    }
-
-    toast({
-      title: "Success",
-      description: "You are signed in to MKSG Clothing system",
-    });
-
-    router.push("/order-forecast");
-  };
-
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter") {
-      handleSignIn();
     }
   };
 
@@ -94,29 +94,44 @@ export default function SignInPage() {
           </p>
         </header>
 
-        <Input
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(event) => setUsername(event.target.value)}
-          maxLength={MAX_LENGTH}
-          onKeyDown={handleKeyDown}
-        />
-        <Input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-          maxLength={MAX_LENGTH}
-          onKeyDown={handleKeyDown}
-        />
-        <Button
-          onClick={handleSignIn}
-          className="flex w-full items-center gap-1 text-sm"
-          variant="outline"
-        >
-          Sign In <LogIn size={14} />
-        </Button>
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="w-full space-y-3"
+          >
+            {inputs.map((item) => (
+              <FormField
+                key={item.name}
+                control={form.control}
+                name={
+                  item.name.toLowerCase() as keyof z.infer<
+                    typeof SignInFormSchema
+                  >
+                }
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input
+                        type={item.type}
+                        placeholder={item.name}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage className="text-sm text-red-500/90" />
+                  </FormItem>
+                )}
+              />
+            ))}
+
+            <Button
+              className="flex w-full items-center gap-1 text-sm"
+              variant="outline"
+              type="submit"
+            >
+              Sign In <LogIn size={14} />
+            </Button>
+          </form>
+        </Form>
       </div>
     </Container>
   );

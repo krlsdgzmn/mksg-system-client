@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/select";
 import { useToast } from "@/components/ui/use-toast";
 import axios from "axios";
+import { Loader2 } from "lucide-react";
 import { useState } from "react";
 import {
   DISCOUNT_BIN,
@@ -31,7 +32,6 @@ import {
 } from "../constants";
 import { useGetOrderForecast } from "../hooks";
 import { OrderForecast } from "../types";
-import { Loader } from "lucide-react";
 
 const initialFormData = {
   price_bin: "",
@@ -185,7 +185,7 @@ export default function PredictRecord() {
             className="align-middle font-medium dark:text-black"
             disabled={isLoading}
           >
-            {isLoading && <Loader className="mr-2 h-4 w-4 animate-spin" />}
+            {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             {isLoading ? "Predicting..." : "Predict Record"}
           </Button>
         </DialogFooter>

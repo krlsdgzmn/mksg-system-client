@@ -1,3 +1,4 @@
+import { User } from "@/app/providers";
 import { LogOut, Settings, User2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Button } from "./ui/button";
@@ -7,10 +8,17 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 
-export default function UserButton() {
+export default function UserButton({
+  signOut,
+  user,
+}: {
+  signOut: () => void;
+  user: User;
+}) {
   const router = useRouter();
 
   const handleSignOut = () => {
+    signOut();
     router.push("/");
   };
 
