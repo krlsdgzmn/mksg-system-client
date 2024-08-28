@@ -28,7 +28,10 @@ const SignInFormSchema = z.object({
     .max(32, {
       message: "Username must not exceed 32 characters.",
     })
-    .trim(),
+    .trim()
+    .regex(/^\S*$/, {
+      message: "Username cannot contain spaces.",
+    }),
   password: z
     .string()
     .min(8, {
@@ -37,7 +40,10 @@ const SignInFormSchema = z.object({
     .max(32, {
       message: "Password must not exceed 32 characters.",
     })
-    .trim(),
+    .trim()
+    .regex(/^\S*$/, {
+      message: "Password cannot contain spaces.",
+    }),
 });
 
 const inputs = [

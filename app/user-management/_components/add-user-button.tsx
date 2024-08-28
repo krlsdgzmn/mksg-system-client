@@ -32,45 +32,63 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-const AddUserFormSchema = z.object({
-  first_name: z
-    .string()
-    .min(2, {
-      message: "First name must be at least 2 characters.",
-    })
-    .max(100, {
-      message: "First name must not exceed 100 characters.",
-    })
-    .trim(),
-  last_name: z
-    .string()
-    .min(2, {
-      message: "Last name must be at least 2 characters.",
-    })
-    .max(100, {
-      message: "Last name must not exceed 100 characters.",
-    })
-    .trim(),
-  username: z
-    .string()
-    .min(5, {
-      message: "Username must be at least 5 characters.",
-    })
-    .max(32, {
-      message: "Username must not exceed 32 characters.",
-    })
-    .trim(),
-  password: z
-    .string()
-    .min(8, {
-      message: "Password must be at least 8 characters.",
-    })
-    .max(32, {
-      message: "Password must not exceed 32 characters.",
-    })
-    .trim(),
-  role: z.string().trim(),
-});
+const AddUserFormSchema = z
+  .object({
+    first_name: z
+      .string()
+      .min(2, {
+        message: "First name must be at least 2 characters.",
+      })
+      .max(100, {
+        message: "First name must not exceed 100 characters.",
+      })
+      .trim()
+      .refine((value) => value.length > 0, {
+        message: "First name cannot be empty or just spaces.",
+      }),
+    last_name: z
+      .string()
+      .min(2, {
+        message: "Last name must be at least 2 characters.",
+      })
+      .max(100, {
+        message: "Last name must not exceed 100 characters.",
+      })
+      .trim()
+      .refine((value) => value.length > 0, {
+        message: "Last name cannot be empty or just spaces.",
+      }),
+    username: z
+      .string()
+      .min(5, {
+        message: "Username must be at least 5 characters.",
+      })
+      .max(32, {
+        message: "Username must not exceed 32 characters.",
+      })
+      .trim()
+      .regex(/^\S*$/, {
+        message: "Username cannot contain spaces.",
+      }),
+    password: z
+      .string()
+      .min(8, {
+        message: "Password must be at least 8 characters.",
+      })
+      .max(32, {
+        message: "Password must not exceed 32 characters.",
+      })
+      .trim()
+      .regex(/^\S*$/, {
+        message: "Password cannot contain spaces.",
+      }),
+    confirm_password: z.string().trim(),
+    role: z.string().trim(),
+  })
+  .refine((data) => data.password === data.confirm_password, {
+    path: ["confirm_password"],
+    message: "Passwords do not match.",
+  });
 
 const inputs = [
   {
@@ -91,6 +109,11 @@ const inputs = [
   {
     id: "password",
     name: "Password",
+    type: "password",
+  },
+  {
+    id: "confirm_password",
+    name: "Confirm Password",
     type: "password",
   },
 ];

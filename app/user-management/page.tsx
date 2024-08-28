@@ -51,13 +51,15 @@ export default function RolesPage() {
                     <TableCell>{item.username}</TableCell>
                     <TableCell>
                       <span
-                        className={`${item.role === "Admin" ? "bg-blue-400" : "bg-gray-400"} rounded-2xl px-1.5 py-0.5 text-center text-xs font-semibold text-white`}
+                        className={`${item.role === "Admin" ? "bg-blue-400" : item.role === "Owner" ? "bg-red-500" : "bg-gray-400"} rounded-2xl px-1.5 py-0.5 text-center text-xs font-semibold text-white`}
                       >
                         {item.role}
                       </span>
                     </TableCell>
                     <TableCell>
-                      <ActionButton id={item.id} refetch={refetch} />
+                      {item.role !== "Owner" && (
+                        <ActionButton id={item.id} refetch={refetch} />
+                      )}
                     </TableCell>
                   </TableRow>
                 ))}
