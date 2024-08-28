@@ -15,7 +15,7 @@ import WeekChart from "./_components/week-chart";
 import { useGetOrderForecast } from "./hooks";
 
 export default function OrderForecastingDashboard() {
-  const { data, isLoading, isError } = useGetOrderForecast();
+  const { data, isLoading, isError, refetch } = useGetOrderForecast();
   const { toast } = useToast();
   const { data: user } = useAuth();
 
@@ -55,7 +55,11 @@ export default function OrderForecastingDashboard() {
                 cancelledOrders={cancelledOrders}
               />
               <MonthChart data={data} isLoading={isLoading} />
-              <OrderStatusTable data={data} isLoading={isLoading} />
+              <OrderStatusTable
+                data={data}
+                isLoading={isLoading}
+                refetch={refetch}
+              />
             </section>
 
             {/* Right side */}

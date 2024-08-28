@@ -1,3 +1,5 @@
+import DeleteButton from "@/components/delete-button";
+import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -6,16 +8,18 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Trash2 } from "lucide-react";
 import { OrderForecast } from "../types";
-import DeleteForecast from "./delete-forecast";
 import PredictRecord from "./predict-record";
 
 export default function OrderStatusTable({
   isLoading,
   data,
+  refetch,
 }: {
   isLoading: boolean;
   data: OrderForecast[] | undefined;
+  refetch: () => void;
 }) {
   return (
     <div className="hidden h-[548px] w-full overflow-hidden rounded-md border border-border bg-card px-4 py-4 dark:bg-muted-foreground/10 md:block">
@@ -69,7 +73,20 @@ export default function OrderStatusTable({
                     </div>
                   </TableCell>
                   <TableCell>
-                    <DeleteForecast id={item.id} />
+                    <DeleteButton
+                      id={item.id}
+                      url={process.env.NEXT_PUBLIC_ORDER_FORECAST_API as string}
+                      refetch={refetch}
+                      button={
+                        <Button
+                          variant="outline"
+                          size="icon"
+                          className="rounded-full text-red-500 hover:text-red-500/90"
+                        >
+                          <Trash2 size={14} />
+                        </Button>
+                      }
+                    />
                   </TableCell>
                 </TableRow>
               ))}

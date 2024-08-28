@@ -2,7 +2,6 @@
 
 import Container from "@/components/container";
 import PageHeader from "@/components/page-header";
-import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -11,7 +10,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { ChevronDown } from "lucide-react";
+import ActionButton from "./_components/action-button";
 import AddUserButton from "./_components/add-user-button";
 import { useGetUsers } from "./hooks";
 
@@ -27,7 +26,7 @@ export default function RolesPage() {
           button={<AddUserButton refetch={refetch} />}
         />
 
-        <section className="remove-scrollbar my-2 max-h-[610px] overflow-auto rounded-lg border bg-card/30 shadow dark:bg-muted-foreground/10 md:my-4">
+        <section className="remove-scrollbar my-2 max-h-[610px] overflow-auto rounded-lg border bg-card shadow dark:bg-muted-foreground/10 md:my-4">
           <Table>
             <TableHeader>
               <TableRow>
@@ -58,13 +57,7 @@ export default function RolesPage() {
                       </span>
                     </TableCell>
                     <TableCell>
-                      <Button
-                        variant="outline"
-                        size="icon"
-                        className="rounded-full"
-                      >
-                        <ChevronDown size={14} />
-                      </Button>
+                      <ActionButton id={item.id} refetch={refetch} />
                     </TableCell>
                   </TableRow>
                 ))}
