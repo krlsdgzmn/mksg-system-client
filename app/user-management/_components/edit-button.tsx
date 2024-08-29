@@ -1,4 +1,6 @@
+import { User } from "@/app/providers";
 import { Button } from "@/components/ui/button";
+
 import {
   Dialog,
   DialogContent,
@@ -27,7 +29,7 @@ import {
 import { useToast } from "@/components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
-import { Loader2, User2 } from "lucide-react";
+import { Loader2, Pencil, User2 } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -105,6 +107,7 @@ const inputs = [
     id: "username",
     name: "Username",
     type: "text",
+    isDisabled: true,
   },
   {
     id: "password",
@@ -118,12 +121,24 @@ const inputs = [
   },
 ];
 
-export default function AddUserButton({ refetch }: { refetch: () => void }) {
+export default function EditButton({
+  user,
+  refetch,
+}: {
+  user: User;
+  refetch: () => void;
+}) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [open, setOpen] = useState(false);
   const { toast } = useToast();
+
   const form = useForm<z.infer<typeof AddUserFormSchema>>({
     resolver: zodResolver(AddUserFormSchema),
+    defaultValues: {
+      ...user,
+      password: "",
+      confirm_password: "",
+    },
   });
 
   const onSubmit = async (values: z.infer<typeof AddUserFormSchema>) => {
@@ -131,39 +146,37 @@ export default function AddUserButton({ refetch }: { refetch: () => void }) {
 
     try {
       const formData = {
-        username: values.username,
         password: values.password,
         first_name: values.first_name,
         last_name: values.last_name,
         role: values.role,
       };
 
-      await axios.post(
-        `${process.env.NEXT_PUBLIC_AUTH_API}register/`,
-        formData,
-      );
+      if (user)
+        await axios.put(
+          `${process.env.NEXT_PUBLIC_AUTH_API}user/${user.id}/`,
+          formData,
+        );
 
       refetch();
 
       toast({
         title: "Success",
-        description: "You have successfully added a user.",
+        description: "You have successfully updated the user.",
       });
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
-        // Check if the error is due to the user already existing
         if (
           error.response.status === 400 &&
-          error.response.data.detail === "User already exists."
+          error.response.data.detail.includes("sqlite3.IntegrityError")
         ) {
           toast({
             title: "Failed",
             description:
-              "User already exists. Please try a different username.",
+              "Username already exists. Please choose a different username.",
             variant: "destructive",
           });
         } else {
-          // Handle other types of errors
           toast({
             title: "Failed",
             description: `Please try again. ${error.response.data.detail}`,
@@ -171,7 +184,6 @@ export default function AddUserButton({ refetch }: { refetch: () => void }) {
           });
         }
       } else {
-        // Handle non-Axios errors
         toast({
           title: "Failed",
           description: "An unexpected error occurred. Please try again.",
@@ -180,14 +192,15 @@ export default function AddUserButton({ refetch }: { refetch: () => void }) {
       }
     } finally {
       setIsLoading(false);
-      form.reset({
-        first_name: undefined,
-        last_name: undefined,
-        username: undefined,
-        password: undefined,
-        role: undefined,
-      });
       setOpen(false);
+      form.reset({
+        first_name: "",
+        last_name: "",
+        username: "",
+        password: "",
+        confirm_password: "",
+        role: "",
+      });
     }
   };
 
@@ -195,12 +208,10 @@ export default function AddUserButton({ refetch }: { refetch: () => void }) {
     <Dialog onOpenChange={setOpen} open={open}>
       <DialogTrigger asChild>
         <Button
-          className="mt-2 flex items-center gap-2"
           variant="outline"
-          size="sm"
+          className="rounded-none border-none text-blue-500 hover:text-blue-500/90"
         >
-          <User2 size={14} />
-          Add User
+          <Pencil size={14} />
         </Button>
       </DialogTrigger>
 
@@ -208,10 +219,10 @@ export default function AddUserButton({ refetch }: { refetch: () => void }) {
         <DialogHeader className="pt-4 text-left">
           <DialogTitle className="flex items-end gap-2 leading-4">
             <User2 size={18} />
-            Add User
+            Edit User
           </DialogTitle>
           <DialogDescription>
-            Fill out the form below to add a user
+            Fill out the form below to edit user details
           </DialogDescription>
         </DialogHeader>
 
@@ -227,7 +238,11 @@ export default function AddUserButton({ refetch }: { refetch: () => void }) {
                     <FormItem key={item.id}>
                       <FormLabel>{item.name}</FormLabel>
                       <FormControl>
-                        <Input type={item.type} {...field} />
+                        <Input
+                          {...field}
+                          type={item.type}
+                          disabled={item.isDisabled}
+                        />
                       </FormControl>
 
                       <FormMessage className="text-sm text-red-500/90" />
@@ -242,13 +257,10 @@ export default function AddUserButton({ refetch }: { refetch: () => void }) {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Role</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
+                    <Select value={field.value} onValueChange={field.onChange}>
                       <FormControl>
                         <SelectTrigger>
-                          <SelectValue placeholder="Select a role to display" />
+                          <SelectValue placeholder="Select a role" />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
@@ -268,7 +280,7 @@ export default function AddUserButton({ refetch }: { refetch: () => void }) {
                 disabled={isLoading}
               >
                 {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                {isLoading ? "Submitting..." : "Submit"}
+                {isLoading ? "Saving..." : "Save Changes"}
               </Button>
             </DialogFooter>
           </form>
