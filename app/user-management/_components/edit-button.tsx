@@ -146,6 +146,7 @@ export default function EditButton({
 
     try {
       const formData = {
+        username: values.username,
         password: values.password,
         first_name: values.first_name,
         last_name: values.last_name,
@@ -193,14 +194,6 @@ export default function EditButton({
     } finally {
       setIsLoading(false);
       setOpen(false);
-      form.reset({
-        first_name: "",
-        last_name: "",
-        username: "",
-        password: "",
-        confirm_password: "",
-        role: "",
-      });
     }
   };
 
