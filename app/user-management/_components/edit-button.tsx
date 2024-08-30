@@ -1,4 +1,4 @@
-import { User } from "@/app/providers";
+import { User } from "@/app/types";
 import { Button } from "@/components/ui/button";
 
 import {

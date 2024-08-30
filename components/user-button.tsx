@@ -1,4 +1,3 @@
-import { User } from "@/app/providers";
 import { LogOut, Settings, User2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Button } from "./ui/button";
