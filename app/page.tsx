@@ -1,13 +1,14 @@
 "use client";
 
 import Container from "@/components/container";
+import Loader from "@/components/loader";
 import { Button } from "@/components/ui/button";
 import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
@@ -94,7 +95,11 @@ export default function SignInPage() {
     }
   };
 
-  if (!data)
+  if (data) router.push("/order-forecast");
+
+  if (isLoading) return <Loader />;
+
+  if (!data && !isLoading)
     return (
       <Container className="relative flex min-h-[85vh] items-center justify-center">
         <div className="flex w-[95%] max-w-[300px] flex-col items-center justify-center gap-3">

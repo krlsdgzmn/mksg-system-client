@@ -1,7 +1,9 @@
 "use client";
 
 import Container from "@/components/container";
+import Loader from "@/components/loader";
 import PageHeader from "@/components/page-header";
+import ShieldAlert from "@/components/shield-alert";
 import {
   Table,
   TableBody,
@@ -19,7 +21,25 @@ export default function RolesPage() {
   const { data, refetch, isLoading } = useGetUsers();
   const { data: user } = useAuth();
 
-  if (user)
+  if (user && user.role === "User")
+    return (
+      <ShieldAlert
+        header="Please contact your admin."
+        subheader="The page you're trying to access requires authorization."
+      />
+    );
+
+  if (isLoading) return <Loader />;
+
+  if (!user && !isLoading)
+    return (
+      <ShieldAlert
+        header="Please sign in to continue."
+        subheader="The page you're trying to access requires authentication."
+      />
+    );
+
+  if (user && !isLoading)
     return (
       <Container className="flex min-h-[86vh] flex-col items-center overflow-auto">
         <main className="w-full overflow-hidden">
