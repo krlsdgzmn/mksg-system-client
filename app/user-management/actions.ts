@@ -1,4 +1,4 @@
-import { User } from "../providers";
+import { User } from "../types";
 
 const USER_API = process.env.NEXT_PUBLIC_USER_API as string;
 

@@ -17,7 +17,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { useAuth } from "./providers";
+import { useAuth } from "./hooks";
 
 const SignInFormSchema = z.object({
   username: z
@@ -60,7 +60,7 @@ const inputs = [
 export default function SignInPage() {
   const { toast } = useToast();
   const router = useRouter();
-  const { signIn, data } = useAuth();
+  const { signIn } = useAuth();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const form = useForm<z.infer<typeof SignInFormSchema>>({
@@ -75,7 +75,7 @@ export default function SignInPage() {
     setIsLoading(true);
 
     try {
-      await signIn(values.username, values.password);
+      await signIn(values);
       toast({
         title: "Success",
         description: "You are signed in to MKSG Clothing system",
@@ -94,67 +94,72 @@ export default function SignInPage() {
     }
   };
 
+  if (isLoading)
+    return (
+      <Container className="relative flex min-h-screen items-center justify-center border">
+        <Loader2 size={32} className="animate-spin" />
+      </Container>
+    );
+
   return (
     <Container className="relative flex min-h-[85vh] items-center justify-center">
-      {!data && (
-        <div className="flex w-[95%] max-w-[300px] flex-col items-center justify-center gap-3">
-          <header className="pb-2 text-center">
-            <h1 className="bg-gradient-to-b from-black/60 to-black bg-clip-text text-3xl font-bold text-transparent dark:from-white dark:to-white/50">
-              MKSG Clothing
-            </h1>
-            <p className="text-base text-muted-foreground">
-              Please sign in to continue
-            </p>
-          </header>
+      <div className="flex w-[95%] max-w-[300px] flex-col items-center justify-center gap-3">
+        <header className="pb-2 text-center">
+          <h1 className="bg-gradient-to-b from-black/60 to-black bg-clip-text text-3xl font-bold text-transparent dark:from-white dark:to-white/50">
+            MKSG Clothing
+          </h1>
+          <p className="text-base text-muted-foreground">
+            Please sign in to continue
+          </p>
+        </header>
 
-          <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(onSubmit)}
-              className="w-full space-y-3"
-            >
-              {inputs.map((item) => (
-                <FormField
-                  key={item.name}
-                  control={form.control}
-                  name={
-                    item.name.toLowerCase() as keyof z.infer<
-                      typeof SignInFormSchema
-                    >
-                  }
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input
-                          type={item.type}
-                          placeholder={item.name}
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage className="text-sm text-red-500/90" />
-                    </FormItem>
-                  )}
-                />
-              ))}
-
-              <Button
-                className="flex w-full items-center gap-1 text-sm"
-                variant="outline"
-                type="submit"
-                disabled={isLoading}
-              >
-                {isLoading && <Loader2 className="h-4 w-4 animate-spin" />}
-                {isLoading ? (
-                  "Signing In..."
-                ) : (
-                  <>
-                    Sign In <LogIn size={14} />
-                  </>
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="w-full space-y-3"
+          >
+            {inputs.map((item) => (
+              <FormField
+                key={item.name}
+                control={form.control}
+                name={
+                  item.name.toLowerCase() as keyof z.infer<
+                    typeof SignInFormSchema
+                  >
+                }
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input
+                        type={item.type}
+                        placeholder={item.name}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage className="text-sm text-red-500/90" />
+                  </FormItem>
                 )}
-              </Button>
-            </form>
-          </Form>
-        </div>
-      )}
+              />
+            ))}
+
+            <Button
+              className="flex w-full items-center gap-1 text-sm"
+              variant="outline"
+              type="submit"
+              disabled={isLoading}
+            >
+              {isLoading && <Loader2 className="h-4 w-4 animate-spin" />}
+              {isLoading ? (
+                "Signing In..."
+              ) : (
+                <>
+                  Sign In <LogIn size={14} />
+                </>
+              )}
+            </Button>
+          </form>
+        </Form>
+      </div>
     </Container>
   );
 }
