@@ -45,7 +45,7 @@ export default function RolesPage() {
               {data !== undefined && (
                 <TableBody>
                   {data.map((item) => (
-                    <TableRow key={item.id}>
+                    <TableRow key={item.id} className="min-h-75">
                       <TableCell className="font-semibold text-muted-foreground">
                         {item.id}
                       </TableCell>
