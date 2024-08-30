@@ -15,7 +15,7 @@ export default function ShieldAlert({ header, subheader }: ShieldAlertProps) {
   return (
     <Container className="relative flex min-h-[86vh] items-center justify-center">
       <main className="flex max-w-[350px] flex-col">
-        <div className="flex items-center gap-2 text-destructive">
+        <div className="flex items-center gap-2 text-red-500">
           <ShieldAlertIcon size={32} />
           <h1 className="text-sm font-bold">Shield Alert</h1>
         </div>

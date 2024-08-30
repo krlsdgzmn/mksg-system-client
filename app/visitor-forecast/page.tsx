@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Container from "@/components/container";
 import Loader from "@/components/loader";
 import PageHeader from "@/components/page-header";
@@ -8,26 +9,33 @@ import { useAuth } from "../hooks";
 
 export default function VisitorForecast() {
   const { data: user, isLoading } = useAuth();
+  const [checkedAuth, setCheckedAuth] = useState(false);
 
-  if (isLoading) return <Loader />;
+  useEffect(() => {
+    if (!isLoading) {
+      setCheckedAuth(true);
+    }
+  }, [isLoading]);
 
-  if (!user && !isLoading)
+  if (isLoading || !checkedAuth) return <Loader />;
+
+  if (!user) {
     return (
       <ShieldAlert
         header="Please sign in to continue."
         subheader="The page you're trying to access requires authentication."
       />
     );
+  }
 
-  if (user && !isLoading)
-    return (
-      <Container className="flex min-h-[86vh] flex-col items-center overflow-auto">
-        <main className="w-full">
-          <PageHeader
-            header="Visitor Forecasting Dashboard"
-            subheader="Hourly Visitor Traffic Predictions"
-          />
-        </main>
-      </Container>
-    );
+  return (
+    <Container className="flex min-h-[86vh] flex-col items-center overflow-auto">
+      <main className="w-full">
+        <PageHeader
+          header="Visitor Forecasting Dashboard"
+          subheader="Hourly Visitor Traffic Predictions"
+        />
+      </main>
+    </Container>
+  );
 }
