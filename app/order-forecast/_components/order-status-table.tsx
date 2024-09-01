@@ -39,7 +39,7 @@ export default function OrderStatusTable({
       <section className="remove-scrollbar h-[87%] overflow-auto">
         <Table>
           <TableHeader>
-            <TableRow>
+            <TableRow className="h-[73px]">
               <TableHead>ID</TableHead>
               <TableHead className="min-w-[100px]">Price Range</TableHead>
               <TableHead>Discount Range</TableHead>

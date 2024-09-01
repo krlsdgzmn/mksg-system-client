@@ -103,8 +103,8 @@ export default function VisitorForecast() {
                   }}
                   label={{
                     value: "Time (Hours)",
-                    position: "insideBottom", // Position the label at the bottom inside
-                    offset: -15, // Adjust the offset as needed
+                    position: "insideBottom",
+                    offset: -15,
                   }}
                 />
 
@@ -114,9 +114,9 @@ export default function VisitorForecast() {
                   minTickGap={32}
                   label={{
                     value: "Visitors (Count)",
-                    angle: -90, // Rotate the label 90 degrees counterclockwise
-                    position: "insideLeft", // Position the label inside on the left
-                    style: { textAnchor: "middle" }, // Center the label
+                    angle: -90,
+                    position: "insideLeft",
+                    style: { textAnchor: "middle" },
                   }}
                 />
 
