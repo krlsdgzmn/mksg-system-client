@@ -58,7 +58,7 @@ export default function RolesPage() {
           button={<AddUserButton refetch={refetch} />}
         />
 
-        <section className="remove-scrollbar my-2 max-h-[610px] overflow-auto rounded-lg border bg-card shadow dark:bg-muted-foreground/10 md:my-4">
+        <section className="remove-scrollbar my-2 max-h-[610px] overflow-auto rounded-lg border bg-card shadow dark:bg-muted-foreground/10 xl:my-4">
           <Table>
             <TableHeader>
               <TableRow>
