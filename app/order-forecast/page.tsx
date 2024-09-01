@@ -4,7 +4,6 @@ import Container from "@/components/container";
 import Loader from "@/components/loader";
 import PageHeader from "@/components/page-header";
 import ShieldAlert from "@/components/shield-alert";
-import { useToast } from "@/components/ui/use-toast";
 import { useEffect, useState } from "react";
 import { useAuth } from "../hooks";
 import DataFilters from "./_components/data-filters";
@@ -17,33 +16,9 @@ import WeekChart from "./_components/week-chart";
 import { useGetOrderForecast } from "./hooks";
 
 export default function OrderForecastingDashboard() {
-  const {
-    data,
-    isLoading: isLoadingData,
-    isError,
-    refetch,
-  } = useGetOrderForecast();
+  const { data, isLoading: isLoadingData, refetch } = useGetOrderForecast();
   const [checkedAuth, setCheckedAuth] = useState(false);
-  const { toast } = useToast();
   const { data: user, isLoading: isLoadingAuth } = useAuth();
-
-  const totalOrders = data ? data.length : 0;
-  const completedOrders = data
-    ? data.filter((item) => item.order_status === "Completed").length
-    : 0;
-  const cancelledOrders = data
-    ? data.filter((item) => item.order_status === "Cancelled").length
-    : 0;
-
-  useEffect(() => {
-    if (isError) {
-      toast({
-        title: "Failed to fetch data",
-        description: "Please reload the page",
-        variant: "destructive",
-      });
-    }
-  }, [isError, toast]);
 
   useEffect(() => {
     if (!isLoadingAuth) {
@@ -61,6 +36,14 @@ export default function OrderForecastingDashboard() {
       />
     );
   }
+
+  const totalOrders = data ? data.length : 0;
+  const completedOrders = data
+    ? data.filter((item) => item.order_status === "Completed").length
+    : 0;
+  const cancelledOrders = data
+    ? data.filter((item) => item.order_status === "Cancelled").length
+    : 0;
 
   return (
     <Container className="flex min-h-[85vh] flex-col items-center overflow-auto">
