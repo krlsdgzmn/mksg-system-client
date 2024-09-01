@@ -15,7 +15,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2, LogIn } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useAuth } from "./hooks";
@@ -61,9 +61,8 @@ const inputs = [
 export default function SignInPage() {
   const { toast } = useToast();
   const router = useRouter();
-  const { signIn, data, isLoading: authLoading } = useAuth();
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const [checkedAuth, setCheckedAuth] = useState<boolean>(false);
+  const { signIn, data } = useAuth();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const form = useForm<z.infer<typeof SignInFormSchema>>({
     resolver: zodResolver(SignInFormSchema),
@@ -73,18 +72,8 @@ export default function SignInPage() {
     },
   });
 
-  useEffect(() => {
-    if (!authLoading) {
-      if (data) {
-        router.push("/order-forecast");
-      } else {
-        setCheckedAuth(true);
-      }
-    }
-  }, [data, authLoading, router]);
-
   const onSubmit = async (values: z.infer<typeof SignInFormSchema>) => {
-    setIsSubmitting(true);
+    setIsLoading(true);
 
     try {
       await signIn(values);
@@ -102,72 +91,74 @@ export default function SignInPage() {
         variant: "destructive",
       });
     } finally {
-      setIsSubmitting(false);
+      setIsLoading(false);
     }
   };
 
-  // Show the loader until the authentication state is fully resolved
-  if (authLoading || isSubmitting || !checkedAuth) return <Loader />;
+  if (data) router.push("/order-forecast");
 
-  return (
-    <Container className="relative flex min-h-[85vh] items-center justify-center">
-      <div className="flex w-[95%] max-w-[300px] flex-col items-center justify-center gap-3">
-        <header className="pb-2 text-center">
-          <h1 className="bg-gradient-to-b from-black/60 to-black bg-clip-text text-3xl font-bold text-transparent dark:from-white dark:to-white/50">
-            MKSG Clothing
-          </h1>
-          <p className="text-base text-muted-foreground">
-            Please sign in to continue
-          </p>
-        </header>
+  if (isLoading) return <Loader />;
 
-        <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="w-full space-y-3"
-          >
-            {inputs.map((item) => (
-              <FormField
-                key={item.name}
-                control={form.control}
-                name={
-                  item.name.toLowerCase() as keyof z.infer<
-                    typeof SignInFormSchema
-                  >
-                }
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <Input
-                        type={item.type}
-                        placeholder={item.name}
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage className="text-sm text-red-500/90" />
-                  </FormItem>
-                )}
-              />
-            ))}
+  if (!data && !isLoading)
+    return (
+      <Container className="relative flex min-h-[85vh] items-center justify-center">
+        <div className="flex w-[95%] max-w-[300px] flex-col items-center justify-center gap-3">
+          <header className="pb-2 text-center">
+            <h1 className="bg-gradient-to-b from-black/60 to-black bg-clip-text text-3xl font-bold text-transparent dark:from-white dark:to-white/50">
+              MKSG Clothing
+            </h1>
+            <p className="text-base text-muted-foreground">
+              Please sign in to continue
+            </p>
+          </header>
 
-            <Button
-              className="flex w-full items-center gap-1 text-sm"
-              variant="outline"
-              type="submit"
-              disabled={isSubmitting}
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="w-full space-y-3"
             >
-              {isSubmitting && <Loader2 className="h-4 w-4 animate-spin" />}
-              {isSubmitting ? (
-                "Signing In..."
-              ) : (
-                <>
-                  Sign In <LogIn size={14} />
-                </>
-              )}
-            </Button>
-          </form>
-        </Form>
-      </div>
-    </Container>
-  );
+              {inputs.map((item) => (
+                <FormField
+                  key={item.name}
+                  control={form.control}
+                  name={
+                    item.name.toLowerCase() as keyof z.infer<
+                      typeof SignInFormSchema
+                    >
+                  }
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input
+                          type={item.type}
+                          placeholder={item.name}
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage className="text-sm text-red-500/90" />
+                    </FormItem>
+                  )}
+                />
+              ))}
+
+              <Button
+                className="flex w-full items-center gap-1 text-sm"
+                variant="outline"
+                type="submit"
+                disabled={isLoading}
+              >
+                {isLoading && <Loader2 className="h-4 w-4 animate-spin" />}
+                {isLoading ? (
+                  "Signing In..."
+                ) : (
+                  <>
+                    Sign In <LogIn size={14} />
+                  </>
+                )}
+              </Button>
+            </form>
+          </Form>
+        </div>
+      </Container>
+    );
 }
