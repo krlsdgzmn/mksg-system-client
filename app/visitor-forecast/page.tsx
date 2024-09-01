@@ -25,7 +25,6 @@ import { useAuth } from "../hooks";
 const chartConfig = {
   value: {
     label: "Visitors",
-    color: "hsl(var(--cancelled))",
   },
 } satisfies ChartConfig;
 
@@ -87,7 +86,7 @@ export default function VisitorForecast() {
               <BarChart
                 accessibilityLayer
                 margin={{
-                  top: 50,
+                  top: 60,
                   bottom: 16,
                 }}
                 data={visitorsData}
@@ -123,7 +122,7 @@ export default function VisitorForecast() {
 
                 <ChartTooltip content={<ChartTooltipContent />} />
 
-                <Bar dataKey="value" fill="#93C276" radius={[4, 4, 4, 4]}>
+                <Bar dataKey="value" fill="#60A5FA" radius={[4, 4, 4, 4]}>
                   <LabelList
                     position="top"
                     offset={6}
