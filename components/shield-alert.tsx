@@ -13,7 +13,7 @@ export default function ShieldAlert({ header, subheader }: ShieldAlertProps) {
   const router = useRouter();
 
   return (
-    <Container className="relative flex min-h-[86vh] items-center justify-center">
+    <Container className="relative flex min-h-[85vh] items-center justify-center">
       <main className="flex max-w-[350px] flex-col">
         <div className="flex items-center gap-2 text-red-500">
           <ShieldAlertIcon size={32} />

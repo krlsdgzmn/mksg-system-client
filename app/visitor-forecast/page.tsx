@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Container from "@/components/container";
 import Loader from "@/components/loader";
 import PageHeader from "@/components/page-header";
 import ShieldAlert from "@/components/shield-alert";
+import { useEffect, useState } from "react";
 import { useAuth } from "../hooks";
 
 export default function VisitorForecast() {
@@ -29,7 +29,7 @@ export default function VisitorForecast() {
   }
 
   return (
-    <Container className="flex min-h-[86vh] flex-col items-center overflow-auto">
+    <Container className="flex min-h-[85vh] flex-col items-center overflow-auto">
       <main className="w-full">
         <PageHeader
           header="Visitor Forecasting Dashboard"
