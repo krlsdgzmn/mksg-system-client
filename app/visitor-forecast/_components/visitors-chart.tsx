@@ -27,7 +27,7 @@ const visitorsData = visitorForecastData.filter((item) =>
 
 export default function VisitorsChart() {
   return (
-    <div className="my-2 h-[500px] overflow-hidden rounded-md border border-border bg-card p-4 shadow dark:bg-muted-foreground/10 xl:my-4">
+    <div className="h-[500px] overflow-hidden rounded-md border border-border bg-card p-4 shadow dark:bg-muted-foreground/10">
       <header className="flex items-end justify-between border-b pb-1">
         <div>
           <h2 className="pt-3 text-xs text-muted-foreground sm:text-sm">

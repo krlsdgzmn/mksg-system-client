@@ -1,5 +1,6 @@
-import { LogOut, Settings, User2 } from "lucide-react";
+import { LogOut, User2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import AccountSettings from "./account-settings";
 import { Button } from "./ui/button";
 import {
   DropdownMenu,
@@ -31,21 +32,14 @@ export default function UserButton({ signOut }: { signOut: () => void }) {
 
       <DropdownMenuContent
         align="end"
-        className="bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-background/90"
+        className="flex flex-col bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-background/90"
       >
-        <Button
-          variant="ghost"
-          className="flex w-full items-center gap-2 text-sm"
-        >
-          <Settings size={14} /> Settings
-        </Button>
+        <AccountSettings />
 
-        <Button
-          onClick={handleSignOut}
-          variant="ghost"
-          className="flex w-full items-center gap-2 text-sm"
-        >
-          <LogOut size={14} /> Sign Out
+        <Button onClick={handleSignOut} variant="ghost">
+          <div className="flex w-full items-center gap-4">
+            <LogOut size={14} /> Sign Out
+          </div>
         </Button>
       </DropdownMenuContent>
     </DropdownMenu>

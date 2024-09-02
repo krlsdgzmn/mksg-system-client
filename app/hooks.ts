@@ -1,7 +1,6 @@
 "use client";
 
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { authSignIn, authSignOut, authVerifyToken } from "./actions";
 import { SignInForm, User } from "./types";
@@ -21,7 +20,7 @@ export const useAuth = () => {
     queryClient.removeQueries({ queryKey: [QUERY_KEY] });
   };
 
-  const { data, isLoading, isError } = useQuery<User>({
+  const { data, isLoading, isError, refetch } = useQuery<User>({
     queryKey: [QUERY_KEY],
     queryFn: authVerifyToken,
     staleTime: 1000 * 60 * 1,
@@ -38,6 +37,7 @@ export const useAuth = () => {
     data,
     isLoading,
     isError,
+    refetch,
     signIn,
     signOut,
   };

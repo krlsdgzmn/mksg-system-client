@@ -39,7 +39,7 @@ export default function VisitorForecastPage() {
           className="pb-2 xl:pb-4"
         />
 
-        <KPISection totalOrders={10} completedOrders={5} cancelledOrders={5} />
+        {/* <KPISection totalOrders={10} completedOrders={5} cancelledOrders={5} /> */}
 
         <VisitorsChart />
       </main>
