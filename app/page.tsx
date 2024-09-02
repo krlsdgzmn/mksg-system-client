@@ -19,7 +19,6 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useAuth } from "./hooks";
-import { useGetOrderForecast } from "./order-forecast/hooks";
 
 const SignInFormSchema = z.object({
   username: z
@@ -61,9 +60,8 @@ const inputs = [
 
 export default function SignInPage() {
   const { toast } = useToast();
-  const { signIn, data } = useAuth();
+  const { signIn, data, isLoading } = useAuth();
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const { isLoading } = useGetOrderForecast();
   const [checkedAuth, setCheckedAuth] = useState(false);
 
   const form = useForm<z.infer<typeof SignInFormSchema>>({
