@@ -102,7 +102,7 @@ export default function DistanceChart({
               dataKey="cancelled"
               stackId="a"
               fill="var(--color-cancelled)"
-              radius={[0, 0, 4, 4]}
+              radius={[0, 0, 0, 0]}
             />
             <Bar
               dataKey="completed"

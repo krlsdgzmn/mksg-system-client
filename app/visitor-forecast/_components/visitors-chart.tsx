@@ -87,7 +87,7 @@ export default function VisitorsChart() {
 
           <ChartTooltip content={<ChartTooltipContent />} />
 
-          <Bar dataKey="value" fill="#60A5FA" radius={[4, 4, 4, 4]}>
+          <Bar dataKey="value" fill="#60A5FA" radius={[4, 4, 0, 0]}>
             {visitorsData.length === 24 && window.innerWidth >= 768 && (
               <LabelList
                 position="top"

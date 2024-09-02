@@ -25,7 +25,12 @@ export default function UserButton({ signOut }: { signOut: () => void }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="icon" className="rounded-full text-xs">
+        <Button
+          variant="outline"
+          size="icon"
+          title="Settings"
+          className="rounded-full text-xs"
+        >
           <User2 size={18} />
         </Button>
       </DropdownMenuTrigger>
