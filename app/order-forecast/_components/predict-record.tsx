@@ -119,7 +119,7 @@ export default function PredictRecord() {
 
     try {
       await axios.post(ORDER_FORECAST_API, formData);
-      refetch();
+      await refetch();
       toast({
         title: "Success",
         description: "You have successfully predicted a record",

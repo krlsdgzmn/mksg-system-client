@@ -8,7 +8,7 @@ export const useGetUsers = () => {
   return useQuery<User[]>({
     queryKey: [QUERY_KEY],
     queryFn: getUsers,
-    staleTime: 1000 * 60 * 1,
+    staleTime: 1000 * 60,
   });
 };
 
@@ -16,7 +16,7 @@ export const useGetUserById = (id: number) => {
   return useQuery<User>({
     queryKey: [`${QUERY_KEY}_${id}`],
     queryFn: () => getUserById(id),
-    staleTime: 1000 * 60 * 1,
+    staleTime: 1000 * 60,
     enabled: !!id,
   });
 };

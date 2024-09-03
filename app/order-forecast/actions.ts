@@ -17,8 +17,7 @@ const buildQuery = (filters: FilterCategories) => {
 // Function to get order forecasts
 export const getOrderForecast = async (): Promise<OrderForecast[]> => {
   const response = await fetch(ORDER_FORECAST_API);
-  const data = await response.json();
-  return data;
+  return await response.json();
 };
 
 // Function to get filtered order forecasts
@@ -27,6 +26,5 @@ export const getFilteredOrderForecast = async (
 ): Promise<OrderForecast[]> => {
   const query = buildQuery(filters);
   const response = await fetch(`${ORDER_FORECAST_API}?${query}`);
-  const data = await response.json();
-  return data;
+  return await response.json();
 };

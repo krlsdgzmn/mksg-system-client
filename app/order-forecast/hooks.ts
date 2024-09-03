@@ -9,7 +9,7 @@ export const useGetOrderForecast = () => {
   return useQuery<OrderForecast[]>({
     queryKey: [QUERY_KEY],
     queryFn: getOrderForecast,
-    staleTime: 1000 * 60 * 1,
+    staleTime: 1000 * 60,
   });
 };
 

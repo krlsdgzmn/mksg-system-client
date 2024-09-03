@@ -1,4 +1,3 @@
-import { User } from "@/app/types";
 import {
   Dialog,
   DialogContent,
@@ -33,7 +32,6 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "./ui/button";
 import { useAuth } from "@/app/hooks";
-import { useGetUserById, useGetUsers } from "@/app/user-management/hooks";
 
 const AddUserFormSchema = z
   .object({
@@ -155,7 +153,7 @@ export default function AccountSettings() {
           formData,
         );
 
-      refetch();
+      await refetch();
 
       toast({
         title: "Success",
@@ -198,7 +196,7 @@ export default function AccountSettings() {
       <DialogTrigger asChild>
         <Button variant="ghost">
           <div className="flex w-full items-center gap-4">
-            <Settings size={14} /> Acccount
+            <Settings size={14} /> Account
           </div>
         </Button>
       </DialogTrigger>

@@ -23,7 +23,7 @@ export const useAuth = () => {
   const { data, isLoading, isError, refetch } = useQuery<User>({
     queryKey: [QUERY_KEY],
     queryFn: authVerifyToken,
-    staleTime: 1000 * 60 * 1,
+    staleTime: 1000 * 60,
     enabled: isClient && !!localStorage.getItem("token"),
   });
 
