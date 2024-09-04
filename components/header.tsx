@@ -43,7 +43,7 @@ export default function Header() {
                 <Link
                   key={item.name}
                   href={item.path}
-                  className={`${path === item.path ? "rounded-md bg-muted-foreground/10 text-gray-950 dark:bg-muted-foreground/20 dark:text-white" : ""} duration:100 items-center justify-center p-1 px-2.5 text-foreground/50 transition-colors focus-visible:outline-2 data-[checked=true]:text-foreground/90`}
+                  className={`${path === item.path ? "rounded-md bg-muted-foreground/10 text-gray-950 dark:bg-muted-foreground/20 dark:text-white" : ""} items-center justify-center p-1 px-2.5 text-foreground/50 transition-all duration-300 focus-visible:outline-2`}
                 >
                   {item.name}
                 </Link>
