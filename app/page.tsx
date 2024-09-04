@@ -72,13 +72,13 @@ export default function SignInPage() {
     },
   });
 
-  useEffect(() => {
-    if (!isLoading) {
-      setCheckedAuth(true);
-    }
-  }, [isLoading]);
-
-  if (isLoading || !checkedAuth) return <Loader />;
+  // useEffect(() => {
+  //   if (!isLoading) {
+  //     setCheckedAuth(true);
+  //   }
+  // }, [isLoading]);
+  //
+  // if (isLoading || !checkedAuth) return <Loader />;
 
   const onSubmit = async (values: z.infer<typeof SignInFormSchema>) => {
     setIsSubmitting(true);
