@@ -71,9 +71,9 @@ export default function VisitorForecastPage() {
     {
       name: "Peak Hour",
       info: "The hour of the day expected to have the highest number of visitors.",
-      value: 12,
-      unit: "PM",
+      value: 11,
       isLast: true,
+      isTime: true,
     },
   ];
 
@@ -143,9 +143,10 @@ export default function VisitorForecastPage() {
                   </h1>
 
                   <p className="text-base font-semibold sm:text-xl">
-                    {item.value}{" "}
+                    {item.value}
+                    {item.isTime && ":00 "}
                     <span className="text-xs font-medium text-muted-foreground">
-                      {item.unit}
+                      {item.isTime && (item.value < 12 ? "AM" : "PM")}
                     </span>
                   </p>
                 </div>
