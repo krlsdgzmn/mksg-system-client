@@ -137,7 +137,7 @@ export default function VisitorForecastPage() {
                     </TooltipProvider>
                   </h1>
 
-                  <p className="text-xl font-semibold">
+                  <p className="text-base font-semibold sm:text-xl">
                     {item.value}{" "}
                     <span className="text-xs font-medium text-muted-foreground">
                       {item.unit}
