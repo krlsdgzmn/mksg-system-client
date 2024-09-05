@@ -54,12 +54,6 @@ export default function VisitorForecastPage() {
       value: 1182,
     },
     {
-      name: "Peak Hour",
-      info: "The hour of the day expected to have the highest number of visitors.",
-      value: 12,
-      unit: "PM",
-    },
-    {
       name: "Current Hour Visitors",
       info: "Projected number of visitors expected in the current hour.",
       value: 107,
@@ -68,6 +62,17 @@ export default function VisitorForecastPage() {
       name: "Upcoming Hour Visitors",
       info: "Projected number of visitors expected in the next hour.",
       value: 57,
+    },
+    {
+      name: "Peak Visitors",
+      info: "The maximum number of visitors expected during the peak hour of the day.",
+      value: 125,
+    },
+    {
+      name: "Peak Hour",
+      info: "The hour of the day expected to have the highest number of visitors.",
+      value: 12,
+      unit: "PM",
       isLast: true,
     },
   ];
@@ -113,7 +118,7 @@ export default function VisitorForecastPage() {
               </ToggleGroup>
             </header>
 
-            <section className="grid min-h-[100px] grid-cols-2 items-center border-b xl:grid-cols-4 xl:gap-8">
+            <section className="grid min-h-[100px] grid-cols-2 items-center border-b xl:grid-cols-5 xl:gap-8">
               {metrics.map((item) => (
                 <div
                   key={item.name}
