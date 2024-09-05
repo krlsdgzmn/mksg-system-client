@@ -4,7 +4,6 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import { visitorForecastData } from "@/lib/visitor-forecast-data";
 import {
   Bar,
   BarChart,
@@ -13,6 +12,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import { VisitorsForecast } from "../type";
 
 const chartConfig = {
   value: {
@@ -20,12 +20,7 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-const today = "2024-08-30"; // new Date().toISOString().split("T")[0];
-const visitorsData = visitorForecastData.filter((item) =>
-  item.datetime.startsWith(today),
-);
-
-export default function VisitorsChart() {
+export default function VisitorsChart({ data }: { data: VisitorsForecast[] }) {
   return (
     <>
       {/* {isLoading && ( */}
@@ -41,15 +36,15 @@ export default function VisitorsChart() {
           accessibilityLayer
           margin={{
             top: 60,
-            bottom: 16,
+            bottom: 20,
           }}
-          data={visitorsData}
+          data={data}
         >
           <CartesianGrid vertical={false} />
 
           <XAxis
             dataKey="datetime"
-            tickMargin={8}
+            tickMargin={10}
             minTickGap={32}
             tickFormatter={(datetime) => {
               const hour = new Date(datetime).getHours();
@@ -60,11 +55,12 @@ export default function VisitorsChart() {
               position: "insideBottom",
               offset: -15,
             }}
+            opacity={0.75}
           />
 
           <YAxis
             dataKey="value"
-            tickMargin={8}
+            tickMargin={10}
             minTickGap={32}
             label={{
               value: "Visitors (Count)",
@@ -72,12 +68,13 @@ export default function VisitorsChart() {
               position: "insideLeft",
               style: { textAnchor: "middle" },
             }}
+            opacity={0.75}
           />
 
           <ChartTooltip content={<ChartTooltipContent />} />
 
           <Bar dataKey="value" fill="#60A5FA" radius={[4, 4, 0, 0]}>
-            {visitorsData.length === 24 && window.innerWidth >= 768 && (
+            {data.length === 24 && window.innerWidth >= 768 && (
               <LabelList
                 position="top"
                 offset={6}

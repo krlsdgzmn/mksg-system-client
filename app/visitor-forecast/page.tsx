@@ -5,11 +5,25 @@ import Loader from "@/components/loader";
 import PageHeader from "@/components/page-header";
 import ShieldAlert from "@/components/shield-alert";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { visitorForecastData } from "@/lib/visitor-forecast-data";
+import { Info } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useAuth } from "../hooks";
 import VisitorsChart from "./_components/visitors-chart";
+import { VisitorsForecast } from "./type";
 
 const dateFilters = ["24H", "3D", "7D"];
+
+const today = "2024-08-30"; // new Date().toISOString().split("T")[0];
+const visitorsData: VisitorsForecast[] = visitorForecastData.filter((item) =>
+  item.datetime.startsWith(today),
+);
 
 export default function VisitorForecastPage() {
   const { data: user, isLoading } = useAuth();
@@ -32,6 +46,31 @@ export default function VisitorForecastPage() {
       />
     );
   }
+
+  const metrics = [
+    {
+      name: "Total Visitors",
+      info: "Projected total number of visitors expected throughout the selected timeline.",
+      value: 1182,
+    },
+    {
+      name: "Peak Hour",
+      info: "The hour of the day expected to have the highest number of visitors.",
+      value: 12,
+      unit: "PM",
+    },
+    {
+      name: "Current Hour Visitors",
+      info: "Projected number of visitors expected in the current hour.",
+      value: 107,
+    },
+    {
+      name: "Upcoming Hour Visitors",
+      info: "Projected number of visitors expected in the next hour.",
+      value: 57,
+      isLast: true,
+    },
+  ];
 
   return (
     <Container className="flex min-h-[85vh] flex-col items-center overflow-auto">
@@ -74,11 +113,41 @@ export default function VisitorForecastPage() {
               </ToggleGroup>
             </header>
 
-            <section className="flex h-[100px] items-center border-b">
-              Metrics Section Work in Progress (WIP)
+            <section className="grid min-h-[100px] grid-cols-2 items-center border-b xl:grid-cols-4">
+              {metrics.map((item) => (
+                <div
+                  key={item.name}
+                  className={`${item.isLast && "border-none"} flex h-[70%] min-h-[75px] min-w-[200px] flex-col justify-center xl:mr-8 xl:border-r`}
+                >
+                  <h1 className="flex items-center gap-1.5 pb-1 text-[10px] font-semibold text-muted-foreground">
+                    <span className="uppercase">{item.name}</span>
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger>
+                          <Info
+                            size={16}
+                            className="fill-muted-foreground text-card"
+                          />
+                        </TooltipTrigger>
+
+                        <TooltipContent className="bg-muted-foreground text-white">
+                          <p className="text-xs">{item.info}</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  </h1>
+
+                  <p className="text-xl font-semibold">
+                    {item.value}{" "}
+                    <span className="text-xs font-medium text-muted-foreground">
+                      {item.unit}
+                    </span>
+                  </p>
+                </div>
+              ))}
             </section>
 
-            <VisitorsChart />
+            <VisitorsChart data={visitorsData} />
           </div>
         </section>
       </main>
