@@ -42,8 +42,8 @@ export default function VisitorForecastPage() {
         />
 
         <section className="space-y-2 py-2 xl:space-y-4 xl:py-4">
-          <div className="h-[600px] overflow-hidden rounded-md border border-border bg-card p-4 shadow dark:bg-muted-foreground/10">
-            <header className="flex items-center justify-between border-b pb-2">
+          <div className="min-h-[600px] overflow-hidden rounded-md border border-border bg-card p-4 shadow dark:bg-muted-foreground/10">
+            <header className="flex flex-col border-b pb-2 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <h2 className="pt-2 text-xs text-muted-foreground sm:text-sm">
                   Predictive Insights for Future Visitor Trends
@@ -60,12 +60,13 @@ export default function VisitorForecastPage() {
                   val && setToggle(val);
                 }}
                 defaultValue="24H"
+                className="w-fit py-2"
               >
                 {dateFilters.map((item) => (
                   <ToggleGroupItem
                     key={item}
                     value={item}
-                    className="font-semibold text-muted-foreground data-[state=on]:bg-blue-50 data-[state=on]:text-blue-500 dark:data-[state=on]:bg-blue-500/10 dark:data-[state=on]:text-blue-50"
+                    className="text-xs font-semibold text-muted-foreground data-[state=on]:bg-blue-50 data-[state=on]:text-blue-500 dark:data-[state=on]:bg-blue-500/10 dark:data-[state=on]:text-blue-50 sm:text-sm"
                   >
                     {item}
                   </ToggleGroupItem>
