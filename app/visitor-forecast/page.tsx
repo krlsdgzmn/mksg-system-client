@@ -113,11 +113,11 @@ export default function VisitorForecastPage() {
               </ToggleGroup>
             </header>
 
-            <section className="grid min-h-[100px] grid-cols-2 items-center border-b xl:grid-cols-4">
+            <section className="grid min-h-[100px] grid-cols-2 items-center border-b xl:grid-cols-4 xl:gap-8">
               {metrics.map((item) => (
                 <div
                   key={item.name}
-                  className={`${item.isLast && "border-none"} flex h-[70%] min-h-[75px] min-w-[200px] flex-col justify-center xl:mr-8 xl:border-r`}
+                  className={`${item.isLast && "border-none"} flex h-[70%] min-h-[75px] min-w-[200px] flex-col justify-center xl:border-r`}
                 >
                   <h1 className="flex items-center gap-1.5 pb-1 text-[10px] font-semibold text-muted-foreground">
                     <span className="uppercase">{item.name}</span>
