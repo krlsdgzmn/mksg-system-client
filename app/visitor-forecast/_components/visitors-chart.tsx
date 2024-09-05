@@ -20,7 +20,7 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-const today = new Date().toISOString().split("T")[0];
+const today = "2024-08-30"; // new Date().toISOString().split("T")[0];
 const visitorsData = visitorForecastData.filter((item) =>
   item.datetime.startsWith(today),
 );
