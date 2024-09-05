@@ -208,7 +208,7 @@ export default function AccountSettings() {
             Account Settings
           </DialogTitle>
           <DialogDescription>
-            Fill out the form below to your account details
+            Fill out the form below to edit your account details
           </DialogDescription>
         </DialogHeader>
 
