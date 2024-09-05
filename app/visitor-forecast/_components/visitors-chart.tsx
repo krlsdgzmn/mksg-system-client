@@ -27,18 +27,7 @@ const visitorsData = visitorForecastData.filter((item) =>
 
 export default function VisitorsChart() {
   return (
-    <div className="h-[500px] overflow-hidden rounded-md border border-border bg-card p-4 shadow dark:bg-muted-foreground/10">
-      <header className="flex items-end justify-between border-b pb-1">
-        <div>
-          <h2 className="pt-3 text-xs text-muted-foreground sm:text-sm">
-            Predictive Insights for Future Visitor Trends
-          </h2>
-          <h3 className="text-base font-semibold sm:text-xl">
-            Visitor Forecasts
-          </h3>
-        </div>
-      </header>
-
+    <>
       {/* {isLoading && ( */}
       {/*   <div className="mt-2 h-[76.5%] w-full animate-pulse rounded-md bg-gradient-to-br from-white/30 to-muted-foreground/30" /> */}
       {/* )} */}
@@ -105,6 +94,6 @@ export default function VisitorsChart() {
       {/*     No data found */}
       {/*   </div> */}
       {/* )} */}
-    </div>
+    </>
   );
 }
