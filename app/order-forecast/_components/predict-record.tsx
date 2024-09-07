@@ -10,7 +10,14 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Label } from "@/components/ui/label";
+import {
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  Form,
+  FormControl,
+} from "@/components/ui/form";
 import {
   Select,
   SelectContent,
@@ -19,9 +26,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useToast } from "@/components/ui/use-toast";
+import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { Glasses, Loader2 } from "lucide-react";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 import {
   DISCOUNT_BIN,
   DISTANCE_BIN,
@@ -31,15 +41,6 @@ import {
   WEEK,
 } from "../constants";
 import { useGetOrderForecast } from "../hooks";
-import { OrderForecast } from "../types";
-
-const initialFormData = {
-  price_bin: "",
-  discount_bin: "",
-  month: "",
-  week: "",
-  distance_bin: "",
-};
 
 const inputs = [
   {
@@ -84,47 +85,44 @@ const inputs = [
   },
 ];
 
+const PredictorsSchema = z.object({
+  price_bin: z.string().trim(),
+  discount_bin: z.string().trim(),
+  month: z.string().trim(),
+  week: z.string().trim(),
+  distance_bin: z.string().trim(),
+});
+
 export default function PredictRecord() {
-  const [formData, setFormData] = useState(initialFormData);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [open, setOpen] = useState(false);
   const { refetch } = useGetOrderForecast();
   const { toast } = useToast();
 
-  const handleSelectChange = (value: string, name: keyof OrderForecast) => {
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+  const form = useForm<z.infer<typeof PredictorsSchema>>({
+    resolver: zodResolver(PredictorsSchema),
+  });
 
-  const handleSubmit = async () => {
-    if (
-      !formData.distance_bin ||
-      !formData.week ||
-      !formData.month ||
-      !formData.price_bin ||
-      !formData.discount_bin
-    ) {
-      toast({
-        title: "Incomplete fields",
-        description: "Please fill all the required fields",
-        variant: "destructive",
-      });
-
-      return;
-    }
-
+  const onSubmit = async (values: z.infer<typeof PredictorsSchema>) => {
     setIsLoading(true);
 
     try {
+      const formData = {
+        price_bin: values.price_bin,
+        discount_bin: values.discount_bin,
+        month: values.month,
+        week: values.week,
+        distance_bin: values.distance_bin,
+      };
+
       await axios.post(ORDER_FORECAST_API, formData);
       await refetch();
       toast({
         title: "Success",
         description: "You have successfully predicted a record",
       });
-    } catch (_) {
+    } catch (error) {
+      console.error("Prediction Error:", error);
       toast({
         title: "Failed to predict",
         description: "Please try again",
@@ -132,8 +130,8 @@ export default function PredictRecord() {
       });
     } finally {
       setIsLoading(false);
-      setFormData(initialFormData);
       setOpen(false);
+      form.reset();
     }
   };
 
@@ -157,42 +155,61 @@ export default function PredictRecord() {
           </DialogDescription>
         </DialogHeader>
 
-        <div className="space-y-3">
-          {inputs.map((item) => (
-            <div key={item.id} className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="price_bin">{item.name}</Label>
-              <Select
-                onValueChange={(value) =>
-                  handleSelectChange(value, item.id as keyof OrderForecast)
-                }
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)}>
+            <section className="space-y-3">
+              {inputs.map((item) => (
+                <FormField
+                  key={item.id}
+                  control={form.control}
+                  name={item.id as keyof z.infer<typeof PredictorsSchema>}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{item.name}</FormLabel>
+
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger className="col-span-3">
+                            <SelectValue
+                              placeholder={item.placeholder}
+                              id={item.id}
+                            />
+                          </SelectTrigger>
+                        </FormControl>
+
+                        <SelectContent>
+                          {item.constant.map((constant) => (
+                            <SelectItem key={constant} value={constant}>
+                              {item.isPrefix
+                                ? `${item.unit}${constant}`
+                                : `${constant} ${item.unit}`}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+
+                      <FormMessage className="text-sm text-red-500/90" />
+                    </FormItem>
+                  )}
+                />
+              ))}
+            </section>
+
+            <DialogFooter>
+              <Button
+                type="submit"
+                className="mt-6 align-middle font-medium dark:text-black"
+                disabled={isLoading}
               >
-                <SelectTrigger className="col-span-3">
-                  <SelectValue placeholder={item.placeholder} id={item.id} />
-                </SelectTrigger>
-                <SelectContent>
-                  {item.constant.map((constant) => (
-                    <SelectItem key={constant} value={constant}>
-                      {item.isPrefix
-                        ? `${item.unit}${constant}`
-                        : `${constant} ${item.unit}`}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-          ))}
-        </div>
-        <DialogFooter>
-          <Button
-            onClick={handleSubmit}
-            type="submit"
-            className="align-middle font-medium dark:text-black"
-            disabled={isLoading}
-          >
-            {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            {isLoading ? "Predicting..." : "Predict Record"}
-          </Button>
-        </DialogFooter>
+                {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                {isLoading ? "Predicting..." : "Predict Record"}
+              </Button>
+            </DialogFooter>
+          </form>
+        </Form>
       </DialogContent>
     </Dialog>
   );
