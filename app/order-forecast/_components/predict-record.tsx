@@ -145,7 +145,7 @@ export default function PredictRecord() {
       </DialogTrigger>
 
       <DialogContent className="rounded-lg sm:max-w-[450px]">
-        <DialogHeader className="py-4 text-left">
+        <DialogHeader className="pt-4 text-left">
           <DialogTitle className="flex items-end gap-2 leading-4">
             <Glasses size={18} />
             Predict Record
