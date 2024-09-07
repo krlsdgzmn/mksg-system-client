@@ -77,7 +77,22 @@ export default function VisitorsChart({ data }: { data: VisitorsForecast[] }) {
             // domain={[0, "dataMax"]} // Ensures the Y-axis max is the exact maximum data value
           />
 
-          <ChartTooltip content={<ChartTooltipContent />} />
+          <ChartTooltip
+            content={
+              <ChartTooltipContent
+                labelFormatter={(value) => {
+                  const date = new Date(value);
+                  return date.toLocaleString("en-GB", {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    month: "short",
+                    year: "numeric",
+                    day: "numeric",
+                  });
+                }}
+              />
+            }
+          />
 
           <defs>
             <linearGradient id="fillValue" x1="0" y1="0" x2="0" y2="1">

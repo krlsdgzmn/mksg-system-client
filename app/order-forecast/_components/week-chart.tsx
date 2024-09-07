@@ -98,7 +98,13 @@ export default function WeekChart({
               axisLine={false}
               tickFormatter={(tick) => `Week ${tick}`}
             />
-            <ChartTooltip content={<ChartTooltipContent hideLabel />} />
+            <ChartTooltip
+              content={
+                <ChartTooltipContent
+                  labelFormatter={(label) => <p>Week {label}</p>}
+                />
+              }
+            />
 
             <defs>
               <linearGradient id="fillCompleted" x1="0" y1="0" x2="0" y2="1">

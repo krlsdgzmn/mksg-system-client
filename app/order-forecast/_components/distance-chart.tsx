@@ -97,7 +97,13 @@ export default function DistanceChart({
               tickFormatter={(tick) => `${tick} km`}
               fontSize={11}
             />
-            <ChartTooltip content={<ChartTooltipContent hideLabel />} />
+            <ChartTooltip
+              content={
+                <ChartTooltipContent
+                  labelFormatter={(label) => <p>{label} km</p>}
+                />
+              }
+            />
             <Bar
               dataKey="cancelled"
               stackId="a"

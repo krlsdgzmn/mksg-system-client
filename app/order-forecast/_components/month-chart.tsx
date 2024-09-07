@@ -98,7 +98,7 @@ export default function MonthChart({
               axisLine={false}
               tickFormatter={(value) => value.slice(0, 3)}
             />
-            <ChartTooltip content={<ChartTooltipContent hideLabel />} />
+            <ChartTooltip content={<ChartTooltipContent />} />
 
             <defs>
               <linearGradient id="fillCompleted" x1="0" y1="0" x2="0" y2="1">
