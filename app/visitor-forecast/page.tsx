@@ -20,19 +20,62 @@ import { VisitorsForecast } from "./type";
 
 const dateFilters = ["24H", "3D", "7D"];
 
-const today = "2024-08-30"; // new Date().toISOString().split("T")[0];
-const visitorsData: VisitorsForecast[] = visitorForecastData.filter((item) =>
-  item.datetime.startsWith(today),
-);
+const visitorsData: VisitorsForecast[] = visitorForecastData;
 
 export default function VisitorForecastPage() {
   const { data: user, isLoading } = useAuth();
   const [checkedAuth, setCheckedAuth] = useState(false);
   const [toggle, setToggle] = useState("24H");
+  const [visitorForecasts, setVisitorForecasts] =
+    useState<VisitorsForecast[]>(visitorsData);
+
+  const handleDateFilter = (date: string) => {
+    setToggle(date);
+
+    const filteredData = visitorsData.filter((item) => {
+      const itemDate = new Date(item.datetime);
+      const today = new Date("2024-08-30 00:00:00");
+
+      today.setHours(0, 0, 0, 0);
+
+      switch (date) {
+        case "24H":
+          // Filter only for today's data (24 hours)
+          return (
+            itemDate >= today &&
+            itemDate < new Date(today.getTime() + 24 * 60 * 60 * 1000)
+          );
+
+        case "3D":
+          // Filter for data in the next 3 days (including today)
+          return (
+            itemDate >= today &&
+            itemDate < new Date(today.getTime() + 3 * 24 * 60 * 60 * 1000)
+          );
+
+        case "7D":
+          // Filter for data in the next 7 days (including today)
+          return (
+            itemDate >= today &&
+            itemDate < new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000)
+          );
+
+        default:
+          // Default to 24H if no valid option is provided
+          return (
+            itemDate >= today &&
+            itemDate < new Date(today.getTime() + 24 * 60 * 60 * 1000)
+          );
+      }
+    });
+
+    setVisitorForecasts(filteredData);
+  };
 
   useEffect(() => {
     if (!isLoading) {
       setCheckedAuth(true);
+      handleDateFilter("24H"); // Set default to "24H" on page load
     }
   }, [isLoading]);
 
@@ -51,27 +94,46 @@ export default function VisitorForecastPage() {
     {
       name: "Total Visitors",
       info: "Projected total number of visitors expected throughout the selected timeline.",
-      value: 742,
+      value: visitorForecasts.reduce((sum, v) => sum + v.value, 0),
     },
     {
       name: "Current Hour Visitors",
       info: "Projected number of visitors expected in the current hour.",
-      value: 45,
+      value:
+        visitorForecasts.find(
+          (item) =>
+            new Date(item.datetime).getHours() === new Date().getHours(),
+        )?.value || 0,
     },
     {
       name: "Upcoming Hour Visitors",
       info: "Projected number of visitors expected in the next hour.",
-      value: 50,
+      value:
+        visitorForecasts.find(
+          (item) =>
+            new Date(item.datetime).getHours() === new Date().getHours() + 1,
+        )?.value || 0,
     },
     {
-      name: "Peak Visitors",
+      name: "Peak Visitors Today",
       info: "The maximum number of visitors expected during the peak hour of the day.",
-      value: 68,
+      value: Math.max(...visitorForecasts.map((v) => v.value)),
     },
     {
-      name: "Peak Hour",
+      name: "Peak Hour Today",
       info: "The hour of the day expected to have the highest number of visitors.",
-      value: 20,
+      value: visitorForecasts.find(
+        (item) =>
+          item.value === Math.max(...visitorForecasts.map((v) => v.value)),
+      )
+        ? new Date(
+            visitorForecasts.find(
+              (item) =>
+                item.value ===
+                Math.max(...visitorForecasts.map((v) => v.value)),
+            )!.datetime,
+          ).getHours()
+        : 0,
       isLast: true,
       isTime: true,
     },
@@ -80,11 +142,11 @@ export default function VisitorForecastPage() {
   return (
     <Container className="flex min-h-[85vh] flex-col items-center overflow-auto">
       <main className="w-full">
+        {/* Header Section */}
         <PageHeader
           header="Visitor Forecasting Dashboard"
           subheader="Hourly Visitor Traffic Predictions"
         />
-
         <section className="space-y-2 py-2 xl:space-y-4 xl:py-4">
           <div className="min-h-[600px] overflow-hidden rounded-md border border-border bg-card p-4 shadow dark:bg-muted-foreground/10">
             <header className="flex flex-col border-b pb-2 sm:flex-row sm:items-center sm:justify-between">
@@ -100,10 +162,10 @@ export default function VisitorForecastPage() {
               <ToggleGroup
                 type="single"
                 value={toggle}
-                onValueChange={(val) => {
-                  val && setToggle(val);
-                }}
                 defaultValue="24H"
+                onValueChange={(val) => {
+                  val && handleDateFilter(val);
+                }}
                 className="w-fit py-2"
               >
                 {dateFilters.map((item) => (
@@ -118,6 +180,7 @@ export default function VisitorForecastPage() {
               </ToggleGroup>
             </header>
 
+            {/* Metrics Section */}
             <section className="grid min-h-[100px] grid-cols-2 items-center border-b xl:grid-cols-5 xl:gap-8">
               {metrics.map((item) => (
                 <div
@@ -144,16 +207,14 @@ export default function VisitorForecastPage() {
 
                   <p className="text-base font-semibold sm:text-xl">
                     {item.value}
-                    {item.isTime && ":00 "}
-                    {/* <span className="text-xs font-medium text-muted-foreground"> */}
-                    {/*   {item.isTime && (item.value < 12 ? "AM" : "PM")} */}
-                    {/* </span> */}
+                    {item.isTime && ":00"}
                   </p>
                 </div>
               ))}
             </section>
 
-            <VisitorsChart data={visitorsData} />
+            {/* Visitor Chart Section */}
+            <VisitorsChart data={visitorForecasts} />
           </div>
         </section>
       </main>
