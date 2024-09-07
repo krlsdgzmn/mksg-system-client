@@ -39,13 +39,13 @@ export default function DistributionChart({
     {
       order_status: "Completed",
       count: completedOrders,
-      percent: parseFloat(completedPercent.toFixed(2)),
+      percent: parseFloat(completedPercent.toFixed(1)),
       fill: "hsl(var(--completed))",
     },
     {
       order_status: "Cancelled",
       count: cancelledOrders,
-      percent: parseFloat(cancelledPercent.toFixed(2)),
+      percent: parseFloat(cancelledPercent.toFixed(1)),
       fill: "hsl(var(--cancelled))",
     },
   ];
