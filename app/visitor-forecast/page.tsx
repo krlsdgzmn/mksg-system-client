@@ -51,27 +51,27 @@ export default function VisitorForecastPage() {
     {
       name: "Total Visitors",
       info: "Projected total number of visitors expected throughout the selected timeline.",
-      value: 1182,
+      value: 742,
     },
     {
       name: "Current Hour Visitors",
       info: "Projected number of visitors expected in the current hour.",
-      value: 107,
+      value: 45,
     },
     {
       name: "Upcoming Hour Visitors",
       info: "Projected number of visitors expected in the next hour.",
-      value: 57,
+      value: 50,
     },
     {
       name: "Peak Visitors",
       info: "The maximum number of visitors expected during the peak hour of the day.",
-      value: 125,
+      value: 68,
     },
     {
       name: "Peak Hour",
       info: "The hour of the day expected to have the highest number of visitors.",
-      value: 11,
+      value: 20,
       isLast: true,
       isTime: true,
     },
@@ -145,9 +145,9 @@ export default function VisitorForecastPage() {
                   <p className="text-base font-semibold sm:text-xl">
                     {item.value}
                     {item.isTime && ":00 "}
-                    <span className="text-xs font-medium text-muted-foreground">
-                      {item.isTime && (item.value < 12 ? "AM" : "PM")}
-                    </span>
+                    {/* <span className="text-xs font-medium text-muted-foreground"> */}
+                    {/*   {item.isTime && (item.value < 12 ? "AM" : "PM")} */}
+                    {/* </span> */}
                   </p>
                 </div>
               ))}

@@ -5,10 +5,13 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import {
+  Area,
+  AreaChart,
   Bar,
   BarChart,
   CartesianGrid,
   LabelList,
+  Line,
   XAxis,
   YAxis,
 } from "recharts";
@@ -32,11 +35,13 @@ export default function VisitorsChart({ data }: { data: VisitorsForecast[] }) {
         config={chartConfig}
         className="aspect-auto h-[400px] w-full"
       >
-        <BarChart
+        <AreaChart
           accessibilityLayer
           margin={{
             top: 60,
             bottom: 20,
+            left: 10,
+            right: 10,
           }}
           data={data}
         >
@@ -68,22 +73,35 @@ export default function VisitorsChart({ data }: { data: VisitorsForecast[] }) {
               position: "insideLeft",
               style: { textAnchor: "middle" },
             }}
-            opacity={0.75}
+            opacity={0.9}
+            // domain={[0, "dataMax"]} // Ensures the Y-axis max is the exact maximum data value
           />
 
           <ChartTooltip content={<ChartTooltipContent />} />
 
-          <Bar dataKey="value" fill="#60A5FA" radius={[4, 4, 0, 0]}>
+          <defs>
+            <linearGradient id="fillValue" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="#60A5FA" stopOpacity={0.8} />
+              <stop offset="95%" stopColor="#60A5FA" stopOpacity={0.2} />
+            </linearGradient>
+          </defs>
+
+          <Area
+            dataKey="value"
+            fill="url(#fillValue)"
+            fillOpacity={0.6}
+            type="monotone"
+          >
             {data.length === 24 && window.innerWidth >= 768 && (
               <LabelList
                 position="top"
-                offset={6}
+                offset={5}
                 className="fill-muted-foreground"
-                fontSize={11}
+                fontSize={12}
               />
             )}
-          </Bar>
-        </BarChart>
+          </Area>
+        </AreaChart>
       </ChartContainer>
       {/* )} */}
       {/* {!user && !isLoading && ( */}

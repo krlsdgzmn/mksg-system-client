@@ -1,100 +1,28 @@
 export const visitorForecastData = [
-  {
-    datetime: "2024-08-30 00:00:00",
-    value: Math.floor(Math.random() * (70 - 20 + 1)) + 20,
-  },
-  {
-    datetime: "2024-08-30 01:00:00",
-    value: Math.floor(Math.random() * (70 - 20 + 1)) + 20,
-  },
-  {
-    datetime: "2024-08-30 02:00:00",
-    value: Math.floor(Math.random() * (70 - 20 + 1)) + 20,
-  },
-  {
-    datetime: "2024-08-30 03:00:00",
-    value: Math.floor(Math.random() * (70 - 20 + 1)) + 20,
-  },
-  {
-    datetime: "2024-08-30 04:00:00",
-    value: Math.floor(Math.random() * (70 - 20 + 1)) + 20,
-  },
-  {
-    datetime: "2024-08-30 05:00:00",
-    value: Math.floor(Math.random() * (70 - 20 + 1)) + 20,
-  },
-  {
-    datetime: "2024-08-30 06:00:00",
-    value: Math.floor(Math.random() * (70 - 20 + 1)) + 20,
-  },
-  {
-    datetime: "2024-08-30 07:00:00",
-    value: Math.floor(Math.random() * (70 - 20 + 1)) + 20,
-  },
-  {
-    datetime: "2024-08-30 08:00:00",
-    value: Math.floor(Math.random() * (70 - 20 + 1)) + 20,
-  },
-  {
-    datetime: "2024-08-30 09:00:00",
-    value: Math.floor(Math.random() * (70 - 20 + 1)) + 20,
-  },
-  {
-    datetime: "2024-08-30 10:00:00",
-    value: Math.floor(Math.random() * (70 - 20 + 1)) + 20,
-  },
-  {
-    datetime: "2024-08-30 11:00:00",
-    value: Math.floor(Math.random() * (70 - 20 + 1)) + 20,
-  },
-  {
-    datetime: "2024-08-30 12:00:00",
-    value: Math.floor(Math.random() * (70 - 20 + 1)) + 20,
-  },
-  {
-    datetime: "2024-08-30 13:00:00",
-    value: Math.floor(Math.random() * (70 - 20 + 1)) + 20,
-  },
-  {
-    datetime: "2024-08-30 14:00:00",
-    value: Math.floor(Math.random() * (70 - 20 + 1)) + 20,
-  },
-  {
-    datetime: "2024-08-30 15:00:00",
-    value: Math.floor(Math.random() * (70 - 20 + 1)) + 20,
-  },
-  {
-    datetime: "2024-08-30 16:00:00",
-    value: Math.floor(Math.random() * (70 - 20 + 1)) + 20,
-  },
-  {
-    datetime: "2024-08-30 17:00:00",
-    value: Math.floor(Math.random() * (70 - 20 + 1)) + 20,
-  },
-  {
-    datetime: "2024-08-30 18:00:00",
-    value: Math.floor(Math.random() * (70 - 20 + 1)) + 20,
-  },
-  {
-    datetime: "2024-08-30 19:00:00",
-    value: Math.floor(Math.random() * (70 - 20 + 1)) + 20,
-  },
-  {
-    datetime: "2024-08-30 20:00:00",
-    value: Math.floor(Math.random() * (70 - 20 + 1)) + 20,
-  },
-  {
-    datetime: "2024-08-30 21:00:00",
-    value: Math.floor(Math.random() * (70 - 20 + 1)) + 20,
-  },
-  {
-    datetime: "2024-08-30 22:00:00",
-    value: Math.floor(Math.random() * (70 - 20 + 1)) + 20,
-  },
-  {
-    datetime: "2024-08-30 23:00:00",
-    value: Math.floor(Math.random() * (70 - 20 + 1)) + 20,
-  },
+  { datetime: "2024-08-30 00:00:00", value: 5 },
+  { datetime: "2024-08-30 01:00:00", value: 10 },
+  { datetime: "2024-08-30 02:00:00", value: 8 },
+  { datetime: "2024-08-30 03:00:00", value: 8 },
+  { datetime: "2024-08-30 04:00:00", value: 9 },
+  { datetime: "2024-08-30 05:00:00", value: 7 },
+  { datetime: "2024-08-30 06:00:00", value: 9 },
+  { datetime: "2024-08-30 07:00:00", value: 10 },
+  { datetime: "2024-08-30 08:00:00", value: 15 },
+  { datetime: "2024-08-30 09:00:00", value: 20 },
+  { datetime: "2024-08-30 10:00:00", value: 35 },
+  { datetime: "2024-08-30 11:00:00", value: 45 },
+  { datetime: "2024-08-30 12:00:00", value: 50 },
+  { datetime: "2024-08-30 13:00:00", value: 48 },
+  { datetime: "2024-08-30 14:00:00", value: 40 },
+  { datetime: "2024-08-30 15:00:00", value: 38 },
+  { datetime: "2024-08-30 16:00:00", value: 42 },
+  { datetime: "2024-08-30 17:00:00", value: 50 },
+  { datetime: "2024-08-30 18:00:00", value: 60 },
+  { datetime: "2024-08-30 19:00:00", value: 65 },
+  { datetime: "2024-08-30 20:00:00", value: 68 },
+  { datetime: "2024-08-30 21:00:00", value: 55 },
+  { datetime: "2024-08-30 22:00:00", value: 30 },
+  { datetime: "2024-08-30 23:00:00", value: 15 },
   {
     datetime: "2024-08-31 00:00:00",
     value: Math.floor(Math.random() * (70 - 20 + 1)) + 20,
