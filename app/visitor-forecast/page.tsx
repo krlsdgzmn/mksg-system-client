@@ -106,7 +106,7 @@ export default function VisitorForecastPage() {
         )?.value || 0,
     },
     {
-      name: "Upcoming Hour Visitors",
+      name: "Next Hour Visitors",
       info: "Projected number of visitors expected in the next hour.",
       value:
         visitorForecasts.find(
@@ -187,7 +187,7 @@ export default function VisitorForecastPage() {
                   key={item.name}
                   className={`${item.isLast && "border-none"} flex h-[70%] min-h-[75px] min-w-[200px] flex-col justify-center xl:border-r`}
                 >
-                  <h1 className="flex items-center gap-1.5 pb-1 text-[10px] font-semibold text-muted-foreground">
+                  <h1 className="flex items-center gap-1.5 pb-1 text-[8px] font-semibold text-muted-foreground sm:text-[10px]">
                     <span className="uppercase">{item.name}</span>
                     <TooltipProvider>
                       <Tooltip>
