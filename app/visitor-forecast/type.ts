@@ -1,4 +1,4 @@
-export type VisitorsForecast = {
+export type VisitorForecasts = {
   datetime: string;
   value: number;
 };
