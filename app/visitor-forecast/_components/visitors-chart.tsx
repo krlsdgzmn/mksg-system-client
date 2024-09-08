@@ -7,15 +7,12 @@ import {
 import {
   Area,
   AreaChart,
-  Bar,
-  BarChart,
   CartesianGrid,
   LabelList,
-  Line,
   XAxis,
   YAxis,
 } from "recharts";
-import { VisitorsForecast } from "../type";
+import { VisitorForecasts } from "../type";
 
 const chartConfig = {
   value: {
@@ -23,7 +20,11 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export default function VisitorsChart({ data }: { data: VisitorsForecast[] }) {
+export default function VisitorsChart({
+  data,
+}: {
+  data: VisitorForecasts[] | undefined;
+}) {
   return (
     <>
       {/* {isLoading && ( */}
@@ -107,7 +108,7 @@ export default function VisitorsChart({ data }: { data: VisitorsForecast[] }) {
             fillOpacity={0.6}
             type="monotone"
           >
-            {data.length === 24 && window.innerWidth >= 768 && (
+            {data?.length === 24 && window.innerWidth >= 768 && (
               <LabelList
                 position="top"
                 offset={5}

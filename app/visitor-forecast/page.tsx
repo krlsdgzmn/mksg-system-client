@@ -11,41 +11,35 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { visitorForecastData } from "@/lib/visitor-forecast-data";
 import { Info } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useAuth } from "../hooks";
 import VisitorsChart from "./_components/visitors-chart";
-import { VisitorsForecast } from "./type";
+import { useGetVisitorForecast } from "./hooks";
+import { VisitorForecasts } from "./type";
 
 const dateFilters = ["24H", "3D", "7D"];
 
-const visitorsData: VisitorsForecast[] = visitorForecastData;
-
 export default function VisitorForecastPage() {
   const { data: user, isLoading } = useAuth();
+  const { data: visitorsData, isLoading: isFetching } = useGetVisitorForecast();
+
   const [checkedAuth, setCheckedAuth] = useState(false);
   const [toggle, setToggle] = useState("24H");
-  const [visitorForecasts, setVisitorForecasts] =
-    useState<VisitorsForecast[]>(visitorsData);
+  const [visitorForecasts, setVisitorForecasts] = useState<
+    VisitorForecasts[] | undefined
+  >(visitorsData);
 
   const handleDateFilter = (date: string) => {
     setToggle(date);
 
-    const filteredData = visitorsData.filter((item) => {
+    const filteredData = visitorsData?.filter((item) => {
       const itemDate = new Date(item.datetime);
       const today = new Date("2024-08-30 00:00:00");
 
       today.setHours(0, 0, 0, 0);
 
       switch (date) {
-        case "24H":
-          // Filter only for today's data (24 hours)
-          return (
-            itemDate >= today &&
-            itemDate < new Date(today.getTime() + 24 * 60 * 60 * 1000)
-          );
-
         case "3D":
           // Filter for data in the next 3 days (including today)
           return (
@@ -77,9 +71,9 @@ export default function VisitorForecastPage() {
       setCheckedAuth(true);
       handleDateFilter("24H"); // Set default to "24H" on page load
     }
-  }, [isLoading]);
+  }, [isLoading, isFetching]);
 
-  if (isLoading || !checkedAuth) return <Loader />;
+  if (isLoading || !checkedAuth || isFetching) return <Loader />;
 
   if (!user) {
     return (
@@ -90,54 +84,57 @@ export default function VisitorForecastPage() {
     );
   }
 
-  const metrics = [
-    {
-      name: "Total Visitors",
-      info: "Projected total number of visitors expected throughout the selected timeline.",
-      value: visitorForecasts.reduce((sum, v) => sum + v.value, 0),
-    },
-    {
-      name: "Current Hour Visitors",
-      info: "Projected number of visitors expected in the current hour.",
-      value:
-        visitorForecasts.find(
+  let metrics: any[] = [];
+  if (visitorForecasts) {
+    metrics = [
+      {
+        name: "Total Visitors",
+        info: "Projected total number of visitors expected throughout the selected timeline.",
+        value: visitorForecasts.reduce((sum, v) => sum + v.value, 0),
+      },
+      {
+        name: "Current Hour Visitors",
+        info: "Projected number of visitors expected in the current hour.",
+        value:
+          visitorForecasts.find(
+            (item) =>
+              new Date(item.datetime).getHours() === new Date().getHours(),
+          )?.value || 0,
+      },
+      {
+        name: "Next Hour Visitors",
+        info: "Projected number of visitors expected in the next hour.",
+        value:
+          visitorForecasts.find(
+            (item) =>
+              new Date(item.datetime).getHours() === new Date().getHours() + 1,
+          )?.value || 0,
+      },
+      {
+        name: "Peak Visitors Today",
+        info: "The maximum number of visitors expected during the peak hour of the day.",
+        value: Math.max(...visitorForecasts.map((v) => v.value)),
+      },
+      {
+        name: "Peak Hour Today",
+        info: "The hour of the day expected to have the highest number of visitors.",
+        value: visitorForecasts.find(
           (item) =>
-            new Date(item.datetime).getHours() === new Date().getHours(),
-        )?.value || 0,
-    },
-    {
-      name: "Next Hour Visitors",
-      info: "Projected number of visitors expected in the next hour.",
-      value:
-        visitorForecasts.find(
-          (item) =>
-            new Date(item.datetime).getHours() === new Date().getHours() + 1,
-        )?.value || 0,
-    },
-    {
-      name: "Peak Visitors Today",
-      info: "The maximum number of visitors expected during the peak hour of the day.",
-      value: Math.max(...visitorForecasts.map((v) => v.value)),
-    },
-    {
-      name: "Peak Hour Today",
-      info: "The hour of the day expected to have the highest number of visitors.",
-      value: visitorForecasts.find(
-        (item) =>
-          item.value === Math.max(...visitorForecasts.map((v) => v.value)),
-      )
-        ? new Date(
-            visitorForecasts.find(
-              (item) =>
-                item.value ===
-                Math.max(...visitorForecasts.map((v) => v.value)),
-            )!.datetime,
-          ).getHours()
-        : 0,
-      isLast: true,
-      isTime: true,
-    },
-  ];
+            item.value === Math.max(...visitorForecasts.map((v) => v.value)),
+        )
+          ? new Date(
+              visitorForecasts.find(
+                (item) =>
+                  item.value ===
+                  Math.max(...visitorForecasts.map((v) => v.value)),
+              )!.datetime,
+            ).getHours()
+          : 0,
+        isLast: true,
+        isTime: true,
+      },
+    ];
+  }
 
   return (
     <Container className="flex min-h-[85vh] flex-col items-center overflow-auto">
