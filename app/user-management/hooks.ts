@@ -9,6 +9,7 @@ export const useGetUsers = () => {
     queryKey: [QUERY_KEY],
     queryFn: getUsers,
     staleTime: 1000 * 60,
+    refetchInterval: 1000,
   });
 };
 
@@ -17,6 +18,7 @@ export const useGetUserById = (id: number) => {
     queryKey: [`${QUERY_KEY}_${id}`],
     queryFn: () => getUserById(id),
     staleTime: 1000 * 60,
+    refetchInterval: 1000,
     enabled: !!id,
   });
 };

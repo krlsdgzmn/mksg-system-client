@@ -10,6 +10,7 @@ export const useGetOrderForecast = () => {
     queryKey: [QUERY_KEY],
     queryFn: getOrderForecast,
     staleTime: 1000 * 60,
+    refetchInterval: 1000,
   });
 };
 

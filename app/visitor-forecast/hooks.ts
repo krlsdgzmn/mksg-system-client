@@ -9,5 +9,6 @@ export const useGetVisitorForecast = () => {
     queryKey: [QUERY_KEY],
     queryFn: getVisitorForecast,
     staleTime: 1000 * 60,
+    refetchInterval: 1000,
   });
 };
