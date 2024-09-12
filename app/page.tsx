@@ -1,7 +1,6 @@
 "use client";
 
 import Container from "@/components/container";
-import Loader from "@/components/loader";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -15,7 +14,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2, LogIn } from "lucide-react";
 import { redirect } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useAuth } from "./hooks";
@@ -60,9 +59,8 @@ const inputs = [
 
 export default function SignInPage() {
   const { toast } = useToast();
-  const { signIn, data, isLoading } = useAuth();
+  const { signIn, data } = useAuth();
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const [checkedAuth, setCheckedAuth] = useState(false);
 
   const form = useForm<z.infer<typeof SignInFormSchema>>({
     resolver: zodResolver(SignInFormSchema),
@@ -71,14 +69,6 @@ export default function SignInPage() {
       password: "",
     },
   });
-
-  // useEffect(() => {
-  //   if (!isLoading) {
-  //     setCheckedAuth(true);
-  //   }
-  // }, [isLoading]);
-  //
-  // if (isLoading || !checkedAuth) return <Loader />;
 
   const onSubmit = async (values: z.infer<typeof SignInFormSchema>) => {
     setIsSubmitting(true);
