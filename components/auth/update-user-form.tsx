@@ -168,7 +168,7 @@ export default function UpdateUserForm({
           disabled={isSubmitting}
         >
           {isSubmitting && <Loader2 className="h-4 w-4 animate-spin" />}
-          {isSubmitting ? "Creating user..." : <>Update user</>}
+          {isSubmitting ? "Updating user..." : <>Update user</>}
         </Button>
       </form>
     </Form>
