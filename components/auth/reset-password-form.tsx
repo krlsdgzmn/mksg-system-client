@@ -69,17 +69,20 @@ export default function ResetPasswordForm() {
     formData.append("password", values.password);
 
     try {
-      await resetPasswordAction(formData);
+      const { error } = await resetPasswordAction(formData);
+
+      if (error) {
+        toast({
+          title: `${error}`,
+          description: "Please try again.",
+          variant: "destructive",
+        });
+        return;
+      }
+
       toast({
         title: "Success",
         description: "Your password has been successfully changed.",
-      });
-    } catch (error) {
-      console.error(error);
-      toast({
-        title: "Failed",
-        description: "Please try again.",
-        variant: "destructive",
       });
     } finally {
       setIsSubmitting(false);

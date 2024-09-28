@@ -66,17 +66,20 @@ export default function SignInPage() {
     formData.append("password", values.password);
 
     try {
-      await signInAction(formData);
+      const { error } = await signInAction(formData);
+
+      if (error) {
+        toast({
+          title: `${error}`,
+          description: "Please try again.",
+          variant: "destructive",
+        });
+        return;
+      }
+
       toast({
         title: "Success",
         description: "You are signed in to MKSG Clothing system",
-      });
-    } catch (error) {
-      console.error(error);
-      toast({
-        title: `${error}`.substring(6),
-        description: "Please try again.",
-        variant: "destructive",
       });
     } finally {
       setIsSubmitting(false);

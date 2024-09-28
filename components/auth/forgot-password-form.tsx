@@ -47,16 +47,20 @@ export default function ForgotPasswordForm() {
     formData.append("email", values.email);
 
     try {
-      await sendResetPasswordAction(formData);
+      const { error } = await sendResetPasswordAction(formData);
+
+      if (error) {
+        toast({
+          title: `${error}`,
+          description: "Please try again.",
+          variant: "destructive",
+        });
+        return;
+      }
+
       toast({
         title: "Success",
         description: "The password reset link has sent to your email.",
-      });
-    } catch (error) {
-      toast({
-        title: `${error}`.substring(6),
-        description: "Please try again.",
-        variant: "destructive",
       });
     } finally {
       form.reset();

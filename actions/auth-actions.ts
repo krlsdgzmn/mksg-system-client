@@ -12,8 +12,9 @@ export async function signInAction(formData: FormData) {
     password: formData.get("password") as string,
   });
 
-  if (error) throw new Error(`${error.message}`);
-
+  if (error) {
+    return { error: error.message };
+  }
   revalidatePath("/", "layout");
   redirect("/");
 }
@@ -33,7 +34,9 @@ export async function createUserAction(formData: FormData) {
     email_confirm: true,
   });
 
-  if (error) throw new Error(`${error.message}`);
+  if (error) {
+    return { error: error.message };
+  }
   revalidatePath("/user-management", "layout");
   redirect("/user-management");
 }
@@ -51,7 +54,9 @@ export async function sendResetPasswordAction(formData: FormData) {
     { redirectTo: "/reset-password" },
   );
 
-  if (error) throw new Error(`${error.message}`);
+  if (error) {
+    return { error: error.message };
+  }
 
   revalidatePath("/", "layout");
   redirect("/");
@@ -63,7 +68,9 @@ export async function resetPasswordAction(formData: FormData) {
     password: formData.get("password") as string,
   });
 
-  if (error) throw new Error(`${error.message}`);
+  if (error) {
+    return { error: error.message };
+  }
 
   revalidatePath("/", "layout");
   redirect("/");
@@ -73,7 +80,9 @@ export async function getAuthUsersAction() {
   const supabase = createClient();
   const { data, error } = await supabase.auth.admin.listUsers();
 
-  if (error) throw new Error(`${error.message}`);
+  if (error) {
+    return { error: error.message };
+  }
 
   return data.users;
 }
@@ -82,7 +91,9 @@ export async function deleteUserAction(id: string) {
   const supabase = createClient();
   const { error } = await supabase.auth.admin.deleteUser(id);
 
-  if (error) throw new Error(`${error.message}`);
+  if (error) {
+    return { error: error.message };
+  }
   revalidatePath("/user-management", "layout");
   redirect("/user-management");
 }
@@ -99,7 +110,9 @@ export async function updateUserAction(id: string, formData: FormData) {
     },
   });
 
-  if (error) throw new Error(`${error.message}`);
+  if (error) {
+    return { error: error.message };
+  }
   revalidatePath("/user-management", "layout");
   redirect("/user-management");
 }

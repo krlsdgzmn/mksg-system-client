@@ -100,16 +100,20 @@ export default function UpdateUserForm({
     formData.append("role", values.role);
 
     try {
-      await updateUserAction(user.id, formData);
+      const { error } = await updateUserAction(user.id, formData);
+
+      if (error) {
+        toast({
+          title: `${error}`,
+          description: "Please try again.",
+          variant: "destructive",
+        });
+        return;
+      }
+
       toast({
         title: "Success",
         description: "You have successfully created a user.",
-      });
-    } catch (error) {
-      toast({
-        title: `${error}`.substring(6),
-        description: "Please try again.",
-        variant: "destructive",
       });
     } finally {
       form.reset();
