@@ -80,10 +80,7 @@ export async function getAuthUsersAction() {
   const supabase = createClient();
   const { data, error } = await supabase.auth.admin.listUsers();
 
-  if (error) {
-    return { error: error.message };
-  }
-
+  if (error) throw new Error(error.message);
   return data.users;
 }
 
