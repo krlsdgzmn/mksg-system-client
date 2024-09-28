@@ -58,8 +58,9 @@ export async function sendResetPasswordAction(formData: FormData) {
     return { error: error.message };
   }
 
-  revalidatePath("/", "layout");
-  redirect("/");
+  if (!error) {
+    return { error: null };
+  }
 }
 
 export async function resetPasswordAction(formData: FormData) {
