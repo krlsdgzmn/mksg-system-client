@@ -6,9 +6,9 @@ import { redirect } from "next/navigation";
 export default async function ForgotPasswordPage() {
   const supabase = createClient();
   const {
-    data: { session },
-  } = await supabase.auth.getSession();
-  if (session) redirect("/");
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (user) redirect("/");
 
   return (
     <Container className="relative flex min-h-[85vh] items-center justify-center">

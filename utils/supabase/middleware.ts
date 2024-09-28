@@ -49,14 +49,6 @@ export async function updateSession(request: NextRequest) {
     return NextResponse.redirect(url);
   }
 
-  // Disabled routes for authenticated users
-  if (
-    (user && request.nextUrl.pathname === "/sign-in") ||
-    (user && request.nextUrl.pathname === "/forgot-password")
-  ) {
-    return NextResponse.redirect(new URL("/", request.url));
-  }
-
   // IMPORTANT: You *must* return the supabaseResponse object as it is. If you're
   // creating a new response object with NextResponse.next() make sure to:
   // 1. Pass the request in it, like so:
