@@ -113,7 +113,7 @@ export default function UpdateUserForm({
 
       toast({
         title: "Success",
-        description: "You have successfully created a user.",
+        description: "You have successfully updated a user.",
       });
     } finally {
       form.reset();
