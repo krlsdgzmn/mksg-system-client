@@ -1,14 +1,12 @@
 import Footer from "@/components/footer";
 import Header from "@/components/header";
-import { Toaster } from "@/components/ui/toaster";
+import Providers from "@/components/providers";
 import type { Metadata } from "next";
 import "./globals.css";
-import Providers from "./providers";
 
 export const metadata: Metadata = {
-  title: "MKSG Clothing System",
-  description:
-    "A system to forecast the order status and project the number of visitors hourly for MKSG Clothing's Shopee Store.",
+  title: "MKSG System",
+  description: "Predictive Dashboard Analytics for MKSG",
   icons: "/logo.png",
 };
 
@@ -25,8 +23,6 @@ export default function RootLayout({
           {children}
           <Footer />
         </Providers>
-
-        <Toaster />
       </body>
     </html>
   );

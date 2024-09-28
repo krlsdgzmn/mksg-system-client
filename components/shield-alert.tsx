@@ -1,3 +1,5 @@
+"use client";
+
 import { ShieldAlertIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Container from "./container";

@@ -14,7 +14,7 @@ export default function PageHeader({
   return (
     <section
       className={cn(
-        "flex flex-col justify-between pt-4 md:flex-row md:items-end",
+        "flex flex-col justify-between md:flex-row md:items-end",
         className,
       )}
     >

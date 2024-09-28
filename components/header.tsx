@@ -1,69 +1,46 @@
-"use client";
-
+import { createClient } from "@/utils/supabase/server";
+import { User2 } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import MobileMenu from "./mobile-menu";
+import NavigationLinks from "./navigation-links";
 import { ToggleTheme } from "./toggle-theme";
-import UserButton from "./user-button";
-import { useAuth } from "@/app/hooks";
+import SignOutButton from "./auth/sign-out-button";
 
-const links = [
-  {
-    name: "Order Forecast",
-    path: "/order-forecast",
-  },
-  {
-    name: "Visitor Forecast",
-    path: "/visitor-forecast",
-  },
-];
-
-export default function Header() {
-  const { data: user, signOut } = useAuth();
-  const path = usePathname();
+export default async function Header() {
+  const supabase = createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   return (
     <header className="top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 md:sticky">
       <div className="container flex h-14 max-w-screen-2xl items-center justify-between px-4 md:px-8">
         <div className="flex items-center justify-center gap-3">
-          {/* logo */}
           <Image
             src="/logo.png"
             alt="Logo"
-            className="h-8 w-8 dark:invert"
+            className="hidden h-8 w-8 dark:invert md:block"
             width={32}
             height={32}
             priority
             quality={100}
           />
-          {/* navigation links */}
-          {user && (
-            <ul className="hidden gap-2 text-sm font-medium sm:flex">
-              {links.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.path}
-                  className={`${path === item.path ? "rounded-md bg-muted-foreground/10 text-gray-950 dark:bg-muted-foreground/20 dark:text-white" : ""} items-center justify-center p-1 px-2.5 text-foreground/50 transition-all duration-300 focus-visible:outline-2`}
-                >
-                  {item.name}
-                </Link>
-              ))}
-
-              {(user.role === "Admin" || user.role === "Owner") && (
-                <Link
-                  href="/user-management"
-                  className={`${path === "/user-management" ? "rounded-md bg-muted-foreground/10 text-gray-950 dark:bg-muted-foreground/20 dark:text-white" : ""} duration:100 items-center justify-center p-1 px-2.5 text-foreground/50 transition-colors focus-visible:outline-2 data-[checked=true]:text-foreground/90`}
-                >
-                  User Management
-                </Link>
-              )}
-            </ul>
-          )}
+          <NavigationLinks user={user} />
+          <MobileMenu user={user} />
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1 text-xs md:text-sm">
+          {user !== null && (
+            <>
+              <div className="flex items-center gap-2 rounded-full p-2">
+                <User2 size={14} /> {user?.user_metadata.first_name}
+              </div>
+              <div className="h-8 border-r" />
+            </>
+          )}
+
           <ToggleTheme />
-          {user && <UserButton signOut={signOut} />}
+          {user !== null && <SignOutButton />}
         </div>
       </div>
     </header>
