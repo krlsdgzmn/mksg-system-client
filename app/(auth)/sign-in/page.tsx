@@ -66,11 +66,11 @@ export default function SignInPage() {
     formData.append("password", values.password);
 
     try {
-      const { error } = await signInAction(formData);
+      const result = await signInAction(formData);
 
-      if (error) {
+      if (result !== undefined && result.error) {
         toast({
-          title: `${error}`,
+          title: `${result.error}`,
           description: "Please try again.",
           variant: "destructive",
         });

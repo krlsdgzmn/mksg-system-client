@@ -124,11 +124,11 @@ export default function CreateUserForm({ setIsOpen }: CreateUserFormProps) {
     formData.append("role", values.role);
 
     try {
-      const { error } = await createUserAction(formData);
+      const result = await createUserAction(formData);
 
-      if (error) {
+      if (result !== undefined && result.error) {
         toast({
-          title: `${error}`,
+          title: `${result.error}`,
           description: "Please try again.",
           variant: "destructive",
         });

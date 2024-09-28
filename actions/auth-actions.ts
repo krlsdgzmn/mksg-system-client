@@ -15,6 +15,7 @@ export async function signInAction(formData: FormData) {
   if (error) {
     return { error: error.message };
   }
+
   revalidatePath("/", "layout");
   redirect("/");
 }
@@ -37,8 +38,6 @@ export async function createUserAction(formData: FormData) {
   if (error) {
     return { error: error.message };
   }
-  revalidatePath("/user-management", "layout");
-  redirect("/user-management");
 }
 
 export async function signOutAction() {
@@ -56,10 +55,6 @@ export async function sendResetPasswordAction(formData: FormData) {
 
   if (error) {
     return { error: error.message };
-  }
-
-  if (!error) {
-    return { error: null };
   }
 }
 
@@ -92,8 +87,6 @@ export async function deleteUserAction(id: string) {
   if (error) {
     return { error: error.message };
   }
-  revalidatePath("/user-management", "layout");
-  redirect("/user-management");
 }
 
 export async function updateUserAction(id: string, formData: FormData) {
@@ -111,6 +104,4 @@ export async function updateUserAction(id: string, formData: FormData) {
   if (error) {
     return { error: error.message };
   }
-  revalidatePath("/user-management", "layout");
-  redirect("/user-management");
 }

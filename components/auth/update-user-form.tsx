@@ -100,11 +100,11 @@ export default function UpdateUserForm({
     formData.append("role", values.role);
 
     try {
-      const { error } = await updateUserAction(user.id, formData);
+      const result = await updateUserAction(user.id, formData);
 
-      if (error) {
+      if (result !== undefined && result.error) {
         toast({
-          title: `${error}`,
+          title: `${result.error}`,
           description: "Please try again.",
           variant: "destructive",
         });
