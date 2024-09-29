@@ -78,6 +78,29 @@
     background: transparent;
   }
 }
+
+@layer base {
+  :root {
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --completed: 97.1 38.4% 61.2%;
+    --cancelled: 0 45.6% 69%;
+  }
+
+  .dark {
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+    --completed: 97.1 38.4% 61.2%;
+    --cancelled: 0 45.6% 69%;
+  }
+}
+
 @layer base {
   * {
     @apply border-border;

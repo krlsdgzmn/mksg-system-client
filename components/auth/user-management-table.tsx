@@ -17,7 +17,7 @@ export default function UserManagementTable() {
   const { data, isLoading } = useGetUsers();
 
   return (
-    <section className="remove-scrollbar my-2 max-h-[610px] overflow-auto rounded-lg border bg-card p-4 shadow dark:bg-muted-foreground/10 xl:my-4">
+    <section className="remove-scrollbar my-2 max-h-[610px] overflow-auto rounded-lg border bg-card p-4 pb-0 shadow dark:bg-muted-foreground/10 xl:my-4">
       <Table className="text-xs sm:text-sm">
         <TableHeader>
           <TableRow>
@@ -26,7 +26,7 @@ export default function UserManagementTable() {
             <TableHead className="min-w-[100px]">Email</TableHead>
             <TableHead className="min-w-[100px]">Last sign in at</TableHead>
             <TableHead className="min-w-[100px]">Role</TableHead>
-            <TableHead>Action</TableHead>
+            <TableHead></TableHead>
           </TableRow>
         </TableHeader>
 
