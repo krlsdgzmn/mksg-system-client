@@ -43,11 +43,11 @@ export default function UserManagementTable() {
                     : "No sign in data available"}
                 </TableCell>
                 <TableCell>
-                  <span
-                    className={`${item.user_metadata.role === "Admin" ? "bg-blue-500" : item.user_metadata.role === "Owner" ? "bg-red-500" : "bg-gray-500"} rounded-2xl px-1.5 py-0.5 text-center text-xs font-semibold text-white`}
+                  <div
+                    className={`${item.user_metadata.role === "Admin" ? "bg-blue-500" : item.user_metadata.role === "Owner" ? "bg-red-500" : "bg-gray-500"} max-w-[55px] rounded-2xl px-1.5 py-0.5 text-center text-xs font-semibold text-white`}
                   >
                     {item.user_metadata.role}
-                  </span>
+                  </div>
                 </TableCell>
                 <TableCell>
                   {item.user_metadata.role !== "Owner" && (
