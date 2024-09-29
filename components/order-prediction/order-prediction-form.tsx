@@ -182,7 +182,7 @@ export default function OrderPredictionForm({
             disabled={isLoading}
           >
             {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            {isLoading ? "Predicting..." : "Predict Record"}
+            {isLoading ? "Predicting..." : "Predict record"}
           </Button>
         </section>
       </form>
