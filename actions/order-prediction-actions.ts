@@ -41,6 +41,9 @@ export const deleteOrderPrediction = async (id: number) => {
 export const createOrderPrediction = async (formData: OrderPredictors) => {
   await fetch(ORDER_PREDICTION_URL, {
     method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify(formData),
   });
 };
