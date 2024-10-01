@@ -30,7 +30,7 @@ const CreateUserFormSchema = z
         message: "First name must be at least 2 characters.",
       })
       .max(100, {
-        message: "First name must not exceed 100 characters.",
+        message: "First name must not exceed 32 characters.",
       })
       .trim()
       .refine((value) => value.length > 0, {
@@ -42,7 +42,7 @@ const CreateUserFormSchema = z
         message: "Last name must be at least 2 characters.",
       })
       .max(100, {
-        message: "Last name must not exceed 100 characters.",
+        message: "Last name must not exceed 32 characters.",
       })
       .trim()
       .refine((value) => value.length > 0, {
