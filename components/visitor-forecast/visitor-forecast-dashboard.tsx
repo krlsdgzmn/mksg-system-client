@@ -117,11 +117,9 @@ export default function VisitorForecastDashboard() {
         {!data && (
           <div className="py-16 text-center text-muted-foreground">
             <h1 className="text-lg font-semibold">
-              No Forecast Found for Today
+              No Forecasts Found for Today
             </h1>
-            <p>
-              Consider importing new data to forecasts today&apos;s traffic.
-            </p>
+            <p>Consider importing new data to forecast today&apos;s traffic.</p>
             <p className="py-2 font-medium">
               Last Entry Date: {latestEntryDate?.date}
             </p>
