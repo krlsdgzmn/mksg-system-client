@@ -74,7 +74,7 @@ export default function ImportDataButton() {
             </a>
           )}
 
-          <h1 className="pt-2 font-semibold">Import the Downloaded Data</h1>
+          <h1 className="pt-8 font-semibold">Import the Downloaded Data</h1>
 
           <p className="pb-2 text-sm text-muted-foreground">
             Ensure the downloaded file is for{" "}

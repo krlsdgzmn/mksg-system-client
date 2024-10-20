@@ -92,7 +92,7 @@ export default function ImportDataForm({ isDisabled }: ImportDataFormProps) {
         </Button>
 
         <DrawerClose className="w-full">
-          <Button variant="outline" className="w-full">
+          <Button variant="secondary" className="w-full">
             Cancel
           </Button>
         </DrawerClose>
