@@ -1,10 +1,8 @@
 import { importAndRetrainData } from "@/actions/visitor-forecast-actions";
 import { useMutation } from "@tanstack/react-query";
 import { useToast } from "./use-toast";
-import { useGetVisitorForecasts } from "./use-visitor-forecasts";
 
 export const useImportAndRetrainData = () => {
-  const { refetch } = useGetVisitorForecasts();
   const { toast } = useToast();
 
   return useMutation({
@@ -14,7 +12,7 @@ export const useImportAndRetrainData = () => {
         title: "Success",
         description: "You have successfully uploaded new data.",
       });
-      refetch();
+      window.location.reload();
     },
     onError: () => {
       toast({
