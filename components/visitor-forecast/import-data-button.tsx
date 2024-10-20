@@ -45,8 +45,8 @@ export default function ImportDataButton() {
         </Button>
       </DrawerTrigger>
 
-      <DrawerContent className="mx-auto max-w-md rounded-lg">
-        <div className="mx-auto">
+      <DrawerContent className="mx-auto rounded-lg">
+        <div className="mx-auto w-full md:max-w-lg">
           <DrawerHeader className="pt-4 text-left">
             <h1 className="font-semibold">Download the Required Data</h1>
 
