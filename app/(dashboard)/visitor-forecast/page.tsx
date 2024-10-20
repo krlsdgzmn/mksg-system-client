@@ -17,7 +17,7 @@ export default async function VisitorForecastPage() {
       <PageHeader
         header="Visitor Forecasting Dashboard"
         subheader="Hourly Visitor Traffic Predictions"
-        button={<ImportDataButton />}
+        button={user.user_metadata.role !== "User" && <ImportDataButton />}
       />
 
       <VisitorForecastDashboard />
