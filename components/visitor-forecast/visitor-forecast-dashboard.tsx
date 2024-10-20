@@ -19,21 +19,21 @@ export default function VisitorForecastDashboard() {
   if (Array.isArray(data) && !isLoading) {
     metrics = [
       {
-        name: "Total Visitors",
-        info: "Projected total number of visitors expected throughout the selected timeline.",
+        name: "Total Visits",
+        info: "Projected total number of visits expected throughout the selected timeline.",
         value: data.reduce((sum, v) => sum + v.yhat, 0),
       },
       {
-        name: "Current Hour Visitors",
-        info: "Projected number of visitors expected in the current hour.",
+        name: "Current Hour Visits",
+        info: "Projected number of visits expected in the current hour.",
         value:
           data.find(
             (item) => new Date(item.ds).getHours() === new Date().getHours(),
           )?.yhat || 0,
       },
       {
-        name: "Next Hour Visitors",
-        info: "Projected number of visitors expected in the next hour.",
+        name: "Next Hour Visits",
+        info: "Projected number of visits expected in the next hour.",
         value:
           data.find(
             (item) =>
@@ -41,13 +41,13 @@ export default function VisitorForecastDashboard() {
           )?.yhat || 0,
       },
       {
-        name: "Peak Visitors Today",
-        info: "The maximum number of visitors expected during the peak hour of the day.",
+        name: "Peak Visits Today",
+        info: "The maximum number of visits expected during the peak hour of the day.",
         value: Math.max(...data.map((v) => v.yhat)),
       },
       {
         name: "Peak Hour Today",
-        info: "The hour of the day expected to have the highest number of visitors.",
+        info: "The hour of the day expected to have the highest number of visits.",
         value: data.find(
           (item) => item.yhat === Math.max(...data.map((v) => v.yhat)),
         )

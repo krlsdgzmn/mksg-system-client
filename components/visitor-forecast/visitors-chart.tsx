@@ -1,43 +1,38 @@
 import { VisitorForecast } from "@/types/visitor-forecast-response";
 import {
+  Area,
+  CartesianGrid,
+  ComposedChart,
+  LabelList,
+  Line,
+  XAxis,
+  YAxis,
+} from "recharts";
+import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
 } from "../ui/chart";
-import {
-  Area,
-  AreaChart,
-  CartesianGrid,
-  LabelList,
-  XAxis,
-  YAxis,
-} from "recharts";
 
 type VisitorsChartProps = {
   data: VisitorForecast[] | undefined;
 };
 
 const chartConfig = {
-  value: {
-    label: "Visitors",
+  yhat: {
+    label: "Page Views",
   },
 } satisfies ChartConfig;
 
 export default function VisitorsChart({ data }: VisitorsChartProps) {
   return (
     <>
-      {/* {isLoading && ( */}
-      {/*   <div className="mt-2 h-[76.5%] w-full animate-pulse rounded-md bg-gradient-to-br from-white/30 to-muted-foreground/30" /> */}
-      {/* )} */}
-
-      {/* {user && ( */}
-
       <ChartContainer
         config={chartConfig}
         className="aspect-auto h-[400px] w-full"
       >
-        <AreaChart
+        <ComposedChart
           accessibilityLayer
           margin={{
             top: 60,
@@ -96,16 +91,17 @@ export default function VisitorsChart({ data }: VisitorsChartProps) {
           />
 
           <defs>
-            <linearGradient id="fillValue" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#60A5FA" stopOpacity={0.8} />
-              <stop offset="95%" stopColor="#60A5FA" stopOpacity={0.2} />
+            <linearGradient id="fillCompleted" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="#6B9CDD" stopOpacity={0.8} />
+              <stop offset="95%" stopColor="#6B9CDD" stopOpacity={0.2} />
             </linearGradient>
           </defs>
 
           <Area
             dataKey="yhat"
-            fill="url(#fillValue)"
+            fill="url(#fillCompleted)"
             fillOpacity={0.6}
+            stackId="a"
             type="monotone"
           >
             {data?.length === 24 && window.innerWidth >= 768 && (
@@ -117,14 +113,8 @@ export default function VisitorsChart({ data }: VisitorsChartProps) {
               />
             )}
           </Area>
-        </AreaChart>
+        </ComposedChart>
       </ChartContainer>
-      {/* )} */}
-      {/* {!user && !isLoading && ( */}
-      {/*   <div className="flex h-[77.5%] w-full items-center justify-center text-sm font-medium text-muted-foreground"> */}
-      {/*     No data found */}
-      {/*   </div> */}
-      {/* )} */}
     </>
   );
 }
