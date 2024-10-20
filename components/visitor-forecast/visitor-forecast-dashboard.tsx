@@ -106,9 +106,9 @@ export default function VisitorForecastDashboard() {
               </p>
             </div>
           ))}
-
-          {data && <VisitorsChart data={data} />}
         </section>
+
+        {data && <VisitorsChart data={data} />}
 
         {!data && (
           <div className="py-16 text-center text-muted-foreground">
