@@ -3,14 +3,8 @@
 import { useGetVisitorActual } from "@/hooks/use-visitor-actual";
 import { DownloadCloud, FileUp } from "lucide-react";
 import { Button } from "../ui/button";
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerHeader,
-  DrawerTrigger,
-} from "../ui/drawer";
-import { Input } from "../ui/input";
+import { Drawer, DrawerContent, DrawerTrigger } from "../ui/drawer";
+import ImportDataForm from "./import-data-form";
 
 export default function ImportDataButton() {
   const { data } = useGetVisitorActual();
@@ -45,75 +39,51 @@ export default function ImportDataButton() {
         </Button>
       </DrawerTrigger>
 
-      <DrawerContent className="mx-auto rounded-lg">
+      <DrawerContent className="mx-auto rounded-lg px-6 pb-6">
         <div className="mx-auto w-full md:max-w-lg">
-          <DrawerHeader className="pt-4 text-left">
-            <h1 className="font-semibold">Download the Required Data</h1>
+          <h1 className="font-semibold">Download the Required Data</h1>
 
-            <p className="pb-2 text-sm text-muted-foreground">
-              {isDisabled ? (
-                "Data for today is not yet available for download. Please try again tomorrow."
-              ) : (
-                <>
-                  Sign in to your{" "}
-                  <a
-                    href="https://seller.shopee.ph/"
-                    className="text-blue-500 underline underline-offset-2"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Shopee Seller Account
-                  </a>{" "}
-                  first before downloading.
-                </>
-              )}
-            </p>
-
+          <p className="pb-2 text-sm text-muted-foreground">
             {isDisabled ? (
-              <Button className="flex w-full items-center gap-2" disabled>
-                <DownloadCloud size={14} /> Download Unavailable
-              </Button>
+              "Data for today is not yet available for download. Please try again tomorrow."
             ) : (
-              <a href={downloadUrl}>
-                <Button className="flex w-full items-center gap-2">
-                  <DownloadCloud size={14} /> Download {formattedDate}
-                </Button>
-              </a>
+              <>
+                Sign in to your{" "}
+                <a
+                  href="https://seller.shopee.ph/"
+                  className="text-blue-500 underline underline-offset-2"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Shopee Seller Account
+                </a>{" "}
+                first before downloading.
+              </>
             )}
+          </p>
 
-            <h1 className="pt-2 font-semibold">Import the Downloaded Data</h1>
-
-            <p className="pb-2 text-sm text-muted-foreground">
-              Ensure the downloaded file is for{" "}
-              <span className="font-medium">{formattedDate}</span>, then upload
-              below.
-            </p>
-
-            <form>
-              <Input type="file" accept=".xlsx" disabled={isDisabled} />
-
-              {isDisabled && (
-                <p className="pt-4 text-sm text-red-600">
-                  You cannot upload data for today because it is not yet
-                  available.
-                </p>
-              )}
-              <Button
-                type="submit"
-                className="mb-2 mt-4 flex w-full items-center gap-2"
-                disabled={isDisabled}
-              >
-                <FileUp size={14} /> Upload New Data
+          {isDisabled ? (
+            <Button className="flex w-full items-center gap-2" disabled>
+              <DownloadCloud size={14} /> Download Unavailable
+            </Button>
+          ) : (
+            <a href={downloadUrl}>
+              <Button className="flex w-full items-center gap-2">
+                <DownloadCloud size={14} /> Download {formattedDate}
               </Button>
+            </a>
+          )}
 
-              <DrawerClose className="w-full">
-                <Button variant="outline" className="w-full">
-                  Cancel
-                </Button>
-              </DrawerClose>
-            </form>
-          </DrawerHeader>
+          <h1 className="pt-2 font-semibold">Import the Downloaded Data</h1>
+
+          <p className="pb-2 text-sm text-muted-foreground">
+            Ensure the downloaded file is for{" "}
+            <span className="font-medium">{formattedDate}</span>, then upload
+            below.
+          </p>
         </div>
+
+        <ImportDataForm isDisabled={isDisabled} />
       </DrawerContent>
     </Drawer>
   );

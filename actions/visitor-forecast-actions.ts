@@ -16,3 +16,23 @@ export const getVisitorForecasts = async (): Promise<VisitorForecast[]> => {
     throw error;
   }
 };
+
+export const importAndRetrainData = async (formData: { file: File }) => {
+  try {
+    const data = new FormData();
+    data.append("file", formData.file);
+
+    const response = await fetch(VISITOR_FORECAST_URL, {
+      method: "POST",
+      body: data,
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status} ${response.statusText}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    throw error;
+  }
+};

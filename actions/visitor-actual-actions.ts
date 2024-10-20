@@ -1,3 +1,5 @@
+import { PlaneTakeoff } from "lucide-react";
+
 const VISITOR_ACTUAL_URL = process.env.NEXT_PUBLIC_VISITOR_ACTUAL_URL as string;
 
 export const getVisitorLatesEntryDate = async (): Promise<{ date: string }> => {
