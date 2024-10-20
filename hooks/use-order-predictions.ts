@@ -5,7 +5,7 @@ import {
 import { OrderPrediction } from "@/types/order-prediction-response";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-const QUERY_KEY = "order-forecast";
+const QUERY_KEY = "order-prediction";
 
 export const useGetOrderPredictions = () => {
   return useQuery<OrderPrediction[]>({

@@ -11,10 +11,10 @@ import {
 import VisitorsChart from "./visitors-chart";
 
 export default function VisitorForecastDashboard() {
-  const { data } = useGetVisitorForecasts();
+  const { data, isLoading } = useGetVisitorForecasts();
 
   let metrics: any[] = [];
-  if (data) {
+  if (Array.isArray(data) && !isLoading) {
     metrics = [
       {
         name: "Total Visitors",
@@ -76,7 +76,7 @@ export default function VisitorForecastDashboard() {
         </header>
 
         {/* Metrics Section */}
-        <section className="grid min-h-[100px] grid-cols-2 items-center border-b xl:grid-cols-5 xl:gap-8">
+        <section className="grid min-h-[100px] grid-cols-2 items-center xl:grid-cols-5 xl:gap-8">
           {metrics.map((item) => (
             <div
               key={item.name}
@@ -106,9 +106,20 @@ export default function VisitorForecastDashboard() {
               </p>
             </div>
           ))}
+
+          {data && <VisitorsChart data={data} />}
         </section>
 
-        <VisitorsChart data={data} />
+        {!data && (
+          <div className="py-16 text-center text-muted-foreground">
+            <h1 className="text-lg font-semibold">
+              No Forecast Found for Today
+            </h1>
+            <p>
+              Consider importing new data to forecasts today&apos;s traffic.
+            </p>
+          </div>
+        )}
       </div>
     </main>
   );
