@@ -9,9 +9,11 @@ import {
   TooltipTrigger,
 } from "../ui/tooltip";
 import VisitorsChart from "./visitors-chart";
+import { useGetVisitorActual } from "@/hooks/use-visitor-actual";
 
 export default function VisitorForecastDashboard() {
   const { data, isLoading } = useGetVisitorForecasts();
+  const { data: latestEntryDate } = useGetVisitorActual();
 
   let metrics: any[] = [];
   if (Array.isArray(data) && !isLoading) {
@@ -76,7 +78,9 @@ export default function VisitorForecastDashboard() {
         </header>
 
         {/* Metrics Section */}
-        <section className="grid min-h-[100px] grid-cols-2 items-center xl:grid-cols-5 xl:gap-8">
+        <section
+          className={`${data && "border-b"} grid min-h-[100px] grid-cols-2 items-center xl:grid-cols-5 xl:gap-8`}
+        >
           {metrics.map((item) => (
             <div
               key={item.name}
@@ -117,6 +121,9 @@ export default function VisitorForecastDashboard() {
             </h1>
             <p>
               Consider importing new data to forecasts today&apos;s traffic.
+            </p>
+            <p className="py-2 font-medium">
+              Last Entry Date: {latestEntryDate?.date}
             </p>
           </div>
         )}
