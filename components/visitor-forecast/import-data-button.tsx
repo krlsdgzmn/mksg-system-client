@@ -34,7 +34,7 @@ export default function ImportDataButton() {
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        <Button variant="outline" className="flex items-center gap-2">
+        <Button variant="outline" className="mt-2 flex items-center gap-2">
           <FileUp size={14} /> Import Data
         </Button>
       </DrawerTrigger>
