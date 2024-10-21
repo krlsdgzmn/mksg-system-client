@@ -26,7 +26,7 @@ export default async function Header() {
             quality={100}
           />
           <NavigationLinks user={user} />
-          <MobileMenu user={user} />
+          {user !== null && <MobileMenu user={user} />}
         </div>
 
         <div className="flex items-center gap-1 text-xs md:text-sm">
