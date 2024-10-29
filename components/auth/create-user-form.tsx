@@ -29,7 +29,7 @@ const CreateUserFormSchema = z
       .min(2, {
         message: "First name must be at least 2 characters.",
       })
-      .max(100, {
+      .max(32, {
         message: "First name must not exceed 32 characters.",
       })
       .trim()
@@ -41,7 +41,7 @@ const CreateUserFormSchema = z
       .min(2, {
         message: "Last name must be at least 2 characters.",
       })
-      .max(100, {
+      .max(32, {
         message: "Last name must not exceed 32 characters.",
       })
       .trim()
