@@ -69,7 +69,7 @@ export default function VisitorsChart({ data }: VisitorsChartProps) {
               position: "insideLeft",
               style: { textAnchor: "middle" },
             }}
-            opacity={0.9}
+            opacity={0.75}
           />
 
           <ChartTooltip

@@ -428,20 +428,27 @@ export default function ForecastsPatternChart() {
 
         <XAxis
           dataKey="hour"
+          tickMargin={10}
+          minTickGap={32}
           tickFormatter={(hour) => hour.toString().padStart(2, "0")}
           label={{
             value: "Time (Hours)",
             position: "insideBottom",
-            offset: -4,
+            offset: -15,
           }}
+          opacity={0.75}
         />
 
         <YAxis
+          tickMargin={10}
+          minTickGap={32}
           label={{
             value: "Page Views (Count)",
-            angle: -88,
+            angle: -90,
             position: "insideLeft",
+            style: { textAnchor: "middle" },
           }}
+          opacity={0.75}
         />
 
         <ChartTooltip
