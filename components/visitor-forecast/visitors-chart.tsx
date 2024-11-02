@@ -4,7 +4,6 @@ import {
   CartesianGrid,
   ComposedChart,
   LabelList,
-  Line,
   XAxis,
   YAxis,
 } from "recharts";

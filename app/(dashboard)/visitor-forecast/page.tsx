@@ -1,5 +1,6 @@
 import Container from "@/components/container";
 import PageHeader from "@/components/page-header";
+import ForecastsPatternDashboard from "@/components/visitor-forecast/forecasts-pattern-dashboard";
 import ImportDataButton from "@/components/visitor-forecast/import-data-button";
 import VisitorForecastDashboard from "@/components/visitor-forecast/visitor-forecast-dashboard";
 import { createClient } from "@/utils/supabase/server";
@@ -21,6 +22,8 @@ export default async function VisitorForecastPage() {
       />
 
       <VisitorForecastDashboard />
+
+      <ForecastsPatternDashboard />
     </Container>
   );
 }

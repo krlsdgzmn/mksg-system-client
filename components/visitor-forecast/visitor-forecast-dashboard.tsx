@@ -105,7 +105,7 @@ export default function VisitorForecastDashboard() {
               </h1>
 
               <p className="text-base font-semibold sm:text-xl">
-                {item.value}
+                {item.value.toString().padStart(2, "0")}
                 {item.isTime && ":00"}
               </p>
             </div>
