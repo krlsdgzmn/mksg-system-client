@@ -437,7 +437,11 @@ export default function ForecastsPatternChart() {
         />
 
         <YAxis
-          label={{ value: "Page Views", angle: -88, position: "insideLeft" }}
+          label={{
+            value: "Page Views (Count)",
+            angle: -88,
+            position: "insideLeft",
+          }}
         />
 
         <ChartTooltip
