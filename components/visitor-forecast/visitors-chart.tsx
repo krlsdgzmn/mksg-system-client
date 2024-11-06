@@ -101,7 +101,7 @@ export default function VisitorsChart({ data }: VisitorsChartProps) {
             fill="url(#fillCompleted)"
             fillOpacity={0.6}
             stackId="a"
-            type="monotone"
+            type="linear"
           >
             {data?.length === 24 && window.innerWidth >= 768 && (
               <LabelList

@@ -100,18 +100,18 @@ export default function ForecastsPatternChart({
         />
 
         {/* Define a Line for each month */}
-        <Line type="monotone" dataKey="January" stroke="#8886d8" />
-        <Line type="monotone" dataKey="February" stroke="#84ca9d" />
-        <Line type="monotone" dataKey="March" stroke="#ffc660" />
-        <Line type="monotone" dataKey="April" stroke="#ff7302" />
-        <Line type="monotone" dataKey="May" stroke="#387910" />
-        <Line type="monotone" dataKey="June" stroke="#8886d8" />
-        <Line type="monotone" dataKey="July" stroke="#ff71b4" />
-        <Line type="monotone" dataKey="August" stroke="#ba70c8" />
-        <Line type="monotone" dataKey="September" stroke="#6dd0e1" />
-        <Line type="monotone" dataKey="October" stroke="#d34f2f" />
-        <Line type="monotone" dataKey="November" stroke="#9b1fa2" />
-        <Line type="monotone" dataKey="December" stroke="#05a9f4" />
+        <Line type="linear" dataKey="January" stroke="#8886d8" />
+        <Line type="linear" dataKey="February" stroke="#84ca9d" />
+        <Line type="linear" dataKey="March" stroke="#ffc660" />
+        <Line type="linear" dataKey="April" stroke="#ff7302" />
+        <Line type="linear" dataKey="May" stroke="#387910" />
+        <Line type="linear" dataKey="June" stroke="#8886d8" />
+        <Line type="linear" dataKey="July" stroke="#ff71b4" />
+        <Line type="linear" dataKey="August" stroke="#ba70c8" />
+        <Line type="linear" dataKey="September" stroke="#6dd0e1" />
+        <Line type="linear" dataKey="October" stroke="#d34f2f" />
+        <Line type="linear" dataKey="November" stroke="#9b1fa2" />
+        <Line type="linear" dataKey="December" stroke="#05a9f4" />
       </ComposedChart>
     </ChartContainer>
   );

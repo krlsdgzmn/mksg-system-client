@@ -17,7 +17,7 @@ import {
 } from "@/constants/forecasts-pattern";
 import { Checkbox } from "../ui/checkbox";
 
-const months = [
+const months: (keyof ForecastsPattern)[] = [
   "January",
   "February",
   "March",
@@ -50,10 +50,26 @@ export default function ForecastsPatternDashboard() {
 
   // Filter data based on selected months
   const filteredData = forecastsPatternData.map((entry) => {
-    const filteredEntry: ForecastsPattern = { hour: entry.hour };
+    const filteredEntry: ForecastsPattern = {
+      hour: entry.hour,
+      January: 0,
+      February: 0,
+      March: 0,
+      April: 0,
+      May: 0,
+      June: 0,
+      July: 0,
+      August: 0,
+      September: 0,
+      October: 0,
+      November: 0,
+      December: 0,
+    };
+
     months.forEach((month) => {
       filteredEntry[month] = filters.includes(month) ? entry[month] : 0;
     });
+
     return filteredEntry;
   });
 
@@ -102,7 +118,7 @@ export default function ForecastsPatternDashboard() {
                       id={month}
                       checked={filters.includes(month)}
                       onCheckedChange={(isChecked) =>
-                        handleFilterChange(month, isChecked)
+                        handleFilterChange(month, Boolean(isChecked))
                       }
                     />
                     <label
