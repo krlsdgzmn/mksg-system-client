@@ -29,7 +29,7 @@ const filterCategories = [
 ];
 
 export default function DataFilters() {
-  const { mutateAsync, isError } = useGetFilteredOrderPredictions();
+  const { mutate, isError } = useGetFilteredOrderPredictions();
   const { toast } = useToast();
   const [filters, setFilters] = useState<FilterCategories>(
     ORDER_PREDICTION_FILTERS_INIT,
@@ -40,13 +40,13 @@ export default function DataFilters() {
     newFilters: FilterCategories,
   ): Promise<void> => {
     setFilters(newFilters);
-    await mutateAsync(newFilters);
+    mutate(newFilters);
   };
 
   // Clear filters
   const handleClearFilters = async (): Promise<void> => {
     setFilters(ORDER_PREDICTION_FILTERS_INIT);
-    await mutateAsync(ORDER_PREDICTION_FILTERS_INIT);
+    mutate(ORDER_PREDICTION_FILTERS_INIT);
   };
 
   useEffect(() => {
