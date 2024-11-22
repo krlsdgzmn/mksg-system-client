@@ -36,15 +36,13 @@ export default function DataFilters() {
   );
 
   // Handle filter changes
-  const handleFiltersChange = async (
-    newFilters: FilterCategories,
-  ): Promise<void> => {
+  const handleFiltersChange = (newFilters: FilterCategories): void => {
     setFilters(newFilters);
     mutate(newFilters);
   };
 
   // Clear filters
-  const handleClearFilters = async (): Promise<void> => {
+  const handleClearFilters = (): void => {
     setFilters(ORDER_PREDICTION_FILTERS_INIT);
     mutate(ORDER_PREDICTION_FILTERS_INIT);
   };
