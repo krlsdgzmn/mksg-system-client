@@ -10,7 +10,7 @@ type FilterCategoryProps = {
   title: string;
   filters: FilterCategories;
   category: string[];
-  handleFiltersChange: (newFilters: FilterCategories) => Promise<void>;
+  handleFiltersChange: (newFilters: FilterCategories) => void;
 };
 
 export default function FilterCategory({
@@ -31,10 +31,7 @@ export default function FilterCategory({
       : newFilters[key].filter((prevOption) => prevOption !== option);
   };
 
-  const handleOnCheckedChange = async (
-    option: string,
-    isChecked: boolean,
-  ): Promise<void> => {
+  const handleOnCheckedChange = (option: string, isChecked: boolean): void => {
     const newFilters = { ...filters };
 
     switch (title) {
@@ -49,7 +46,7 @@ export default function FilterCategory({
         break;
     }
 
-    await handleFiltersChange(newFilters);
+    handleFiltersChange(newFilters);
   };
 
   return (
