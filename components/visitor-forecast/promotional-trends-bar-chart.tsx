@@ -48,11 +48,9 @@ export default function PromotionalTrendsBarChart({
     Object.keys(data) as PromotionalEvent[]
   ).map((key) => ({
     name: key,
-    average: parseFloat(
-      (
-        Object.values(data[key]).reduce((sum, value) => sum + value, 0) /
-        Object.values(data[key]).length
-      ).toFixed(2),
+    average: Math.round(
+      Object.values(data[key]).reduce((sum, value) => sum + value, 0) /
+        Object.values(data[key]).length,
     ),
   }));
 
