@@ -10,12 +10,15 @@ import {
 const chartConfig = {
   "End-Month": {
     label: "End-Month",
+    color: "#D48C8C",
   },
   "Mid-Month": {
     label: "Mid-Month",
+    color: "#93C276",
   },
   "Monthly Promo": {
     label: "Monthly Promo",
+    color: "#3C82F6",
   },
 } satisfies ChartConfig;
 
@@ -33,12 +36,12 @@ export default function PromotionalTrendsChart({
   return (
     <ChartContainer
       config={chartConfig}
-      className="aspect-auto h-[500px] w-full"
+      className="aspect-auto h-[350px] w-full"
     >
       <ComposedChart
         accessibilityLayer
         margin={{
-          top: 62,
+          top: 12,
           bottom: 22,
           left: 12,
           right: 12,
@@ -78,20 +81,20 @@ export default function PromotionalTrendsChart({
         <Line
           type="linear"
           dataKey="End-Month"
-          stroke="#8886d8"
-          dot={{ fill: "#8886d8", r: 3 }}
+          stroke="#D48C8C"
+          dot={{ fill: "#D48C8C", r: 3 }}
         />
         <Line
           type="linear"
           dataKey="Mid-Month"
-          stroke="#84ca9d"
-          dot={{ fill: "#84ca9d", r: 3 }}
+          stroke="#93C276"
+          dot={{ fill: "#93C276", r: 3 }}
         />
         <Line
           type="linear"
           dataKey="Monthly Promo"
-          stroke="#ffc660"
-          dot={{ fill: "#ffc660", r: 3 }}
+          stroke="#3C82F6"
+          dot={{ fill: "#3C82F6", r: 3 }}
         />
       </ComposedChart>
     </ChartContainer>

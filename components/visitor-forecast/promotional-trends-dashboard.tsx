@@ -11,6 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
+import PromotionalTrendsBarChart from "./promotional-trends-bar-chart";
 import PromotionalTrendsChart from "./promotional-trends-chart";
 
 const monthToday = new Intl.DateTimeFormat("en-US", { month: "long" }).format(
@@ -35,7 +36,7 @@ export default function PromotionalTrendsDashboard() {
               Average Promotional Trends in Hourly Page Views
             </h2>
             <h3 className="text-base font-semibold sm:text-xl">
-              Promotional Trends by {selectedMonth}
+              Promotional Trends During {selectedMonth} Promo
             </h3>
           </div>
 
@@ -43,7 +44,7 @@ export default function PromotionalTrendsDashboard() {
             defaultValue={monthToday}
             onValueChange={(value) => setSelectedMonth(value)}
           >
-            <SelectTrigger className="col-span-3 max-w-[130px]">
+            <SelectTrigger className="col-span-3 max-w-[130px] bg-background">
               <SelectValue placeholder={selectedMonth} />
             </SelectTrigger>
 
@@ -59,7 +60,16 @@ export default function PromotionalTrendsDashboard() {
 
         {/* Render Data */}
         {isPending && <LoadingSection />}
-        {data && !isPending && <PromotionalTrendsChart data={data} />}
+        {data && !isPending && (
+          <section className="grid gap-4 pt-4 xl:grid-cols-7">
+            <div className="rounded-sm border border-border p-4 shadow-sm dark:bg-muted-foreground/5 xl:col-span-4">
+              <PromotionalTrendsChart data={data} />
+            </div>
+            <div className="rounded-sm border border-border p-4 shadow-sm dark:bg-muted-foreground/5 xl:col-span-3">
+              <PromotionalTrendsBarChart data={data} />
+            </div>
+          </section>
+        )}
       </div>
     </main>
   );
