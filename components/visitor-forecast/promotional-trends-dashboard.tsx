@@ -2,7 +2,7 @@
 
 import { MONTH } from "@/constants/order-prediction";
 import { useGetPromotionalTrends } from "@/hooks/use-promotional-trends";
-import { Loader2 } from "lucide-react";
+import { Info, Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import {
   Select,
@@ -13,6 +13,12 @@ import {
 } from "../ui/select";
 import PromotionalTrendsBarChart from "./promotional-trends-bar-chart";
 import PromotionalTrendsChart from "./promotional-trends-chart";
+import {
+  Tooltip,
+  TooltipProvider,
+  TooltipTrigger,
+  TooltipContent,
+} from "@/components/ui/tooltip";
 
 const monthToday = new Intl.DateTimeFormat("en-US", { month: "long" }).format(
   new Date(),
@@ -26,6 +32,48 @@ export default function PromotionalTrendsDashboard() {
   useEffect(() => {
     mutate(selectedMonth);
   }, [selectedMonth, mutate]);
+
+  let metrics: any[] = [];
+  if (data && !isPending) {
+    // Calculate average page views on non-promo and promo days
+    const nonPromoPageViews = data["End-Month"] || {};
+    const promoPageViews = Object.assign(
+      {},
+      data["Mid-Month"] || {},
+      data["Monthly Promo"] || {},
+    );
+
+    const avgNonPromoPageViews =
+      Object.values(nonPromoPageViews).reduce((sum, val) => sum + val, 0) /
+      Object.keys(nonPromoPageViews).length;
+
+    const avgPromoPageViews =
+      Object.values(promoPageViews).reduce((sum, val) => sum + val, 0) /
+      Object.keys(promoPageViews).length;
+
+    // Calculate event impact percentage
+    const impactPercentage =
+      ((avgPromoPageViews - avgNonPromoPageViews) / avgNonPromoPageViews) * 100;
+
+    metrics = [
+      {
+        name: "Avg. Page Views on Non-Promo Days",
+        info: "Average hourly page views during non-promotional periods",
+        value: Math.round(avgNonPromoPageViews),
+      },
+      {
+        name: "Avg. Page Views on Promo Days",
+        info: "Average hourly page views during promotional periods",
+        value: Math.round(avgPromoPageViews),
+      },
+      {
+        name: "Event Impact Percentage",
+        info: "Percentage increase in page views during promotions",
+        value: Math.round(impactPercentage),
+        isLast: true,
+      },
+    ];
+  }
 
   return (
     <main className="space-y-2 py-2 xl:space-y-4 xl:py-4">
@@ -57,6 +105,43 @@ export default function PromotionalTrendsDashboard() {
             </SelectContent>
           </Select>
         </header>
+
+        {/* Metrics Section */}
+        {data && !isPending && (
+          <section
+            className={`${data && "border-b"} grid min-h-[100px] items-center xl:grid-cols-3 xl:gap-8`}
+          >
+            {metrics.map((item) => (
+              <div
+                key={item.name}
+                className={`${item.isLast && "border-none"} flex h-[70%] min-h-[75px] min-w-[200px] flex-col justify-center xl:border-r`}
+              >
+                <h1 className="flex items-center gap-1.5 pb-1 text-[8px] font-semibold text-muted-foreground sm:text-[10px]">
+                  <span className="uppercase">{item.name}</span>
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger>
+                        <Info
+                          size={16}
+                          className="fill-muted-foreground text-card"
+                        />
+                      </TooltipTrigger>
+
+                      <TooltipContent className="bg-muted-foreground text-white">
+                        <p className="text-xs">{item.info}</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </h1>
+
+                <p className="text-base font-semibold sm:text-xl">
+                  {item.value.toString()}
+                  {item.isLast && "%"}
+                </p>
+              </div>
+            ))}
+          </section>
+        )}
 
         {/* Render Data */}
         {isPending && <LoadingSection />}
