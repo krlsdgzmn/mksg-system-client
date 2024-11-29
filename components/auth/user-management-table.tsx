@@ -44,7 +44,7 @@ export default function UserManagementTable() {
                 </TableCell>
                 <TableCell>
                   <div
-                    className={`${item.user_metadata.role === "Admin" ? "bg-blue-500" : item.user_metadata.role === "Owner" ? "bg-red-500" : "bg-gray-500"} max-w-[55px] rounded-2xl px-1.5 py-0.5 text-center text-xs font-semibold text-white`}
+                    className={`${item.user_metadata.role === "Admin" ? "bg-blue-500" : item.user_metadata.role === "Owner" ? "bg-red-500" : "bg-gray-500"} max-w-[65px] rounded-2xl px-1.5 py-0.5 text-center text-xs font-semibold text-white`}
                   >
                     {item.user_metadata.role}
                   </div>

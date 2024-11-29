@@ -178,7 +178,7 @@ export default function CreateUserForm({ setIsOpen }: CreateUserFormProps) {
                 </FormControl>
                 <SelectContent>
                   <SelectItem value="Admin">Admin</SelectItem>
-                  <SelectItem value="User">User</SelectItem>
+                  <SelectItem value="Logistic">Logistic</SelectItem>
                 </SelectContent>
               </Select>
               <FormMessage className="text-sm text-red-500/90" />
