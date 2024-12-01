@@ -15,48 +15,58 @@ export default function VisitorForecastDashboard() {
   const { data, isLoading } = useGetVisitorForecasts();
   const { data: latestEntryDate } = useGetVisitorActual();
 
+  const date = data?.find((item) => new Date(item.ds));
+
+  const peakHourData = data?.find(
+    (item) => item.yhat === Math.max(...data?.map((v) => v.yhat)),
+  );
+
+  const peakHour = peakHourData ? new Date(peakHourData.ds).getHours() : 0;
+
+  const lowestHourData = data?.find(
+    (item) => item.yhat === Math.min(...data?.map((v) => v.yhat)),
+  );
+
+  const lowestHour = lowestHourData
+    ? new Date(lowestHourData.ds).getHours()
+    : 0;
+
   let metrics: any[] = [];
   if (Array.isArray(data) && !isLoading) {
     metrics = [
       {
         name: "Total Visits",
         info: "Projected total number of visits expected throughout the selected timeline.",
-        value: data.reduce((sum, v) => sum + v.yhat, 0),
+        value: Math.round(data.reduce((sum, v) => sum + v.yhat, 0)),
       },
       {
         name: "Current Hour Visits",
         info: "Projected number of visits expected in the current hour.",
-        value:
+        value: Math.round(
           data.find(
             (item) => new Date(item.ds).getHours() === new Date().getHours(),
           )?.yhat || 0,
+        ),
       },
       {
         name: "Next Hour Visits",
         info: "Projected number of visits expected in the next hour.",
-        value:
+        value: Math.round(
           data.find(
             (item) =>
               new Date(item.ds).getHours() === new Date().getHours() + 1,
           )?.yhat || 0,
+        ),
       },
       {
         name: "Peak Visits Today",
         info: "The maximum number of visits expected during the peak hour of the day.",
-        value: Math.max(...data.map((v) => v.yhat)),
+        value: Math.round(Math.max(...data.map((v) => v.yhat))),
       },
       {
         name: "Peak Hour Today",
         info: "The hour of the day expected to have the highest number of visits.",
-        value: data.find(
-          (item) => item.yhat === Math.max(...data.map((v) => v.yhat)),
-        )
-          ? new Date(
-              data.find(
-                (item) => item.yhat === Math.max(...data.map((v) => v.yhat)),
-              )!.ds,
-            ).getHours()
-          : 0,
+        value: peakHour,
         isLast: true,
         isTime: true,
       },
@@ -113,6 +123,27 @@ export default function VisitorForecastDashboard() {
         </section>
 
         {data && <VisitorsChart data={data} />}
+        {data && date && !isLoading && (
+          <div className="mt-4 text-sm text-muted-foreground">
+            On{" "}
+            {new Date(date.ds).toLocaleDateString("en-US", {
+              month: "long",
+              day: "numeric",
+              year: "numeric",
+            })}
+            , the peak hour of the day is expected to be at{" "}
+            {peakHour.toString().padStart(2, "0")}
+            :00, with a forecasted {Math.round(peakHourData?.yhat || 0)} page
+            views. Conversely, the lowest activity is anticipated at{" "}
+            {lowestHour.toString().padStart(2, "0")}:00, with only{" "}
+            {Math.round(lowestHourData?.yhat || 0)} page views. To maximize
+            engagement or optimize new marketing initiatives, focus efforts
+            around {peakHour}:00, such as scheduling promotions and boosting
+            existing campaigns. Conversely, use the downtime at{" "}
+            {lowestHour.toString().padStart(2, "0")}:00 for low-priority tasks
+            or maintenance activities.
+          </div>
+        )}
 
         {!data && (
           <div className="py-16 text-center text-muted-foreground">
